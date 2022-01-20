@@ -1,0 +1,861 @@
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, use_key_in_widget_constructors
+
+import 'dart:convert';
+import 'dart:io';
+import 'package:intl/intl.dart';
+import 'package:produlacmovil/controller/cloudinary.dart';
+import 'package:produlacmovil/pages/animalPage.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:produlacmovil/controller/general_controller.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
+
+class IngresarEditarAnimal extends StatefulWidget {
+  int ani_id;
+  String ani_codigo;
+  String ani_nombre;
+  String ani_sexo;
+  String ani_fecha_nacimiento;
+  String ani_imagen;
+  String ani_raza;
+  String ani_etapa;
+  int ani_idpadre;
+  int ani_idmadre;
+  String ani_pesonacer;
+  int ite_esp_animal;
+  int fin_id;
+  int ite_idtipoestado;
+  List lista_animales;
+  List lista_especie_animal;
+  List lista_fincas;
+  List list_tipo_estado;
+  //
+
+  IngresarEditarAnimal(
+      this.ani_id,
+      this.ani_codigo,
+      this.ani_nombre,
+      this.ani_sexo,
+      this.ani_fecha_nacimiento,
+      this.ani_imagen,
+      this.ani_raza,
+      this.ani_etapa,
+      this.ani_idpadre,
+      this.ani_idmadre,
+      this.ani_pesonacer,
+      this.ite_esp_animal,
+      this.fin_id,
+      this.ite_idtipoestado,
+      this.lista_animales,
+      this.lista_especie_animal,
+      this.lista_fincas, //TRAER LAS FINCAS SEGUN EL PER_ID
+      this.list_tipo_estado);
+  @override
+  _IngresarEditarAnimalState createState() => _IngresarEditarAnimalState();
+}
+
+class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
+  TextEditingController codigo = TextEditingController();
+  TextEditingController nombre = TextEditingController();
+  TextEditingController fecha_nacimiento = TextEditingController();
+
+  // TextEditigController imagen = new TextEditingController();
+  TextEditingController raza = TextEditingController();
+  TextEditingController etapa = TextEditingController();
+  TextEditingController idpadre = TextEditingController();
+  TextEditingController idmadre = TextEditingController();
+
+  TextEditingController peso_nacer = TextEditingController();
+  TextEditingController id_especie = TextEditingController();
+  TextEditingController id_finca = TextEditingController();
+  // ignore: non_constant_identifier_names
+  TextEditingController id_tipo_estado = TextEditingController();
+
+  ControllerGenral controller_general = ControllerGenral();
+
+  List Lista_sexo = ["Macho", "Hembra"];
+  String select_Sexo = "Macho";
+
+  String select_ani_id_padre = "";
+  String select_ani_id_madre = "";
+  String select_ite_especie_animal = "";
+  String select_fin_id = "";
+  String select_ite_tipo_estado = "";
+
+  String nueva_url = "";
+
+  String dropdownValue = "";
+
+  File foto = File('assets/images/camera.png');
+
+  ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  String _selectedDate_a_enviar = "";
+  DateTime selectedDate = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.ani_id != 0) {
+      codigo.text = widget.ani_codigo;
+      nombre.text = widget.ani_nombre;
+      select_Sexo = widget.ani_sexo;
+      raza.text = widget.ani_raza;
+      etapa.text = widget.ani_etapa;
+      peso_nacer.text = widget.ani_pesonacer;
+      id_especie.text = widget.ite_esp_animal.toString();
+      id_finca.text = widget.fin_id.toString();
+      id_tipo_estado.text = widget.ite_idtipoestado.toString();
+
+      select_ani_id_padre = widget.ani_idpadre.toString();
+      select_ani_id_madre = widget.ani_idmadre.toString();
+
+      select_ite_especie_animal = widget.ite_esp_animal.toString();
+      select_fin_id = widget.fin_id.toString();
+
+      select_ite_tipo_estado = widget.ite_idtipoestado.toString();
+
+      if (widget.ani_fecha_nacimiento != "") {
+        selectedDate = DateTime.parse(widget.ani_fecha_nacimiento);
+      }
+    } else {
+      if (widget.lista_animales.length >= 1) {
+        select_ani_id_madre = widget.lista_animales[0]['ani_id'].toString();
+        select_ani_id_padre = widget.lista_animales[0]['ani_id'].toString();
+      }
+
+      if (widget.lista_especie_animal.length >= 1) {
+        select_ite_especie_animal =
+            widget.lista_especie_animal[0]['esp_id'].toString();
+      }
+      if (widget.lista_fincas.length >= 1) {
+        select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
+      }
+      if (widget.list_tipo_estado.length >= 1) {
+        select_ite_tipo_estado =
+            widget.list_tipo_estado[0]['ite_id'].toString();
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFECF3F9),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            right: 0,
+            left: 0,
+            child: Container(
+              height: 300,
+              child: Container(
+                padding: const EdgeInsets.only(top: 90, left: 8),
+                color: const Color(0xFF4D85FF),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+              ),
+            ),
+          ),
+          buildBottomHalfContainer(true),
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.bounceInOut,
+            top: 50,
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.bounceInOut,
+              height: MediaQuery.of(context).size.height - 120,
+              padding: const EdgeInsets.all(20),
+              width: MediaQuery.of(context).size.width - 40,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.3),
+                        blurRadius: 15,
+                        spreadRadius: 5),
+                  ]),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    //Cabecera
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {},
+                          child: Column(
+                            children: [
+                              Text(
+                                widget.fin_id == 0
+                                    ? "AGREGAR ANIMAL"
+                                    : "ACTUALIZAR ANIMAL",
+                                style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFF000000)),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(top: 3),
+                                height: 2,
+                                width: 55,
+                                color: Colors.orange,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                    //Foto
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              widget.ani_id == 0
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 50.0,
+                                      backgroundImage: _image == null
+                                          ? NetworkImage(url_no_foto)
+                                          : FileImage(foto) as ImageProvider)
+                                  : CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 50.0,
+                                      backgroundImage: _image == null
+                                          ? NetworkImage(widget.ani_imagen)
+                                          : FileImage(foto) as ImageProvider),
+                              InkWell(
+                                onTap: _onAlertPress,
+                                child: Container(
+                                    padding: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(40.0),
+                                        color: Colors.black),
+                                    margin: const EdgeInsets.only(top: 70),
+                                    child: const Icon(
+                                      Icons.photo_camera,
+                                      size: 25,
+                                      color: Colors.white,
+                                    )),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8.0),
+                          buildTextField(Icons.pets_outlined,
+                              "Nombre del Animal", false, false, nombre),
+                          buildTextField(
+                              Icons.qr_code, "Codigo", false, false, codigo),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Sexo',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_Sexo,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_Sexo = newValue!;
+                                  });
+                                },
+                                items: Lista_sexo.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value.toString(),
+                                    child: Text(value.toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          SfDateRangePicker(
+                            initialDisplayDate: selectedDate,
+                            initialSelectedDate: selectedDate,
+                            onSelectionChanged: _onSelectionChanged,
+                          ),
+                          buildTextField(
+                              Icons.recommend, "Raza", false, false, raza),
+                          buildTextField(
+                              Icons.timeline, "Etapa", false, false, etapa),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Padre',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_ani_id_padre,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_ani_id_padre = newValue!;
+                                  });
+                                },
+                                items: widget.lista_animales.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ani_id'].toString(),
+                                    child: Text("Nombre: " +
+                                        value['ani_nombre'].toString() +
+                                        " Codigo: " +
+                                        value['ani_codigo'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Madre',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_ani_id_madre,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_ani_id_madre = newValue!;
+                                  });
+                                },
+                                items: widget.lista_animales.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ani_id'].toString(),
+                                    child: Text("Nombre: " +
+                                        value['ani_nombre'].toString() +
+                                        " Codigo: " +
+                                        value['ani_codigo'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          buildTextField(Icons.line_weight_outlined,
+                              "Peso al nacer", false, true, peso_nacer),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Especie del animal',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_ite_especie_animal,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_ite_especie_animal = newValue!;
+                                  });
+                                },
+                                items: widget.lista_especie_animal.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['esp_id'].toString(),
+                                    child: Text(value['esp_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione la finca',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_fin_id,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_fin_id = newValue!;
+                                  });
+                                },
+                                items: widget.lista_fincas.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['fin_id'].toString(),
+                                    child: Text(value['fin_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          Container(
+                              padding: EdgeInsets.only(top: 20),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Seleccione el tipo estado del animal',
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                ),
+                              )),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_ite_tipo_estado,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_ite_tipo_estado = newValue!;
+                                  });
+                                },
+                                items: widget.list_tipo_estado.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ite_id'].toString(),
+                                    child: Text(value['ite_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Trick to add the submit button
+
+          buildBottomHalfContainer(false),
+        ],
+      ),
+    );
+  }
+
+  void _onAlertPress() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            actions: [
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/gallery.png',
+                      width: 50,
+                    ),
+                    const Text('Galeria'),
+                  ],
+                ),
+                onPressed: getGalleryImage,
+              ),
+              CupertinoDialogAction(
+                isDefaultAction: true,
+                child: Column(
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/camera.png',
+                      width: 50,
+                    ),
+                    const Text('Abrir Camara'),
+                  ],
+                ),
+                onPressed: getCameraImage,
+              ),
+            ],
+          );
+        });
+  }
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(args.value);
+    });
+  }
+
+  guardar_datos() async {
+    if (_selectedDate_a_enviar == "") {
+      _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
+    }
+    if (nombre.text == "" &&
+        _selectedDate_a_enviar == "" &&
+        raza.text == "" &&
+        etapa.text == "" &&
+        peso_nacer.text == "" &&
+        codigo.text == "") {
+      dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.ani_fecha_nacimiento;
+      }
+      ApiCloudinary api_cloudinary = ApiCloudinary();
+
+      if (_image != null) {
+        dialog(context, "Guardando Imagen", false);
+        nueva_url = await api_cloudinary.uploadFile(_image);
+        Navigator.pop(context);
+      } else {
+        if (widget.ani_imagen == "") {
+          nueva_url = url_no_foto;
+        } else {
+          nueva_url = widget.ani_imagen;
+        }
+      }
+      String body = jsonEncode({
+        "ani_codigo": codigo.text,
+        "ani_nombre": nombre.text,
+        "ani_sexo": select_Sexo,
+        "ani_fechanacimiento": _selectedDate_a_enviar,
+        "ani_imagen": nueva_url,
+        "ani_raza": raza.text,
+        "ani_etapa": etapa.text,
+        "ani_idpadre": select_ani_id_padre,
+        "ani_idmadre": select_ani_id_madre,
+        "ani_pesonacer": peso_nacer.text,
+        "esp_id": select_ite_especie_animal,
+        "fin_id": select_fin_id,
+        "ite_idtipoestado": select_ite_tipo_estado
+      });
+      List datos = [];
+      if (widget.ani_id == 0) {
+        dialog(context, "Enviando Datos", false);
+        datos = await controller_general.httpgeneral(
+            ip_server + "animales", "POST", body);
+        Navigator.pop(context);
+      } else {
+        dialog(context, "Enviando Datos", false);
+        datos = await controller_general.httpgeneral(
+            ip_server + "animales/" + widget.ani_id.toString(), "PUT", body);
+        Navigator.pop(context);
+      }
+
+      bool valida = controller_general.errorestoken(datos);
+      if (valida) {
+        print(datos);
+        print("Ruta del login");
+        /* Navigator.popUntil(context, ModalRoute.of(builder: (context) => LoginPage()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage())); */
+
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
+      } else {
+        print(datos);
+        Navigator.pop(context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    AnimalPAge())); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+      }
+    }
+  }
+
+  Future<dynamic> dialog(
+      BuildContext context, String mensaje, bool activar_acciones) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        actions: [
+          activar_acciones
+              ? TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'))
+              : Container()
+        ],
+        content: Container(
+          width: 200,
+          height: 100,
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                width: 60,
+                child: activar_acciones == false
+                    ? CircularProgressIndicator(
+                        color: Colors.blue,
+                      )
+                    : Icon(
+                        Icons.warning_sharp,
+                        color: Colors.yellow,
+                        size: 70,
+                      ),
+              ),
+              Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          mensaje,
+                          style:
+                              TextStyle(color: Color.fromRGBO(76, 172, 230, 1)),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future getCameraImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image;
+      if (image != null) {
+        foto = File(image.path);
+      }
+      Navigator.pop(context);
+    });
+  }
+
+  Future getGalleryImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      if (image != null) {
+        foto = File(image.path);
+      }
+      Navigator.pop(context);
+    });
+  }
+
+  Widget buildBottomHalfContainer(bool showShadow) {
+    return AnimatedPositioned(
+      duration: Duration(milliseconds: 700),
+      curve: Curves.bounceInOut,
+      top: MediaQuery.of(context).size.height - 100,
+      right: 0,
+      left: 0,
+      child: Center(
+        child: Container(
+          height: 90,
+          width: 90,
+          padding: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(50),
+              boxShadow: [
+                if (showShadow)
+                  BoxShadow(
+                    color: Colors.black.withOpacity(.3),
+                    spreadRadius: 1.5,
+                    blurRadius: 10,
+                  )
+              ]),
+          child: !showShadow
+              ? Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          colors: [Colors.orange, Colors.red],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight),
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(.3),
+                            spreadRadius: 1,
+                            blurRadius: 2,
+                            offset: Offset(0, 1))
+                      ]),
+                  child: GestureDetector(
+                    onTap: () {
+                      guardar_datos();
+                    },
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              : Center(),
+        ),
+      ),
+    );
+  }
+
+  Widget buildTextField(IconData icon, String hintText, bool isPassword,
+      bool isNumber, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: TextField(
+        controller: controller,
+        obscureText: isPassword,
+        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+        decoration: InputDecoration(
+          prefixIcon: Icon(
+            icon,
+            color: const Color(0xFFB6C7D1),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0XFFA7BCC7)),
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0XFFA7BCC7)),
+            borderRadius: BorderRadius.all(Radius.circular(35.0)),
+          ),
+          contentPadding: const EdgeInsets.all(10),
+          hintText: hintText,
+          hintStyle: const TextStyle(fontSize: 14, color: Color(0XFFA7BCC7)),
+        ),
+      ),
+    );
+  }
+}
