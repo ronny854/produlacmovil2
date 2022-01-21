@@ -115,37 +115,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               padding: EdgeInsets.only(bottom: 15.0),
               child: RaisedButton(
                 onPressed: () async {
-                  dialogCargando(context);
-                  lista_fincas_segun_per_id = await listaFincasSegunPerID();
-                  lista_fincas_per_id =
-                      listaFincasPerId(lista_fincas_segun_per_id);
-                  lista_animales = await listaAnimales();
-                  lista_especie_animal = await listaEspecieAnimal();
-                  lista_tipo_estado = await listaTipoEstado();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => IngresarEditarAnimal(
-                          0,
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          '',
-                          0,
-                          0,
-                          '',
-                          0,
-                          0,
-                          0,
-                          lista_animales,
-                          lista_especie_animal,
-                          lista_fincas_per_id,
-                          lista_tipo_estado),
-                    ),
-                  );
+                  await enviarIngresarEditar(
+                      0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0);
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -201,27 +172,57 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                     );
                   }
                 },
-/*                 ListView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return animalItemWidget(queryData, url_no_foto, 'Wilson',
-                          '6969', 'H', 'sdasd', 'klsajl');
-                    },
-                  ) */
               ),
-
-/*               child: ListView(
-                scrollDirection: Axis.vertical,
-                children: [
-                  animalItemWidget(queryData, 'assets/images/toro1.jpg',
-                      'Wilson', '6969', 'H', 'sdasd', 'klsajl'),
-                  animalItemWidget(queryData, 'assets/images/toro1.jpg',
-                      'Wilson', '6969', 'H', 'sdasd', 'klsajl'),
-                ],
-              ), */
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> enviarIngresarEditar(
+      int ani_id,
+      String ani_codigo,
+      String ani_nombre,
+      String ani_sexo,
+      String ani_fechanacimiento,
+      String ani_imagen,
+      String ani_raza,
+      String ani_etapa,
+      int ani_idpadre,
+      int ani_idmadre,
+      String ani_pesonacer,
+      int esp_id,
+      int fin_id,
+      int ite_id) async {
+    dialogCargando(context);
+    lista_fincas_segun_per_id = await listaFincasSegunPerID();
+    lista_fincas_per_id = listaFincasPerId(lista_fincas_segun_per_id);
+    lista_animales = await listaAnimales();
+    lista_especie_animal = await listaEspecieAnimal();
+    lista_tipo_estado = await listaTipoEstado();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => IngresarEditarAnimal(
+            ani_id,
+            ani_codigo,
+            ani_nombre,
+            ani_sexo,
+            ani_fechanacimiento,
+            ani_imagen,
+            ani_raza,
+            ani_etapa,
+            ani_idpadre,
+            ani_idmadre,
+            ani_pesonacer,
+            esp_id,
+            fin_id,
+            ite_id,
+            lista_animales,
+            lista_especie_animal,
+            lista_fincas_per_id,
+            lista_tipo_estado),
       ),
     );
   }
@@ -351,7 +352,21 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) async {
-        await editarAnimal(context, animales);
+        await enviarIngresarEditar(
+            animales[0]['ani_id'],
+            animales[0]['ani_codigo'],
+            animales[0]['ani_nombre'],
+            animales[0]['ani_sexo'],
+            animales[0]['ani_fechanacimiento'],
+            animales[0]['ani_imagen'],
+            animales[0]['ani_raza'],
+            animales[0]['ani_etapa'],
+            animales[0]['ani_idpadre'],
+            animales[0]['ani_idmadre'],
+            animales[0]['ani_pesonacer'],
+            animales[0]['esp_id'],
+            animales[0]['fin_id'],
+            animales[0]['ite_idtipoestado']);
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -406,14 +421,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     print('hola');
   }
 
-/*   void editarAnimal(BuildContext context, List animales) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => IngresarEditarAnimal()),
-    );
-    print('hola');
-  } */
-
   Future<dynamic> dialogCargando(BuildContext context) {
     return showDialog(
       barrierDismissible: false,
@@ -438,44 +445,5 @@ class _AnimalPAgeState extends State<AnimalPAge> {
         ),
       ),
     );
-  }
-
-  editarAnimal(BuildContext context, List animales) async {
-    //dialogCargando(context);
-    print('llego aqui animal');
-/*     lista_fincas_segun_per_id = await listaFincasSegunPerID();
-    lista_fincas_per_id = listaFincasPerId(lista_fincas_segun_per_id);
-    lista_animales = await listaAnimales();
-    lista_especie_animal = await listaEspecieAnimal();
-    lista_tipo_estado = await listaTipoEstado(); */
-    try {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => IngresarEditarAnimal(
-            animales[0]['ani_id'],
-            animales[0]['ani_codigo'],
-            animales[0]['ani_nombre'],
-            animales[0]['ani_sexo'],
-            animales[0]['ani_fechanacimiento'],
-            animales[0]['ani_imagen'],
-            animales[0]['ani_raza'],
-            animales[0]['ani_etapa'],
-            animales[0]['ani_idpadre'],
-            animales[0]['ani_idmadre'],
-            animales[0]['ani_pesonacer'],
-            animales[0]['esp_id'],
-            animales[0]['fin_id'],
-            animales[0]['tbl_item']['ite_id'],
-            lista_animales,
-            lista_especie_animal,
-            lista_fincas_per_id,
-            lista_tipo_estado,
-          ),
-        ),
-      );
-    } catch (e) {
-      print(e);
-    }
   }
 }
