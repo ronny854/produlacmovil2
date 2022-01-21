@@ -251,7 +251,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
                 Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista),
             itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
-                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt),
+                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt,animalesLista),
           ],
         ),
         endActionPane: ActionPane(
@@ -349,16 +349,29 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 
   SlidableAction itemSlidableEliminar(
-      String textItem, Color colorFondo, Color colorTexto, IconData iconoItem) {
+      String textItem, Color colorFondo, Color colorTexto, IconData iconoItem,List animal) {
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,
-      onPressed: eliminarAnimal,
+      onPressed: (context){
+        eliminar_animal(animal);
+      },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
       icon: iconoItem,
       label: textItem,
     );
+  }
+
+  Future<void> eliminar_animal(List animal)async{
+    if(animal[0]['ani_id']!=null){
+      await controller_general.httpgeneral(ip_server+"animales/"+animal[0]['ani_id'].toString(),"DELETE","");
+      Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) =>
+                    AnimalPAge()));
+    }
   }
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
@@ -427,11 +440,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  void eliminarAnimal(BuildContext context) {
-    // ignore: avoid_print
-
-    print('Eliminar');
-  }
+  
 
   Future<dynamic> dialogCargando(BuildContext context) {
     return showDialog(
