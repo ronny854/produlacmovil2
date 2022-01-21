@@ -250,8 +250,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           children: [
             itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
                 Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista),
-            itemSlidable('Eliminar', Color(0xDAFF0000), Color(0xFFFFFFFF),
-                FontAwesomeIcons.trashAlt),
+            itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
+                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt),
           ],
         ),
         endActionPane: ActionPane(
@@ -260,9 +260,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           motion: ScrollMotion(),
           children: [
             itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
-                FontAwesomeIcons.fileMedical),
+                FontAwesomeIcons.fileMedical, 'subMenuSalud'),
             itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
-                FontAwesomeIcons.clipboard),
+                FontAwesomeIcons.clipboard, 'subMenuProduccion'),
           ],
         ),
         child: GestureDetector(
@@ -333,12 +333,27 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  SlidableAction itemSlidable(
+  SlidableAction itemSlidable(String textItem, Color colorFondo,
+      Color colorTexto, IconData iconoItem, String ruta) {
+    return SlidableAction(
+      // An action can be bigger than the others.
+      flex: 1,
+      onPressed: (context) {
+        Navigator.pushNamed(context, ruta);
+      },
+      backgroundColor: colorFondo,
+      foregroundColor: colorTexto,
+      icon: iconoItem,
+      label: textItem,
+    );
+  }
+
+  SlidableAction itemSlidableEliminar(
       String textItem, Color colorFondo, Color colorTexto, IconData iconoItem) {
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,
-      onPressed: doNothing,
+      onPressed: eliminarAnimal,
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
       icon: iconoItem,
@@ -412,13 +427,10 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  void doNothing(BuildContext context) {
+  void eliminarAnimal(BuildContext context) {
     // ignore: avoid_print
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SubMenuSalud()),
-    );
-    print('hola');
+
+    print('Eliminar');
   }
 
   Future<dynamic> dialogCargando(BuildContext context) {
