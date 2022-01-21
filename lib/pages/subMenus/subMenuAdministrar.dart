@@ -20,7 +20,7 @@ class _SubMenuAdministrarState extends State<SubMenuAdministrar> {
         automaticallyImplyLeading: false,
         toolbarOpacity: 0.7,
         backgroundColor: Colors.blue[400],
-        title: Text('Menú Producción del Animal'),
+        title: Text('Menú Administrador'),
       ),
       body: Column(
         children: <Widget>[
@@ -36,36 +36,40 @@ class _SubMenuAdministrarState extends State<SubMenuAdministrar> {
 
 class GridDashboard extends StatelessWidget {
   Items item1 = Items(
-    title: "Usuarios",
+    title: "Agregar Usuario",
     img: "assets/images/vacaOrd.png",
     ruta: 'tratamiento',
   );
 
   Items item2 = Items(
-    title: "Roles",
+    title: "Ver usuarios",
     img: "assets/images/registrado.png",
+    ruta: 'personasView',
+  );
+  Items item3 = Items(
+    title: "Catalogo",
+    img: "assets/images/map.png",
     ruta: 'vacunar',
   );
-/*   Items item3 = Items(
-    title: "Locations",
-    img: "assets/images/map.png",
-  );
   Items item4 = Items(
-    title: "Activity",
+    title: "Item Catalogo",
     img: "assets/images/festival.png",
+    ruta: 'vacunar',
   );
   Items item5 = Items(
-    title: "To do",
+    title: "Agregar Finca",
     img: "assets/images/todo.png",
+    ruta: 'vacunar',
   );
-  Items item6 = Items(
+  /* Items item6 = Items(
     title: "Settings",
     img: "assets/images/setting.png",
   ); */
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2];
+    List<Items> listaAdmin = [item1, item2, item3, item4, item5];
+    List<Items> listaDueno = [item1, item2];
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(
@@ -74,11 +78,11 @@ class GridDashboard extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
-          children: myList.map((data) {
+          children: listaAdmin.map((data) {
             return GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, 'personasView');
-                print('enviar a ruta ' + data.ruta);
+                Navigator.pushNamed(context, data.ruta);
+                //print('enviar a ruta ' + data.ruta);
               },
               child: Container(
                 decoration: BoxDecoration(

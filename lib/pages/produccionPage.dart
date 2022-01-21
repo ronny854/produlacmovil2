@@ -40,6 +40,19 @@ class _ProduccionPageState extends State<ProduccionPage> {
               child: chartDefault(),
             ),
           ),
+          Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(
+              top: 250.0,
+            ),
+            child: MaterialButton(
+              onPressed: () {},
+              child: Text(
+                'Agregar',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
         ],
       ),
     );

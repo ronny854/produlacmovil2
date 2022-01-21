@@ -9,6 +9,8 @@ import 'package:produlacmovil/pages/nacimientoPage.dart';
 import 'package:produlacmovil/pages/produccionPage.dart';
 import 'package:produlacmovil/pages/saludPage.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuAdministrar.dart';
+import 'package:produlacmovil/pages/subMenus/subMenuIngresos.dart';
+import 'package:produlacmovil/pages/subMenus/subMenuVentas.dart';
 
 import '../principalPage.dart';
 import 'drawer_user_controller.dart';
@@ -68,21 +70,21 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = AnimalPAge();
         });
-      } else if (drawerIndex == DrawerIndex.cicloVida) {
-        setState(() {
-          screenView = NacimientoPage();
-        });
       } else if (drawerIndex == DrawerIndex.produccion) {
         setState(() {
           screenView = ProduccionPage();
         });
-      } else if (drawerIndex == DrawerIndex.salud) {
+      } else if (drawerIndex == DrawerIndex.ventas) {
         setState(() {
-          screenView = SaludPage();
+          screenView = SubMenuVentas();
         });
       } else if (drawerIndex == DrawerIndex.administrar) {
         setState(() {
           screenView = SubMenuAdministrar();
+        });
+      } else if (drawerIndex == DrawerIndex.ingresos) {
+        setState(() {
+          screenView = SubMenuIngresos();
         });
       }
     }

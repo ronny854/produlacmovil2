@@ -263,6 +263,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 FontAwesomeIcons.fileMedical, 'subMenuSalud'),
             itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
                 FontAwesomeIcons.clipboard, 'subMenuProduccion'),
+            itemSlidable('Reproducción', Color(0xCEFDFF6C), Color(0xFF000000),
+                FontAwesomeIcons.clipboard, 'subMenuReproduccion'),
           ],
         ),
         child: GestureDetector(

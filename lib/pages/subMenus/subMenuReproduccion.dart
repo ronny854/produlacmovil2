@@ -1,16 +1,18 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
+
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SubMenuSalud extends StatefulWidget {
-  SubMenuSalud({Key? key}) : super(key: key);
+class SubMenuReproduccion extends StatefulWidget {
+  SubMenuReproduccion({Key? key}) : super(key: key);
 
   @override
-  _SubMenuSaludState createState() => _SubMenuSaludState();
+  _SubMenuReproduccionState createState() => _SubMenuReproduccionState();
 }
 
-class _SubMenuSaludState extends State<SubMenuSalud> {
+class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
         //automaticallyImplyLeading: false,
         toolbarOpacity: 0.7,
         backgroundColor: Colors.blue[400],
-        title: Text('Menú Producción del Animal'),
+        title: Text('Menú Reproducción del Animal'),
       ),
       body: Column(
         children: <Widget>[
@@ -35,25 +37,27 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
 
 class GridDashboard extends StatelessWidget {
   Items item1 = Items(
-    title: "Tratamiento Animal",
-    img: "assets/images/registroMedicos.png",
+    title: "Inseminación",
+    img: "assets/images/vacaOrd.png",
     ruta: 'tratamiento',
   );
 
   Items item2 = Items(
-    title: "Vacunar Animal",
-    img: "assets/images/jeringuilla.png",
+    title: "Aborto",
+    img: "assets/images/registrado.png",
     ruta: 'vacunar',
   );
-/*   Items item3 = Items(
-    title: "Locations",
+  Items item3 = Items(
+    title: "Deceso",
     img: "assets/images/map.png",
+    ruta: 'vacunar',
   );
   Items item4 = Items(
-    title: "Activity",
+    title: "Parto",
     img: "assets/images/festival.png",
+    ruta: 'vacunar',
   );
-  Items item5 = Items(
+  /* Items item5 = Items(
     title: "To do",
     img: "assets/images/todo.png",
   );
@@ -64,7 +68,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2];
+    List<Items> myList = [item1, item2, item3, item4];
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(

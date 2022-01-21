@@ -48,15 +48,15 @@ class _HomeDrawerState extends State<HomeDrawer> {
         icon: FaIcon(FontAwesomeIcons.pollH),
       ),
       DrawerList(
-        index: DrawerIndex.salud,
-        labelName: 'Salud',
+        index: DrawerIndex.ventas,
+        labelName: 'Ventas',
         icon: FaIcon(FontAwesomeIcons.notesMedical),
       ),
-      DrawerList(
+/*       DrawerList(
         index: DrawerIndex.cicloVida,
         labelName: 'Ciclo de vida',
         icon: FaIcon(FontAwesomeIcons.stumbleupon),
-      ),
+      ), */
       DrawerList(
         index: DrawerIndex.ingresos,
         labelName: 'Ingresos',
@@ -311,8 +311,7 @@ enum DrawerIndex {
   inicio,
   animales,
   produccion,
-  salud,
-  cicloVida,
+  ventas,
   ingresos,
   administrar,
   salir,

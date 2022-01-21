@@ -10,6 +10,7 @@ import 'package:produlacmovil/pages/registerPage.dart';
 import 'package:produlacmovil/pages/saludPage.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuAdministrar.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuProduccion.dart';
+import 'package:produlacmovil/pages/subMenus/subMenuReproduccion.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuSalud.dart';
 import 'package:produlacmovil/pages/views/personaView.dart';
 
@@ -41,6 +42,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SubMenuProduccion());
     case 'subMenuAdministrar':
       return MaterialPageRoute(builder: (context) => SubMenuAdministrar());
+    case 'subMenuReproduccion':
+      return MaterialPageRoute(builder: (context) => SubMenuReproduccion());
     default:
       return UnDefinedRoute();
   }
