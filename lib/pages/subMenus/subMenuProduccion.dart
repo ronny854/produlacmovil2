@@ -4,9 +4,14 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/components/chartdefaultprodindividual.dart';
+import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_individual.dart';
+
+
+import 'package:produlacmovil/pages/produccionindividualPage.dart';
 
 class SubMenuProduccion extends StatefulWidget {
-  
   SubMenuProduccion({Key? key}) : super(key: key);
 
   @override
@@ -14,14 +19,12 @@ class SubMenuProduccion extends StatefulWidget {
 }
 
 class _SubMenuProduccionState extends State<SubMenuProduccion> {
-
-    List animalesLista=[];
+  List animalesLista = [];
+  
   @override
   Widget build(BuildContext context) {
-    
     if (ModalRoute.of(context)!.settings.arguments != null) {
       animalesLista = ModalRoute.of(context)!.settings.arguments as List;
-      print(animalesLista[0]['ani_id']);
     }
     return Scaffold(
       backgroundColor: Colors.blue[400],
@@ -36,7 +39,7 @@ class _SubMenuProduccionState extends State<SubMenuProduccion> {
           SizedBox(
             height: 30,
           ),
-          GridDashboard()
+          GridDashboard(animalesLista)
         ],
       ),
     );
@@ -44,6 +47,9 @@ class _SubMenuProduccionState extends State<SubMenuProduccion> {
 }
 
 class GridDashboard extends StatelessWidget {
+  List animalesLista;
+  GridDashboard(this.animalesLista);
+
   Items item1 = Items(
     title: "Registro de produccón diaria de leche",
     img: "assets/images/vacaOrd.png",
@@ -55,22 +61,8 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/registrado.png",
     ruta: 'verregistrodeproduccion',
   );
-/*   Items item3 = Items(
-    title: "Locations",
-    img: "assets/images/map.png",
-  );
-  Items item4 = Items(
-    title: "Activity",
-    img: "assets/images/festival.png",
-  );
-  Items item5 = Items(
-    title: "To do",
-    img: "assets/images/todo.png",
-  );
-  Items item6 = Items(
-    title: "Settings",
-    img: "assets/images/setting.png",
-  ); */
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -85,11 +77,25 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: myList.map((data) {
             return GestureDetector(
-              onTap: () {
-                
-                if(data.ruta=="reproducciondiarialeche"){
-                  
-                  
+              onTap: () async {
+                if (data.ruta == "reproducciondiarialeche") {
+                  List lista_animales = await listaAnimales();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarIndividual(
+                              0, 0, "", "", "", "", lista_animales)));
+                }
+                if (data.ruta == "verregistrodeproduccion") {
+                  if(animalesLista[0]['ani_id']!=null && animalesLista[0]['ani_id'].toString()!="" && animalesLista[0]['ani_id'].toString()!="0"){
+                     DateTime fecha_hoy = DateTime.now();
+                     List inicio_fin= retornar_inicio_fin_fecha(fecha_hoy);                     
+                    List fecha_litros=await listaprodIndividual(animalesLista[0]['ani_id'].toString(),inicio_fin[0].toString(),inicio_fin[1].toString());
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ProduccionIndividualPage(fecha_litros)));
+                  }  
                 }
               },
               child: Container(
@@ -128,6 +134,8 @@ class GridDashboard extends StatelessWidget {
           }).toList()),
     );
   }
+
+  
 }
 
 class Items {
