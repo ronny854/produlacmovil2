@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
+import 'dart:developer';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
@@ -13,8 +14,24 @@ class SubMenuReproduccion extends StatefulWidget {
 }
 
 class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
+  // bool _initialized = false;
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   if (!_initialized) {
+  //     log(ModalRoute.of(context)!.settings);
+  //     _initialized = true;
+  //   }
+  //   super.didChangeDependencies();
+  // }
+  List animalesLista = [];
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      animalesLista = ModalRoute.of(context)!.settings.arguments as List;
+      //var listaA = jsonDecode(objeto);
+      print(animalesLista[0]['ani_id']);
+    }
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
@@ -81,7 +98,6 @@ class GridDashboard extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, data.ruta);
-                //print('enviar a ruta ' + data.ruta);
               },
               child: Container(
                 decoration: BoxDecoration(
