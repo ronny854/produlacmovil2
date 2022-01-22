@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SubMenuProduccion extends StatefulWidget {
+  
   SubMenuProduccion({Key? key}) : super(key: key);
 
   @override
@@ -13,8 +14,15 @@ class SubMenuProduccion extends StatefulWidget {
 }
 
 class _SubMenuProduccionState extends State<SubMenuProduccion> {
+
+    List animalesLista=[];
   @override
   Widget build(BuildContext context) {
+    
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      animalesLista = ModalRoute.of(context)!.settings.arguments as List;
+      print(animalesLista[0]['ani_id']);
+    }
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
@@ -39,13 +47,13 @@ class GridDashboard extends StatelessWidget {
   Items item1 = Items(
     title: "Registro de produccón diaria de leche",
     img: "assets/images/vacaOrd.png",
-    ruta: 'tratamiento',
+    ruta: 'reproducciondiarialeche',
   );
 
   Items item2 = Items(
     title: "Ver registro de producción",
     img: "assets/images/registrado.png",
-    ruta: 'vacunar',
+    ruta: 'verregistrodeproduccion',
   );
 /*   Items item3 = Items(
     title: "Locations",
@@ -78,7 +86,11 @@ class GridDashboard extends StatelessWidget {
           children: myList.map((data) {
             return GestureDetector(
               onTap: () {
-                print('enviar a ruta ' + data.ruta);
+                
+                if(data.ruta=="reproducciondiarialeche"){
+                  
+                  
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

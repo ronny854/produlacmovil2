@@ -17,6 +17,8 @@ import 'package:produlacmovil/pages/views/personaView.dart';
 import '../main.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
+  
+  
   switch (settings.name) {
     case '/':
       return MaterialPageRoute(builder: (context) => MyApp());
@@ -39,7 +41,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'subMenuSalud':
       return MaterialPageRoute(builder: (context) => SubMenuSalud());
     case 'subMenuProduccion':
-      return MaterialPageRoute(builder: (context) => SubMenuProduccion());
+      return MaterialPageRoute(builder: (context) => SubMenuProduccion(),settings: settings);
     case 'subMenuAdministrar':
       return MaterialPageRoute(builder: (context) => SubMenuAdministrar());
     case 'subMenuReproduccion':
