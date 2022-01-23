@@ -4,6 +4,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/pages/venta/ingresar_editar_venta.dart';
+
+import '../../listas.dart';
 
 class SubMenuVentas extends StatefulWidget {
   SubMenuVentas({Key? key}) : super(key: key);
@@ -13,6 +16,7 @@ class SubMenuVentas extends StatefulWidget {
 }
 
 class _SubMenuVentasState extends State<SubMenuVentas> {
+  List animalesLista = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +43,7 @@ class GridDashboard extends StatelessWidget {
   Items item1 = Items(
     title: "Realizar Venta",
     img: "assets/images/vacaOrd.png",
-    ruta: 'tratamiento',
+    ruta: 'realizarVentas',
   );
 
   Items item2 = Items(
@@ -79,9 +83,34 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: myList.map((data) {
             return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, data.ruta);
+              onTap: () async {
+                //Navigator.pushNamed(context, data.ruta);
                 //print('enviar a ruta ' + data.ruta);
+                // ignore: non_constant_identifier_names
+                List<dynamic> lista_animales = await listaAnimales();
+                if (data.ruta == 'realizarVentas') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarVenta(
+                          0, 0, '', 0, '', '', '', '', '', lista_animales),
+                    ),
+                  );
+                } /* else if (data.ruta == 'vacunar') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarVacuna(
+                          0,
+                          '',
+                          animalesLista[0]['ani_id'],
+                          '',
+                          '',
+                          '',
+                          lista_animales),
+                    ),
+                  );
+                } */
               },
               child: Container(
                 decoration: BoxDecoration(

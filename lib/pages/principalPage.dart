@@ -1,4 +1,4 @@
-//ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names
+//ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, avoid_unnecessary_containers
 import 'dart:math';
 import 'package:flutter/material.dart';
 
@@ -45,9 +45,19 @@ class _PrincipalPageState extends State<PrincipalPage> {
               ),
               Expanded(
                 child: Container(
-                  color: Colors.white,
+                  //color: Colors.white,
                   child: Column(
-                    children: [Text("Finca San Antonio")],
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: [
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text("Finca San Antonio"),
+                      Text("Dueño de la Finca"),
+                      Text("Pais - Provincia - Ciudad"),
+                      Text('direccion'),
+                      Text("telefono"),
+                    ],
                   ),
                 ),
               ),

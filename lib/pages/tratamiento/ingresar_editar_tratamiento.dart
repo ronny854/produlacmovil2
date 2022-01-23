@@ -31,7 +31,6 @@ class IngresarEditarTratamiento extends StatefulWidget {
 }
 
 class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
-  
   TextEditingController diagnostico = TextEditingController();
   TextEditingController medicamento = TextEditingController();
   TextEditingController diastratamiento = TextEditingController();
@@ -40,7 +39,6 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
 
   String _select_ani_id = "";
 
- 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
 
@@ -53,18 +51,18 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
       medicamento.text = widget.tra_medicamento.toString();
       diastratamiento.text = widget.tra_diastratamiento.toString();
       descripcion.text = widget.tra_descripcion.toString();
-      _select_ani_id=widget.ani_id.toString();
+      _select_ani_id = widget.ani_id.toString();
       if (widget.tra_fecha != "") {
-      selectedDate = DateTime.parse(widget.tra_fecha);
-    }
-    }else{
-
-      if(widget.lista_animales.length>=1){
+        selectedDate = DateTime.parse(widget.tra_fecha);
+      }
+    } else {
+      if (widget.lista_animales.length >= 1) {
         _select_ani_id = widget.lista_animales[0]['ani_id'].toString();
       }
     }
-
-    
+    if (widget.ani_id != 0) {
+      _select_ani_id = widget.ani_id.toString();
+    }
   }
 
   @override
@@ -161,7 +159,6 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
                             initialSelectedDate: selectedDate,
                             onSelectionChanged: _onSelectionChanged,
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -211,7 +208,6 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
                               ),
                             ),
                           ),
-
                           buildTextField(Icons.medication_outlined,
                               "Medicamento", false, false, medicamento),
                           buildTextField(
@@ -222,7 +218,6 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
                               diastratamiento),
                           buildTextField(Icons.description_outlined,
                               "Descripción", false, false, descripcion),
-
                           const SizedBox(
                             height: 40,
                           )
@@ -247,8 +242,6 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(args.value);
     });
   }
-
-  
 
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
@@ -332,33 +325,33 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
       ),
     );
   }
-  guardar_datos() async {
 
-    if(_selectedDate_a_enviar==""){
+  guardar_datos() async {
+    if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if ( _selectedDate_a_enviar == "" &&
+    if (_selectedDate_a_enviar == "" &&
         _select_ani_id == "" &&
         diastratamiento.text == "" &&
-        diagnostico.text == "" && 
-        descripcion.text=="" && 
-        medicamento.text=="") {
+        diagnostico.text == "" &&
+        descripcion.text == "" &&
+        medicamento.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {    
-      if(_selectedDate_a_enviar==""){
-        _selectedDate_a_enviar=widget.tra_fecha;
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.tra_fecha;
       }
-      
+
       String body = jsonEncode({
-        "tra_fecha":_selectedDate_a_enviar,
-        "ani_id":_select_ani_id,
-        "tra_diagnostico":diagnostico.text,
-        "tra_medicamento":medicamento.text,
-        "tra_diastratamiento":diastratamiento.text,
-        "tra_descripcion":descripcion.text
+        "tra_fecha": _selectedDate_a_enviar,
+        "ani_id": _select_ani_id,
+        "tra_diagnostico": diagnostico.text,
+        "tra_medicamento": medicamento.text,
+        "tra_diastratamiento": diastratamiento.text,
+        "tra_descripcion": descripcion.text
       });
       List datos = [];
-      if (widget.tra_id== 0) {
+      if (widget.tra_id == 0) {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
             ip_server + "tratamientos", "POST", body);

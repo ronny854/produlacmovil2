@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
@@ -38,4 +40,10 @@ List<dynamic> listaFincasPerId(List<dynamic> lista_fincas_segun_per_id) {
     lista_fincas_per_id.add(item['tbl_finca']);
   }
   return lista_fincas_per_id;
+}
+
+Future<List<dynamic>> listaIngresoEgreso() async {
+  List lista_ingresoEgreso = await controller_general.httpgeneral(
+      ip_server + "items/categoria/4", "GET", "");
+  return lista_ingresoEgreso;
 }

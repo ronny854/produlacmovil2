@@ -12,6 +12,7 @@ import 'package:produlacmovil/pages/subMenus/subMenuAdministrar.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuProduccion.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuReproduccion.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuSalud.dart';
+import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
 import 'package:produlacmovil/pages/views/personaView.dart';
 
 import '../main.dart';
@@ -37,7 +38,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'personasView':
       return MaterialPageRoute(builder: (context) => PersonaView());
     case 'subMenuSalud':
-      return MaterialPageRoute(builder: (context) => SubMenuSalud());
+      return MaterialPageRoute(
+          builder: (context) => SubMenuSalud(), settings: settings);
     case 'subMenuProduccion':
       return MaterialPageRoute(builder: (context) => SubMenuProduccion());
     case 'subMenuAdministrar':
