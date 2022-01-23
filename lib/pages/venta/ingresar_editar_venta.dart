@@ -45,9 +45,7 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
   TextEditingController valor = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
- 
-
-  String select_ani_id="";
+  String select_ani_id = "";
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -67,20 +65,20 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
       direccioncomprador.text = widget.ven_direccioncomprador;
       valor.text = widget.ven_valor;
 
-      select_ani_id=widget.ani_id.toString();
+      select_ani_id = widget.ani_id.toString();
       if (widget.ven_fecha != "") {
-      selectedDate = DateTime.parse(widget.ven_fecha);
+        selectedDate = DateTime.parse(widget.ven_fecha);
+      }
+    } else {
+      if (widget.lista_animal.length >= 1) {
+        select_ani_id = widget.lista_animal[0]['ani_id'].toString();
+      }
     }
-    }else{
-      if(widget.lista_animal.length>=1){
-select_ani_id = widget.lista_animal[0]['ani_id'].toString();
-    }
+    if (widget.ani_id != 0) {
+      select_ani_id = widget.ani_id.toString();
     }
 
-    idvendedor.text=per_nombre_apellido_usuario_logeado;
-
-    
-    
+    idvendedor.text = per_nombre_apellido_usuario_logeado;
   }
 
   @override
@@ -170,8 +168,6 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                          
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -221,9 +217,6 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
                               ),
                             ),
                           ),
-
-
-
                           SfDateRangePicker(
                             initialDisplayDate: selectedDate,
                             initialSelectedDate: selectedDate,
@@ -235,12 +228,8 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
                               false, false, comprador),
                           buildTextField(Icons.person, "Telefono Comprador",
                               false, true, telcomprador),
-                          buildTextField(
-                              Icons.important_devices_sharp,
-                              "Cédula Comprador",
-                              false,
-                              true,
-                              cedulacomprador),
+                          buildTextField(Icons.important_devices_sharp,
+                              "Cédula Comprador", false, true, cedulacomprador),
                           buildTextField(
                               Icons.add_rounded,
                               "Dirección Comprador",
@@ -275,31 +264,31 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
   }
 
   guardar_datos() async {
-    if(_selectedDate_a_enviar==""){
+    if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if ( select_ani_id == "" &&
+    if (select_ani_id == "" &&
         _selectedDate_a_enviar == "" &&
         comprador.text == "" &&
-        telcomprador.text == "" && 
-        cedulacomprador.text=="" && 
-        direccioncomprador.text=="" &&
-        valor.text=="") {
+        telcomprador.text == "" &&
+        cedulacomprador.text == "" &&
+        direccioncomprador.text == "" &&
+        valor.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      if(_selectedDate_a_enviar==""){
-        _selectedDate_a_enviar=widget.ven_fecha;
-      } 
-      
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.ven_fecha;
+      }
+
       String body = jsonEncode({
-        "ani_id":select_ani_id,
-        "ven_fecha":_selectedDate_a_enviar,
-        "per_idvendedor":widget.per_idvendedor,
-        "ven_comprador":comprador.text,
-        "ven_telcomprador":telcomprador.text,
-        "ven_cedulacomprador":cedulacomprador.text,
-        "ven_direccioncomprador":direccioncomprador.text,
-        "ven_valor":valor.text
+        "ani_id": select_ani_id,
+        "ven_fecha": _selectedDate_a_enviar,
+        "per_idvendedor": widget.per_idvendedor,
+        "ven_comprador": comprador.text,
+        "ven_telcomprador": telcomprador.text,
+        "ven_cedulacomprador": cedulacomprador.text,
+        "ven_direccioncomprador": direccioncomprador.text,
+        "ven_valor": valor.text
       });
       List datos = [];
       if (widget.ven_id == 0) {
@@ -310,9 +299,7 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "ventas/" + widget.ven_id.toString(),
-            "PUT",
-            body);
+            ip_server + "ventas/" + widget.ven_id.toString(), "PUT", body);
         Navigator.pop(context);
       }
 
@@ -381,8 +368,6 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
       ),
     );
   }
-
-    
 
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
@@ -466,12 +451,12 @@ select_ani_id = widget.lista_animal[0]['ani_id'].toString();
       ),
     );
   }
+
   Widget buildTextField1(IconData icon, String hintText, bool isPassword,
       bool isNumber, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: TextField(
-        
         controller: controller,
         obscureText: isPassword,
         keyboardType: isNumber ? TextInputType.number : TextInputType.text,

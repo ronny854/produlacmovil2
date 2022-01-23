@@ -1,7 +1,13 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
+import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
+
+import '../../listas.dart';
 
 class SubMenuSalud extends StatefulWidget {
   SubMenuSalud({Key? key}) : super(key: key);
@@ -11,8 +17,16 @@ class SubMenuSalud extends StatefulWidget {
 }
 
 class _SubMenuSaludState extends State<SubMenuSalud> {
+  List animalesLista = [];
+
   @override
   Widget build(BuildContext context) {
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      animalesLista = ModalRoute.of(context)!.settings.arguments as List;
+      //var listaA = jsonDecode(objeto);
+      print(animalesLista[0]['ani_id']);
+    }
+
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
@@ -26,7 +40,7 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
           SizedBox(
             height: 30,
           ),
-          GridDashboard()
+          GridDashboard(animalesLista)
         ],
       ),
     );
@@ -34,6 +48,9 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
 }
 
 class GridDashboard extends StatelessWidget {
+  List animalesLista = [];
+  GridDashboard(this.animalesLista);
+
   Items item1 = Items(
     title: "Tratamiento Animal",
     img: "assets/images/registroMedicos.png",
@@ -45,26 +62,21 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/jeringuilla.png",
     ruta: 'vacunar',
   );
-/*   Items item3 = Items(
-    title: "Locations",
-    img: "assets/images/map.png",
+  Items item3 = Items(
+    title: "Ver tratamiento Animal",
+    img: "assets/images/registroMedicos.png",
+    ruta: 'verTratamiento',
   );
+
   Items item4 = Items(
-    title: "Activity",
-    img: "assets/images/festival.png",
+    title: "Ver vacunas Animal",
+    img: "assets/images/jeringuilla.png",
+    ruta: 'verVacunas',
   );
-  Items item5 = Items(
-    title: "To do",
-    img: "assets/images/todo.png",
-  );
-  Items item6 = Items(
-    title: "Settings",
-    img: "assets/images/setting.png",
-  ); */
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2];
+    List<Items> myList = [item1, item2, item3, item4];
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(
@@ -75,9 +87,41 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: myList.map((data) {
             return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, data.ruta);
+              onTap: () async {
+                //Navigator.pushNamed(context, data.ruta);
                 //print('enviar a ruta ' + data.ruta);
+                // ignore: non_constant_identifier_names
+                List<dynamic> lista_animales = await listaAnimales();
+                if (data.ruta == 'tratamiento') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarTratamiento(
+                          0,
+                          '',
+                          animalesLista[0]['ani_id'],
+                          '',
+                          '',
+                          '',
+                          '',
+                          lista_animales),
+                    ),
+                  );
+                } else if (data.ruta == 'vacunar') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarVacuna(
+                          0,
+                          '',
+                          animalesLista[0]['ani_id'],
+                          '',
+                          '',
+                          '',
+                          lista_animales),
+                    ),
+                  );
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

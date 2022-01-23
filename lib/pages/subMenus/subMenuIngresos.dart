@@ -4,6 +4,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/pages/ingresoegreso/ingresar_editar_ingreso_egreso.dart';
+
+import '../../listas.dart';
 
 class SubMenuIngresos extends StatefulWidget {
   SubMenuIngresos({Key? key}) : super(key: key);
@@ -39,13 +42,13 @@ class GridDashboard extends StatelessWidget {
   Items item1 = Items(
     title: "Realizar Ingreso",
     img: "assets/images/vacaOrd.png",
-    ruta: 'tratamiento',
+    ruta: 'realizarIngreso',
   );
 
   Items item2 = Items(
     title: "Ver ingresos",
     img: "assets/images/registrado.png",
-    ruta: 'vacunar',
+    ruta: 'verIngreso',
   );
   /* Items item3 = Items(
     title: "Deceso",
@@ -79,9 +82,37 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: myList.map((data) {
             return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, data.ruta);
+              onTap: () async {
+                //Navigator.pushNamed(context, data.ruta);
                 //print('enviar a ruta ' + data.ruta);
+                // ignore: non_constant_identifier_names
+                List<dynamic> fincas = await listaFincasSegunPerID();
+                List<dynamic> listaIE = await listaIngresoEgreso();
+                List<dynamic> fincaEnviar = listaFincasPerId(fincas);
+                //lista_fincas_segun_per_id
+                if (data.ruta == 'realizarIngreso') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarIngresoEgreso(
+                          0, 0, 0, 0, '', '', listaIE, fincaEnviar),
+                    ),
+                  );
+                } /* else if (data.ruta == 'vacunar') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => IngresarEditarVacuna(
+                          0,
+                          '',
+                          animalesLista[0]['ani_id'],
+                          '',
+                          '',
+                          '',
+                          lista_animales),
+                    ),
+                  );
+                } */
               },
               child: Container(
                 decoration: BoxDecoration(
