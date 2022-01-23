@@ -5,6 +5,12 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/pages/deceso/ingresar_editar_deceso.dart';
+import 'package:produlacmovil/pages/inseminacion/ingresar_editar_inseminacion.dart';
+import 'package:produlacmovil/pages/partoaborto/ingresareditaraborto.dart';
+import 'package:produlacmovil/pages/partoaborto/ingresareditarparto.dart';
+
+import '../../listas.dart';
 
 class SubMenuReproduccion extends StatefulWidget {
   SubMenuReproduccion({Key? key}) : super(key: key);
@@ -14,16 +20,6 @@ class SubMenuReproduccion extends StatefulWidget {
 }
 
 class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
-  // bool _initialized = false;
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   if (!_initialized) {
-  //     log(ModalRoute.of(context)!.settings);
-  //     _initialized = true;
-  //   }
-  //   super.didChangeDependencies();
-  // }
   List animalesLista = [];
   @override
   Widget build(BuildContext context) {
@@ -45,7 +41,7 @@ class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
           SizedBox(
             height: 30,
           ),
-          GridDashboard()
+          GridDashboard(animalesLista)
         ],
       ),
     );
@@ -53,26 +49,28 @@ class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
 }
 
 class GridDashboard extends StatelessWidget {
+  List animalesLista = [];
+  GridDashboard(this.animalesLista);
   Items item1 = Items(
     title: "Inseminación",
     img: "assets/images/vacaOrd.png",
-    ruta: 'tratamiento',
+    ruta: 'inseminacion',
   );
 
   Items item2 = Items(
     title: "Aborto",
     img: "assets/images/registrado.png",
-    ruta: 'vacunar',
+    ruta: 'aborto',
   );
   Items item3 = Items(
     title: "Deceso",
     img: "assets/images/map.png",
-    ruta: 'vacunar',
+    ruta: 'deceso',
   );
   Items item4 = Items(
     title: "Parto",
     img: "assets/images/festival.png",
-    ruta: 'vacunar',
+    ruta: 'parto',
   );
   /* Items item5 = Items(
     title: "To do",
@@ -96,8 +94,48 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: myList.map((data) {
             return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, data.ruta);
+              onTap: () async {
+                // Navigator.pushNamed(context, data.ruta);
+                List<dynamic> lista_animales = await listaAnimales();
+                if (data.ruta == 'inseminacion') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarInseminacion(
+                              0,
+                              '',
+                              0,
+                              animalesLista[0]['ani_id'],
+                              '',
+                              '',
+                              '',
+                              0,
+                              0,
+                              '',
+                              [],
+                              lista_animales)));
+                } else if (data.ruta == 'aborto') {
+                  print('ruta aborto');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarAborto(
+                              0, '', '', '', [], lista_animales)));
+                } else if (data.ruta == 'deceso') {
+                  print('ruta');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarDeceso(
+                              0, 0, '', '', '', lista_animales)));
+                } else if (data.ruta == 'parto') {
+                  print('ruta parto');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarParto(
+                              0, '', '', '', '', lista_animales)));
+                }
               },
               child: Container(
                 decoration: BoxDecoration(
