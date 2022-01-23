@@ -5,6 +5,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/components/background.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
+import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
 import 'package:produlacmovil/pages/registerPage.dart';
@@ -188,8 +189,26 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       _mostrarDialogInicio = false;
       _mostrarErrorUsuario = false;
-      List lista_Personas = await controller_general.httpgeneral(
-          ip_server + "personas", "GET", "");
+      
+
+      List fincas_segun_per_id=await listaFincasSegunPerID();
+
+      if(fincas_segun_per_id.length==1){
+        fin_id_usuario_logeado=fincas_segun_per_id[0]['fin_id'].toString();
+      }else{
+        if(fincas_segun_per_id.length>=2){
+          //ESCOGER EN QUE FINCA VA A TRABAJAR
+          print("ESCOGER EN QUE FINCA VA A TRABAJAR");
+        }else{
+          if(fincas_segun_per_id.length==0){
+            //NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN 
+            print("NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN ");
+          }
+        }
+      }
+
+
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(

@@ -55,6 +55,10 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
       if(widget.lista_animales.length>=1){
         _select_ani_id= widget.lista_animales[0]['ani_id'].toString();
       }
+
+      if(widget.ani_id!=0){
+        _select_ani_id=widget.ani_id.toString();
+      }
     }
 
   }

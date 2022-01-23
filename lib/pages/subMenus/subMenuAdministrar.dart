@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/views/fincaView.dart';
 
 class SubMenuAdministrar extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -61,6 +63,16 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/todo.png",
     ruta: 'vacunar',
   );
+  Items item6 = Items(
+    title: "Ver Fincas",
+    img: "assets/images/todo.png",
+    ruta: 'verfincas',
+  );
+  Items item7 = Items(
+    title: "Agregar Fincas Persona",
+    img: "assets/images/todo.png",
+    ruta: 'Agregarfincaspersona',
+  );
   /* Items item6 = Items(
     title: "Settings",
     img: "assets/images/setting.png",
@@ -68,7 +80,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Items> listaAdmin = [item1, item2, item3, item4, item5];
+    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6,item7];
     List<Items> listaDueno = [item1, item2];
     var color = 0xFF70C3FA;
     return Flexible(
@@ -80,9 +92,17 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: listaAdmin.map((data) {
             return GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, data.ruta);
-                //print('enviar a ruta ' + data.ruta);
+              onTap: () async {
+                List fincas = await listaTodaslasfincas();
+                print(fincas);
+                if (data.ruta == "verfincas") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => VisualizarFinca(fincas),
+                    ),
+                  );
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

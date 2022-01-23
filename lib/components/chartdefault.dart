@@ -3,7 +3,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
 class chartDefault extends StatefulWidget {
-  chartDefault({Key? key}) : super(key: key);
+  List lista_fecha_litros;
+  chartDefault(this.lista_fecha_litros) ;
 
   @override
   _chartDefaultState createState() => _chartDefaultState();
@@ -11,19 +12,14 @@ class chartDefault extends StatefulWidget {
 
 class _chartDefaultState extends State<chartDefault> {
   bool isCardView = false;
-  List<_ChartData>? chartData;
+  List<_ChartData>? chartData=[];
 
   @override
   void initState() {
-    chartData = <_ChartData>[
-      _ChartData(DateTime(2017, 9, 01), 24),
-      _ChartData(DateTime(2017, 9, 02), 21),
-      _ChartData(DateTime(2017, 9, 03), 36),
-      _ChartData(DateTime(2017, 9, 05), 38),
-      _ChartData(DateTime(2017, 9, 07), 54),
-      _ChartData(DateTime(2017, 9, 08), 57),
-      _ChartData(DateTime(2017, 9, 12), 70),
-    ];
+    for (var item in widget.lista_fecha_litros) {      
+      _ChartData valor= _ChartData(DateTime.parse(item['pglo_fecha']), double.parse(item['sum_pglo_litros'].toString()) as double );
+      chartData?.add(valor);
+    }  
     super.initState();
   }
 
@@ -38,7 +34,7 @@ class _chartDefaultState extends State<chartDefault> {
     return SfCartesianChart(
       plotAreaBorderWidth: 0,
       title: ChartTitle(
-          text: isCardView ? '' : 'Producción Litros de leche - Días'),
+          text: isCardView ? '' : 'Producción Litros de leche'),
       primaryXAxis: DateTimeAxis(
         edgeLabelPlacement: EdgeLabelPlacement.shift,
         labelRotation: 90,

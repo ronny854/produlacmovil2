@@ -31,9 +31,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case 'animalPage':
       return MaterialPageRoute(builder: (context) => AnimalPAge());
     case 'saludPage':
-      return MaterialPageRoute(builder: (context) => SaludPage());
-    case 'produccionPage':
-      return MaterialPageRoute(builder: (context) => ProduccionPage());
+      return MaterialPageRoute(builder: (context) => SaludPage());    
     case 'nacimientoPage':
       return MaterialPageRoute(builder: (context) => NacimientoPage());
     case 'personasView':

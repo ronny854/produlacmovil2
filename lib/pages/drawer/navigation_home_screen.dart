@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/components/app_theme.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
+import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/animalPage.dart';
 import 'package:produlacmovil/pages/nacimientoPage.dart';
@@ -61,8 +62,7 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
     if (drawerIndex != drawerIndexdata) {
       drawerIndex = drawerIndexdata;
       if (drawerIndex == DrawerIndex.inicio) {
-        List datos = await _controllerGenral.httpgeneral(
-            ip_server + 'finca/1', 'GET', '');
+        
         setState(() {
           screenView = PrincipalPage();
         });
@@ -71,8 +71,14 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           screenView = AnimalPAge();
         });
       } else if (drawerIndex == DrawerIndex.produccion) {
+
+        List lista_fecha_litros = await listaprodGlobal(fin_id_usuario_logeado);
+
+        print(lista_fecha_litros);
+        print(fin_id_usuario_logeado);
+        
         setState(() {
-          screenView = ProduccionPage();
+          screenView = ProduccionPage(lista_fecha_litros);
         });
       } else if (drawerIndex == DrawerIndex.ventas) {
         setState(() {

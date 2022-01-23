@@ -84,13 +84,12 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarIndividual(
-                              0, 0, "", "", "", "", lista_animales)));
+                              0, animalesLista[0]['ani_id'], "", "", "", "", lista_animales)));
                 }
                 if (data.ruta == "verregistrodeproduccion") {
                   if(animalesLista[0]['ani_id']!=null && animalesLista[0]['ani_id'].toString()!="" && animalesLista[0]['ani_id'].toString()!="0"){
-                     DateTime fecha_hoy = DateTime.now();
-                     List inicio_fin= retornar_inicio_fin_fecha(fecha_hoy);                     
-                    List fecha_litros=await listaprodIndividual(animalesLista[0]['ani_id'].toString(),inicio_fin[0].toString(),inicio_fin[1].toString());
+                                       
+                    List fecha_litros=await listaprodIndividual(animalesLista[0]['ani_id'].toString());
                       Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -43,86 +43,30 @@ List<dynamic> listaFincasPerId(List<dynamic> lista_fincas_segun_per_id) {
   return lista_fincas_per_id;
 }
 
-Future<List<dynamic>> listaprodIndividual(String ani_id,String fecha_inicio, String fecha_fin) async {
-  String body = jsonEncode({
-    "fecha_inicio":fecha_inicio,
-    "fecha_fin":fecha_fin
-  });
-  List lista_animales =
-      await controller_general.httpgeneral(ip_server + "prodIndividual/"+ani_id, "POST", body);
-  return lista_animales;
+Future<List<dynamic>> listaprodIndividual(String ani_id) async {
+  
+  List lista =
+      await controller_general.httpgeneral(ip_server + "prodIndividual/"+ani_id, "POST", "");
+  return lista;
+}
+Future<List<dynamic>> listaprodGlobal(String fin_id) async {
+  
+  List lista =
+      await controller_general.httpgeneral(ip_server + "prodGlobal/fechas/"+fin_id, "GET", "");
+  return lista;
 }
 
-List retornar_inicio_fin_fecha(DateTime fecha) {
-    if (fecha.month == 1 ||
-        fecha.month == 3 ||
-        fecha.month == 5 ||
-        fecha.month == 7 ||
-        fecha.month == 8 ||
-        fecha.month == 10 ||
-        fecha.month == 12) {
-      String dia_inicio = "01";
-      String Mes = fecha.month.toString();
-      String anio = fecha.year.toString();
-      String dia_fin = "31";
-      if (fecha.month >= 10) {
-        return [
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-" + Mes + "-" + dia_inicio)),
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-" + Mes + "-" + dia_fin))
-        ];
-      } else {
-        return [
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_inicio)),
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_fin))
-        ];
-      }
-    } else {
-      if (fecha.month == 2) {
-        String dia_inicio = "01";
-        String Mes = fecha.month.toString();
-        String anio = fecha.year.toString();
-        String dia_fin = "28";
-        if (((fecha.year % 4 == 0) &&
-            ((fecha.year % 100 != 0) || (fecha.year % 400 == 0)))) {
-          dia_fin = "29";
-        }
-        return [
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_inicio)),
-          DateFormat('yyyy-MM-dd')
-              .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_fin))
-        ];
-      } else {
-        if (fecha.month == 4 ||
-            fecha.month == 6 ||
-            fecha.month == 9 ||
-            fecha.month == 11) {
-          String dia_inicio = "01";
-          String Mes = fecha.month.toString();
-          String anio = fecha.year.toString();
-          String dia_fin = "31";
-          if (fecha.month >= 10) {
-            return [
-              DateFormat('yyyy-MM-dd')
-                  .format(DateTime.parse(anio + "-" + Mes + "-" + dia_inicio)),
-              DateFormat('yyyy-MM-dd')
-                  .format(DateTime.parse(anio + "-" + Mes + "-" + dia_fin))
-            ];
-          } else {
-            return [
-              DateFormat('yyyy-MM-dd')
-                  .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_inicio)),
-              DateFormat('yyyy-MM-dd')
-                  .format(DateTime.parse(anio + "-0" + Mes + "-" + dia_fin))
-            ];
-          }
-        }
-      }
-    }
+Future<List<dynamic>> listapersonas() async {
+  
+  List lista =
+      await controller_general.httpgeneral(ip_server + "personas", "GET", "");
+  return lista;
+}
 
-    return [];
-  }
+Future<List<dynamic>> listaTodaslasfincas() async {
+  
+  List lista =
+      await controller_general.httpgeneral(ip_server + "fincas", "GET", "");
+  return lista;
+}
+

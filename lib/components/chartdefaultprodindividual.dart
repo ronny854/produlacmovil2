@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
@@ -16,16 +18,12 @@ class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual>
   List<_ChartData>? chartData=[];
 
   @override
-  void initState() {
-    print(widget.datos_produccion);
+  void initState() {   
 
     for (var item in widget.datos_produccion) {      
-      _ChartData valor= _ChartData(DateTime.parse(item['pro_fecha']), item['sum_pro_litros'] );
-      print({valor});
+      _ChartData valor= _ChartData(DateTime.parse(item['pro_fecha']), double.parse(item['sum_pro_litros'].toString()) as double );
       chartData?.add(valor);
-    }
-
-    print(chartData);
+    }   
     
     super.initState();
   }
@@ -75,5 +73,5 @@ class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual>
 class _ChartData {
   _ChartData(this.x, this.y);
   final DateTime x;
-  final int y;
+  final double y;
 }
