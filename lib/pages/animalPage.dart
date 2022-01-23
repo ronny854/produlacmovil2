@@ -251,7 +251,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
                 Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista),
             itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
-                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt,animalesLista),
+                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt, animalesLista),
           ],
         ),
         endActionPane: ActionPane(
@@ -260,11 +260,24 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           motion: ScrollMotion(),
           children: [
             itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
+<<<<<<< HEAD
                 FontAwesomeIcons.fileMedical, 'subMenuSalud',animalesLista),
             itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
                 FontAwesomeIcons.clipboard, 'subMenuProduccion',animalesLista),
             itemSlidable('Reproducción', Color(0xCEFDFF6C), Color(0xFF000000),
                 FontAwesomeIcons.clipboard, 'subMenuReproduccion',animalesLista),
+=======
+                FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista),
+            itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
+                FontAwesomeIcons.clipboard, 'subMenuProduccion', animalesLista),
+            itemSlidable(
+                'Reproducción',
+                Color(0xCEFDFF6C),
+                Color(0xFF000000),
+                FontAwesomeIcons.clipboard,
+                'subMenuReproduccion',
+                animalesLista),
+>>>>>>> f3ffab7ef64075964e48c5b9efec000c79591530
           ],
         ),
         child: GestureDetector(
@@ -341,11 +354,15 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) {
+<<<<<<< HEAD
         Navigator.pushNamed(
       context,
       ruta,
       arguments: animalesLista
     );
+=======
+        Navigator.pushNamed(context, ruta, arguments: animalesLista);
+>>>>>>> f3ffab7ef64075964e48c5b9efec000c79591530
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -355,12 +372,12 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
   
 
-  SlidableAction itemSlidableEliminar(
-      String textItem, Color colorFondo, Color colorTexto, IconData iconoItem,List animal) {
+  SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
+      Color colorTexto, IconData iconoItem, List animal) {
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,
-      onPressed: (context){
+      onPressed: (context) {
         eliminar_animal(animal);
       },
       backgroundColor: colorFondo,
@@ -370,14 +387,14 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  Future<void> eliminar_animal(List animal)async{
-    if(animal[0]['ani_id']!=null){
-      await controller_general.httpgeneral(ip_server+"animales/"+animal[0]['ani_id'].toString(),"DELETE","");
-      Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    AnimalPAge()));
+  Future<void> eliminar_animal(List animal) async {
+    if (animal[0]['ani_id'] != null) {
+      await controller_general.httpgeneral(
+          ip_server + "animales/" + animal[0]['ani_id'].toString(),
+          "DELETE",
+          "");
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => AnimalPAge()));
     }
   }
 
@@ -446,8 +463,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       ),
     );
   }
-
-  
 
   Future<dynamic> dialogCargando(BuildContext context) {
     return showDialog(

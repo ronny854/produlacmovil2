@@ -17,7 +17,7 @@ class IngresarEditarInseminacion extends StatefulWidget {
   int ins_num_pajuela;
   String ins_descripcion;
   List lista_personas;
-  List lista_animales;  
+  List lista_animales;
 
   IngresarEditarInseminacion(
     this.ins_id,
@@ -34,10 +34,12 @@ class IngresarEditarInseminacion extends StatefulWidget {
     this.lista_animales,
   );
   @override
-  _IngresarEditarInseminacionState createState() => _IngresarEditarInseminacionState();
+  _IngresarEditarInseminacionState createState() =>
+      _IngresarEditarInseminacionState();
 }
 
-class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion> {
+class _IngresarEditarInseminacionState
+    extends State<IngresarEditarInseminacion> {
   TextEditingController cargada = new TextEditingController();
   TextEditingController tipo_inseminacion = new TextEditingController();
   TextEditingController num_pajuela = new TextEditingController();
@@ -45,12 +47,10 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
 
   ControllerGenral controller_general = new ControllerGenral();
 
- 
-  String select_per_id="";
-  String select_ani_id_padre="";
-  String select_ani_id="";
+  String select_per_id = "";
+  String select_ani_id_padre = "";
+  String select_ani_id = "";
 
-  
   String _selectedDate_a_enviar_fecha_comprobacion = "";
   DateTime? selectedDate_fecha_comprobacion;
 
@@ -63,32 +63,36 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
 
     if (widget.ins_id != 0) {
       cargada.text = widget.ins_cargada;
-      tipo_inseminacion.text = widget.ins_tipo_inseminacion;      
+      tipo_inseminacion.text = widget.ins_tipo_inseminacion;
       num_pajuela.text = widget.ins_num_pajuela.toString();
       descripcion.text = widget.ins_descripcion;
 
-       select_per_id= widget.per_id.toString();
-        select_ani_id_padre=widget.ani_id_padre.toString();
-        select_ani_id=widget.ani_id.toString();
+      select_per_id = widget.per_id.toString();
+      select_ani_id_padre = widget.ani_id_padre.toString();
+      select_ani_id = widget.ani_id.toString();
 
-        if (widget.ins_fecha_comprobacion != "" && widget.ins_fecha_comprobacion != "0000-00-00" && widget.ins_fecha_comprobacion != null) {
-        selectedDate_fecha_comprobacion = DateTime.parse(widget.ins_fecha_comprobacion);
+      if (widget.ins_fecha_comprobacion != "" &&
+          widget.ins_fecha_comprobacion != "0000-00-00" &&
+          widget.ins_fecha_comprobacion != null) {
+        selectedDate_fecha_comprobacion =
+            DateTime.parse(widget.ins_fecha_comprobacion);
       }
       if (widget.ins_fecha_inseminacion != "") {
-        selectedDate_fecha_inseminacion = DateTime.parse(widget.ins_fecha_inseminacion);
+        selectedDate_fecha_inseminacion =
+            DateTime.parse(widget.ins_fecha_inseminacion);
       }
-    }else{
-      if(widget.lista_animales.length>=1){        
-        select_ani_id_padre= widget.lista_animales[0]['ani_id'].toString();
-        select_ani_id= widget.lista_animales[0]['ani_id'].toString();
+    } else {
+      if (widget.lista_animales.length >= 1) {
+        select_ani_id_padre = widget.lista_animales[0]['ani_id'].toString();
+        select_ani_id = widget.lista_animales[0]['ani_id'].toString();
       }
-      if(widget.lista_personas.length>=1){
-        select_per_id=widget.lista_personas[0]['per_id'].toString();
+      if (widget.lista_personas.length >= 1) {
+        select_per_id = widget.lista_personas[0]['per_id'].toString();
       }
-    }    
-
-    
-    
+      if (widget.ani_id != 0) {
+        select_ani_id = widget.ani_id.toString();
+      }
+    }
   }
 
   @override
@@ -168,7 +172,7 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
                     Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
-                        children: [   
+                        children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -180,10 +184,11 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
                           ),
                           SfDateRangePicker(
                             initialDisplayDate: selectedDate_fecha_inseminacion,
-                            initialSelectedDate: selectedDate_fecha_inseminacion,
-                            onSelectionChanged: _onSelectionChanged_fecha_inseminacion,
-                          ),      
-
+                            initialSelectedDate:
+                                selectedDate_fecha_inseminacion,
+                            onSelectionChanged:
+                                _onSelectionChanged_fecha_inseminacion,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -233,7 +238,6 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
                               ),
                             ),
                           ),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -282,8 +286,7 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
                                 }).toList(),
                               ),
                             ),
-                          ),   
-
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -293,22 +296,21 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
                               ),
                             ],
                           ),
-
                           SfDateRangePicker(
                             initialDisplayDate: selectedDate_fecha_comprobacion,
-                            initialSelectedDate: selectedDate_fecha_comprobacion,
-                            onSelectionChanged: _onSelectionChanged_fecha_comprobacion,
-                          ),   
-
-                          buildTextField(Icons.list_alt_rounded,
-                              "Cargada", false, false, cargada),
-                          buildTextField(
-                              Icons.list, "Tipo de Inseminacón", false, false, tipo_inseminacion),
-                          buildTextField(
-                              Icons.format_list_numbered_rtl , "Número Pajuela", false, true, num_pajuela),
-                          buildTextField(
-                              Icons.description , "Descripción", false, false, descripcion),
-
+                            initialSelectedDate:
+                                selectedDate_fecha_comprobacion,
+                            onSelectionChanged:
+                                _onSelectionChanged_fecha_comprobacion,
+                          ),
+                          buildTextField(Icons.list_alt_rounded, "Cargada",
+                              false, false, cargada),
+                          buildTextField(Icons.list, "Tipo de Inseminacón",
+                              false, false, tipo_inseminacion),
+                          buildTextField(Icons.format_list_numbered_rtl,
+                              "Número Pajuela", false, true, num_pajuela),
+                          buildTextField(Icons.description, "Descripción",
+                              false, false, descripcion),
                           const SizedBox(
                             height: 40,
                           )
@@ -328,49 +330,55 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
     );
   }
 
-  
-
-  void _onSelectionChanged_fecha_inseminacion(DateRangePickerSelectionChangedArgs args) {
+  void _onSelectionChanged_fecha_inseminacion(
+      DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      _selectedDate_a_enviar_fecha_inseminacion = DateFormat('yyyy-MM-dd').format(args.value);
+      _selectedDate_a_enviar_fecha_inseminacion =
+          DateFormat('yyyy-MM-dd').format(args.value);
     });
   }
-  void _onSelectionChanged_fecha_comprobacion(DateRangePickerSelectionChangedArgs args) {
+
+  void _onSelectionChanged_fecha_comprobacion(
+      DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      _selectedDate_a_enviar_fecha_comprobacion = DateFormat('yyyy-MM-dd').format(args.value);
+      _selectedDate_a_enviar_fecha_comprobacion =
+          DateFormat('yyyy-MM-dd').format(args.value);
     });
   }
 
   guardar_datos() async {
-    if(_selectedDate_a_enviar_fecha_inseminacion==""){
-      _selectedDate_a_enviar_fecha_inseminacion = DateFormat('yyyy-MM-dd').format(selectedDate_fecha_inseminacion);
+    if (_selectedDate_a_enviar_fecha_inseminacion == "") {
+      _selectedDate_a_enviar_fecha_inseminacion =
+          DateFormat('yyyy-MM-dd').format(selectedDate_fecha_inseminacion);
     }
 
-    if ( cargada.text == "" &&
+    if (cargada.text == "" &&
         _selectedDate_a_enviar_fecha_inseminacion == "" &&
         tipo_inseminacion.text == "" &&
-        num_pajuela.text == "" && descripcion.text=="") {
+        num_pajuela.text == "" &&
+        descripcion.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-
-      if(_selectedDate_a_enviar_fecha_inseminacion==""){
-        _selectedDate_a_enviar_fecha_inseminacion=widget.ins_fecha_inseminacion;
+    } else {
+      if (_selectedDate_a_enviar_fecha_inseminacion == "") {
+        _selectedDate_a_enviar_fecha_inseminacion =
+            widget.ins_fecha_inseminacion;
       }
 
-      if(_selectedDate_a_enviar_fecha_comprobacion==""){
-        _selectedDate_a_enviar_fecha_comprobacion=widget.ins_fecha_comprobacion;
-      } 
-     
+      if (_selectedDate_a_enviar_fecha_comprobacion == "") {
+        _selectedDate_a_enviar_fecha_comprobacion =
+            widget.ins_fecha_comprobacion;
+      }
+
       String body = jsonEncode({
-        "ins_fechainseminacion":_selectedDate_a_enviar_fecha_inseminacion,
-        "per_id":select_per_id,
-        "ani_id":select_ani_id,
-        "ins_fechacomprobacion":_selectedDate_a_enviar_fecha_comprobacion,
-        "ins_cargada":cargada.text,
-        "ins_tipoinseminacion":tipo_inseminacion.text,
-        "ani_idpadre":select_ani_id_padre,
-        "ins_numpajuela":num_pajuela.text,
-        "ins_descripcion":descripcion.text,
+        "ins_fechainseminacion": _selectedDate_a_enviar_fecha_inseminacion,
+        "per_id": select_per_id,
+        "ani_id": select_ani_id,
+        "ins_fechacomprobacion": _selectedDate_a_enviar_fecha_comprobacion,
+        "ins_cargada": cargada.text,
+        "ins_tipoinseminacion": tipo_inseminacion.text,
+        "ani_idpadre": select_ani_id_padre,
+        "ins_numpajuela": num_pajuela.text,
+        "ins_descripcion": descripcion.text,
       });
       List datos = [];
       if (widget.ani_id == 0) {
@@ -452,8 +460,6 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
       ),
     );
   }
-
-  
 
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
@@ -537,6 +543,4 @@ class _IngresarEditarInseminacionState extends State<IngresarEditarInseminacion>
       ),
     );
   }
-
-  
 }
