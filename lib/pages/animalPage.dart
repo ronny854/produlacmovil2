@@ -260,13 +260,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           motion: ScrollMotion(),
           children: [
             itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
-<<<<<<< HEAD
-                FontAwesomeIcons.fileMedical, 'subMenuSalud',animalesLista),
-            itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
-                FontAwesomeIcons.clipboard, 'subMenuProduccion',animalesLista),
-            itemSlidable('Reproducción', Color(0xCEFDFF6C), Color(0xFF000000),
-                FontAwesomeIcons.clipboard, 'subMenuReproduccion',animalesLista),
-=======
                 FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista),
             itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
                 FontAwesomeIcons.clipboard, 'subMenuProduccion', animalesLista),
@@ -277,7 +270,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 FontAwesomeIcons.clipboard,
                 'subMenuReproduccion',
                 animalesLista),
->>>>>>> f3ffab7ef64075964e48c5b9efec000c79591530
           ],
         ),
         child: GestureDetector(
@@ -354,15 +346,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) {
-<<<<<<< HEAD
-        Navigator.pushNamed(
-      context,
-      ruta,
-      arguments: animalesLista
-    );
-=======
         Navigator.pushNamed(context, ruta, arguments: animalesLista);
->>>>>>> f3ffab7ef64075964e48c5b9efec000c79591530
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -370,7 +354,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       label: textItem,
     );
   }
-  
 
   SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
@@ -491,7 +474,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 }
 
-class PageArguments{
+class PageArguments {
   final int id;
   final String title;
   PageArguments({required this.id, required this.title});
