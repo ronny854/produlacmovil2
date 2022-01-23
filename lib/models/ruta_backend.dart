@@ -7,4 +7,5 @@ String url_no_foto =
 String per_id_usuario_logeado = "";
 String per_nombre_apellido_usuario_logeado = "";
 String fin_id_usuario_logeado="";
+String rol_id_usuario_logeado="";
 

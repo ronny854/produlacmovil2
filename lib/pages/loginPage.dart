@@ -192,15 +192,16 @@ class _LoginPageState extends State<LoginPage> {
       
 
       List fincas_segun_per_id=await listaFincasSegunPerID();
+      List fincas_per_id= listaFincasPerId(fincas_segun_per_id);
 
-      if(fincas_segun_per_id.length==1){
-        fin_id_usuario_logeado=fincas_segun_per_id[0]['fin_id'].toString();
+      if(fincas_per_id.length==1){
+        fin_id_usuario_logeado=fincas_per_id[0]['fin_id'].toString();
       }else{
-        if(fincas_segun_per_id.length>=2){
+        if(fincas_per_id.length>=2){
           //ESCOGER EN QUE FINCA VA A TRABAJAR
           print("ESCOGER EN QUE FINCA VA A TRABAJAR");
         }else{
-          if(fincas_segun_per_id.length==0){
+          if(fincas_per_id.length==0){
             //NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN 
             print("NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN ");
           }

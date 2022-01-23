@@ -313,7 +313,7 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
         print("Ruta del login");
       } else {
         print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
       }
     }
   }
