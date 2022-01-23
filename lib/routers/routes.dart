@@ -44,8 +44,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SubMenuProduccion());
     case 'subMenuAdministrar':
       return MaterialPageRoute(builder: (context) => SubMenuAdministrar());
+
     case 'subMenuReproduccion':
-      return MaterialPageRoute(builder: (context) => SubMenuReproduccion());
+      return MaterialPageRoute(
+          builder: (context) => SubMenuReproduccion(), settings: settings);
     default:
       return UnDefinedRoute();
   }
