@@ -488,6 +488,15 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
             ip_server + "personas", "POST", body);
+
+        if(rol_id_usuario_logeado=="2" && datos[0]['per_id']!= null  && datos[0]['per_id']!=0){          
+          body = jsonEncode({
+            "per_id":datos[0]['per_id'].toString(),
+            "fin_id":fin_id_usuario_logeado,
+          });
+          datos = await controller_general.httpgeneral(
+            ip_server + "fincaPersona", "POST", body);
+        }
         Navigator.pop(context);
       } else {
         dialog(context, "Enviando Datos", false);
@@ -504,7 +513,7 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
         print("Ruta del login");
       } else {
         print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR
       }
     }
   }

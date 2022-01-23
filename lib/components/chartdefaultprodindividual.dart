@@ -1,25 +1,30 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
 
-class chartDefault extends StatefulWidget {
-  List lista_fecha_litros;
-  chartDefault(this.lista_fecha_litros) ;
+class chartDefaultProdIndividual extends StatefulWidget {
+  List datos_produccion;
+
+  chartDefaultProdIndividual(this.datos_produccion);
 
   @override
-  _chartDefaultState createState() => _chartDefaultState();
+  _chartDefaultProdIndividualState createState() => _chartDefaultProdIndividualState();
 }
 
-class _chartDefaultState extends State<chartDefault> {
+class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual> {
   bool isCardView = false;
   List<_ChartData>? chartData=[];
 
   @override
-  void initState() {
-    for (var item in widget.lista_fecha_litros) {      
-      _ChartData valor= _ChartData(DateTime.parse(item['pglo_fecha']), double.parse(item['sum_pglo_litros'].toString()) as double );
+  void initState() {   
+
+    for (var item in widget.datos_produccion) {      
+      _ChartData valor= _ChartData(DateTime.parse(item['pro_fecha']), double.parse(item['sum_pro_litros'].toString()) as double );
       chartData?.add(valor);
-    }  
+    }   
+    
     super.initState();
   }
 
@@ -51,7 +56,7 @@ class _chartDefaultState extends State<chartDefault> {
     );
   }
 
-  List<LineSeries<_ChartData, DateTime>> _getDefaultLineSeries() {
+  List<LineSeries<_ChartData, DateTime>> _getDefaultLineSeries() {    
     return <LineSeries<_ChartData, DateTime>>[
       LineSeries<_ChartData, DateTime>(
           animationDuration: 2500,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/produccionPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
@@ -380,7 +382,9 @@ class _IngresarEditarProduccionGlobalState
         print("Ruta del login");
       } else {
         print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+
+               
       }
     }
   }

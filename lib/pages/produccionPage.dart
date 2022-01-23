@@ -3,9 +3,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/components/chartdefault.dart';
+import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_global.dart';
 
 class ProduccionPage extends StatefulWidget {
-  ProduccionPage({Key? key}) : super(key: key);
+  List lista_fecha_litros;
+  ProduccionPage(this.lista_fecha_litros);
 
   @override
   _ProduccionPageState createState() => _ProduccionPageState();
@@ -37,7 +40,7 @@ class _ProduccionPageState extends State<ProduccionPage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: chartDefault(),
+              child: chartDefault(widget.lista_fecha_litros),
             ),
           ),
           Container(
@@ -46,7 +49,18 @@ class _ProduccionPageState extends State<ProduccionPage> {
               top: 250.0,
             ),
             child: MaterialButton(
-              onPressed: () {},
+              onPressed: () async {
+                List lista_fincas_segun_per_id = await listaFincasSegunPerID();
+                List lista_fincas = listaFincasPerId(lista_fincas_segun_per_id);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => IngresarEditarProduccionGlobal(
+                        0, "", "", "", "", "", lista_fincas),
+                  ),
+                );
+              },
               child: Text(
                 'Agregar',
                 textAlign: TextAlign.center,
