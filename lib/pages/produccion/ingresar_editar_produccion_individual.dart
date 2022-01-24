@@ -10,29 +10,27 @@ class IngresarEditarIndividual extends StatefulWidget {
   int pro_id;
   int ani_id;
   String pro_fecha;
-  String pro_horario;
+  String ite_idhorario;
   String pro_litros;
   String pro_dieta;
   List lista_animales;
+  List lista_horario;
   //
 
   IngresarEditarIndividual(this.pro_id, this.ani_id, this.pro_fecha,
-      this.pro_horario, this.pro_litros, this.pro_dieta, this.lista_animales);
+      this.ite_idhorario, this.pro_litros, this.pro_dieta, this.lista_animales,this.lista_horario);
   @override
   _IngresarEditarIndividualState createState() =>
       _IngresarEditarIndividualState();
 }
 
 class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
-  
-  TextEditingController horario = TextEditingController();
   TextEditingController litros = TextEditingController();
   TextEditingController dieta = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
   String _select_ani_id = "";
-
-  
+  String _select_ite_idhorario = "";
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -42,25 +40,26 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
     super.initState();
 
     if (widget.pro_id != 0) {
-      
-      horario.text = widget.pro_horario.toString();
       litros.text = widget.pro_litros.toString();
       dieta.text = widget.pro_dieta.toString();
 
-      _select_ani_id=widget.ani_id.toString();
+      _select_ani_id = widget.ani_id.toString();
+      _select_ite_idhorario=widget.ite_idhorario.toString();
       if (widget.pro_fecha != "") {
-      selectedDate = DateTime.parse(widget.pro_fecha);
-    }
-    }else{
-      if(widget.lista_animales.length>=1){
-        _select_ani_id= widget.lista_animales[0]['ani_id'].toString();
+        selectedDate = DateTime.parse(widget.pro_fecha);
+      }
+    } else {
+      if (widget.lista_animales.length >= 1) {
+        _select_ani_id = widget.lista_animales[0]['ani_id'].toString();
       }
 
-      if(widget.ani_id!=0){
-        _select_ani_id=widget.ani_id.toString();
+      if (widget.ani_id != 0) {
+        _select_ani_id = widget.ani_id.toString();
+      }
+      if(widget.lista_horario.length>=1){
+        _select_ite_idhorario=widget.lista_horario[0]['ite_id'].toString();
       }
     }
-
   }
 
   @override
@@ -150,7 +149,6 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -200,19 +198,62 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
                               ),
                             ),
                           ),
-
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: _select_ite_idhorario,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    _select_ite_idhorario = newValue!;
+                                  });
+                                },
+                                items: widget.lista_horario.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ite_id'].toString(),
+                                    child: Text(value['ite_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
                           SfDateRangePicker(
                             initialDisplayDate: selectedDate,
                             initialSelectedDate: selectedDate,
                             onSelectionChanged: _onSelectionChanged,
-                          ),
+                          ),                         
 
                           buildTextField(Icons.calendar_today_outlined,
-                              "Horario", false, false, horario),
-                          buildTextField(Icons.calendar_today_outlined,
                               "Litros de producción", false, true, litros),
-                          buildTextField(Icons.food_bank_outlined,
-                              "Dieta", false, false, dieta),
+                          buildTextField(Icons.food_bank_outlined, "Dieta",
+                              false, false, dieta),
                           const SizedBox(
                             height: 40,
                           )
@@ -322,26 +363,26 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
   }
 
   guardar_datos() async {
-    if(_selectedDate_a_enviar==""){
+    if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if ( horario.text == "" &&
+    if (_select_ite_idhorario == "" &&
         _selectedDate_a_enviar == "" &&
         litros.text == "" &&
-        dieta.text == "" && 
-        _select_ani_id=="" ) {
+        dieta.text == "" &&
+        _select_ani_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      if(_selectedDate_a_enviar==""){
-        _selectedDate_a_enviar=widget.pro_fecha;
-      } 
-      
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.pro_fecha;
+      }
+
       String body = jsonEncode({
-        "ani_id":_select_ani_id,
-        "pro_fecha":_selectedDate_a_enviar,
-        "pro_horario":horario.text,
-        "pro_litros":litros.text,
-        "pro_dieta":dieta.text
+        "ani_id": _select_ani_id,
+        "pro_fecha": _selectedDate_a_enviar,
+        "ite_idhorario": _select_ite_idhorario,
+        "pro_litros": litros.text,
+        "pro_dieta": dieta.text
       });
       List datos = [];
       if (widget.pro_id == 0) {

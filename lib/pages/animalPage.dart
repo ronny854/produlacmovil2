@@ -1,5 +1,4 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, sized_box_for_whitespace, avoid_unnecessary_containers, deprecated_member_use, non_constant_identifier_names
-import 'dart:convert';
 import 'dart:math';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -148,7 +147,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               height: queryData.size.height - 200,
               width: queryData.size.width,
               child: FutureBuilder(
-                future: listaAnimales(),
+                future: rol_id_usuario_logeado=="1" ?  listaAnimales():listaAnimalesporfinca(),
                 builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                   var _animales = snapshot.data;
 
@@ -189,11 +188,11 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       String ani_fechanacimiento,
       String ani_imagen,
       String ani_raza,
-      String ani_etapa,
+      String ite_idetapa,
       int ani_idpadre,
       int ani_idmadre,
       String ani_pesonacer,
-      int esp_id,
+      int ite_idespecie,
       int fin_id,
       int ite_id) async {
     dialogCargando(context);
@@ -202,6 +201,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_animales = await listaAnimales();
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
+    List lista_etapa=await getEtapaAnimal();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -213,17 +213,17 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             ani_fechanacimiento,
             ani_imagen,
             ani_raza,
-            ani_etapa,
+            ite_idetapa,
             ani_idpadre,
             ani_idmadre,
             ani_pesonacer,
-            esp_id,
+            ite_idespecie,
             fin_id,
             ite_id,
             lista_animales,
             lista_especie_animal,
             lista_fincas_per_id,
-            lista_tipo_estado),
+            lista_tipo_estado,lista_etapa),
       ),
     );
   }
@@ -347,7 +347,11 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) {
-        Navigator.pushNamed(context, ruta, arguments: animalesLista);
+        Navigator.pushNamed(
+      context,
+      ruta,
+      arguments: animalesLista
+    );
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -355,6 +359,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       label: textItem,
     );
   }
+  
 
   SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
@@ -475,7 +480,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 }
 
-class PageArguments {
+class PageArguments{
   final int id;
   final String title;
   PageArguments({required this.id, required this.title});

@@ -80,11 +80,12 @@ class GridDashboard extends StatelessWidget {
               onTap: () async {
                 if (data.ruta == "reproducciondiarialeche") {
                   List lista_animales = await listaAnimales();
+                  List lista_horario = await getlistaHorario();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarIndividual(
-                              0, animalesLista[0]['ani_id'], "", "", "", "", lista_animales)));
+                              0, animalesLista[0]['ani_id'], "", "", "", "", lista_animales,lista_horario)));
                 }
                 if (data.ruta == "verregistrodeproduccion") {
                   if(animalesLista[0]['ani_id']!=null && animalesLista[0]['ani_id'].toString()!="" && animalesLista[0]['ani_id'].toString()!="0"){

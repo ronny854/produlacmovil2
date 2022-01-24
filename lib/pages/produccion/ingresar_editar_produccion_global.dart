@@ -10,22 +10,24 @@ import 'package:produlacmovil/models/ruta_backend.dart';
 class IngresarEditarProduccionGlobal extends StatefulWidget {
   int pglo_id;
   String pglo_fecha;
-  String pglo_horario;
+  String ite_idhorario;
   String pglo_litros;
   String pglo_numvacas;
   String fin_id;
   List lista_fincas;
+  List lista_horario;
 
   //
 
   IngresarEditarProduccionGlobal(
     this.pglo_id,
     this.pglo_fecha,
-    this.pglo_horario,
+    this.ite_idhorario,
     this.pglo_litros,
     this.pglo_numvacas,
     this.fin_id,
     this.lista_fincas,
+    this.lista_horario
   );
   @override
   _IngresarEditarProduccionGlobalState createState() =>
@@ -33,16 +35,16 @@ class IngresarEditarProduccionGlobal extends StatefulWidget {
 }
 
 class _IngresarEditarProduccionGlobalState
-    extends State<IngresarEditarProduccionGlobal> {
-  
+    extends State<IngresarEditarProduccionGlobal> {  
 
-  TextEditingController horario = TextEditingController();
   TextEditingController litros = TextEditingController();
   TextEditingController numvacas = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
   
   String _select_fin_id = "";
+
+  String _select_ite_idhorario = "";
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -53,11 +55,11 @@ class _IngresarEditarProduccionGlobalState
 
     if (widget.pglo_id != 0) {
       
-      horario.text = widget.pglo_horario.toString();
       litros.text = widget.pglo_litros.toString();
       numvacas.text = widget.pglo_numvacas.toString();
 
       _select_fin_id=widget.fin_id.toString();
+      _select_ite_idhorario=widget.ite_idhorario.toString();
 
       if (widget.pglo_fecha != "") {
         selectedDate = DateTime.parse(widget.pglo_fecha);
@@ -67,6 +69,10 @@ class _IngresarEditarProduccionGlobalState
 
       if (widget.lista_fincas.length >= 1) {
        _select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
+      }
+
+      if(widget.lista_horario.length>=1){
+        _select_ite_idhorario=widget.lista_horario[0]['ite_id'].toString();
       }
 
        
@@ -227,8 +233,54 @@ class _IngresarEditarProduccionGlobalState
                             initialSelectedDate: selectedDate,
                             onSelectionChanged: _onSelectionChanged,
                           ),
-                          buildTextField(Icons.calendar_today_outlined,
-                              "Horario", false, false, horario),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione la finca',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: _select_ite_idhorario,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                     _select_ite_idhorario = newValue!;
+                                  });
+                                },
+                                items: widget.lista_horario.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ite_id'].toString(),
+                                    child: Text(value['ite_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
+                          
                           buildTextField(Icons.blender_outlined,
                               "Litros de Produccion", false, true, litros),
                           buildTextField(Icons.pets_outlined, "Número de vacas",
@@ -347,7 +399,7 @@ class _IngresarEditarProduccionGlobalState
     }
     if (_selectedDate_a_enviar == "" &&
         _select_fin_id == "" &&
-        horario.text == "" &&
+        _select_ite_idhorario == "" &&
         litros.text == "" &&
         numvacas.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
@@ -358,7 +410,7 @@ class _IngresarEditarProduccionGlobalState
 
       String body = jsonEncode({
         "pglo_fecha":_selectedDate_a_enviar,
-        "pglo_horario":horario.text,
+        "ite_idhorario":_select_ite_idhorario,
         "pglo_litros":litros.text,
         "pglo_numvacas":numvacas.text,
         "fin_id":_select_fin_id
