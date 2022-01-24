@@ -120,7 +120,7 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarAborto(
-                              0, '', '', lista_animales)));
+                              0, '', '','', lista_animales)));
                 } else if (data.ruta == 'deceso') {
                   print('ruta');
                   Navigator.push(

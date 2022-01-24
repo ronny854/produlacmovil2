@@ -9,11 +9,13 @@ class IngresarEditarAborto extends StatefulWidget {
   int abo_id;
   String fecha;
   String ani_id_madre;
+  String descripcrion;
   List lista_animales;
   IngresarEditarAborto(
       this.abo_id,
       this.fecha,
       this.ani_id_madre,
+      this.descripcrion,
       this.lista_animales);
   @override
   _IngresarEditarAbortoState createState() => _IngresarEditarAbortoState();
@@ -52,6 +54,7 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
     if (widget.abo_id != 0) {
       ani_id_madre = widget.ani_id_madre;
     }
+    controller_descripcion.text=widget.descripcrion;
   }
 
   @override
