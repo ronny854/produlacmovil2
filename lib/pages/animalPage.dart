@@ -166,7 +166,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                             _animales[index]['ani_codigo'],
                             _animales[index]['ani_sexo'],
                             _animales[index]['ani_raza'],
-                            _animales[index]['ani_etapa'],
+                            _animales[index]['ite_id_nombre_etapa'],
                             [_animales[index]]);
                       },
                     );
@@ -389,6 +389,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animales) {
+       
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,
@@ -401,13 +402,13 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             animales[0]['ani_fechanacimiento'],
             animales[0]['ani_imagen'],
             animales[0]['ani_raza'],
-            animales[0]['ani_etapa'],
-            animales[0]['ani_idpadre'],
-            animales[0]['ani_idmadre'],
+            animales[0]['ite_id_etapa'].toString(),
+            animales[0]['ani_id_padre'],
+            animales[0]['ani_id_madre'],
             animales[0]['ani_pesonacer'],
-            animales[0]['esp_id'],
+            animales[0]['ite_id_especie'],
             animales[0]['fin_id'],
-            animales[0]['ite_idtipoestado']);
+            animales[0]['ite_id_tipo_estado']);
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,

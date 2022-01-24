@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
 
 class VisualizarFinca extends StatefulWidget {
@@ -171,8 +172,16 @@ class _VisualizarFincaState extends State<VisualizarFinca> {
                                                   iconSize: 30.0,
                                                   color: Colors.black,
                                                   onPressed: () async {
-                                                    List lista =
+
+                                                    List lista=[];
+                                                        if(rol_id_usuario_logeado=="1"){
+                                                          lista = 
                                                         await listapersonas();
+                                                        }else{
+                                                          lista= await getTodosFincasPersonadeunafinca(fin_id_usuario_logeado);
+                                                        }
+
+
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
