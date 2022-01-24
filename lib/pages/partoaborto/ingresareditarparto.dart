@@ -10,11 +10,9 @@ class IngresarEditarParto extends StatefulWidget {
   String fecha;
   String ani_id_madre;
   String ani_id_hijo;
-  String ite_id_parto_aborto_viejo;
-
   List lista_animales;
   IngresarEditarParto(this.par_id, this.fecha, this.ani_id_madre,
-      this.ani_id_hijo, this.ite_id_parto_aborto_viejo, this.lista_animales);
+      this.ani_id_hijo, this.lista_animales);
   @override
   _IngresarEditarPartoState createState() => _IngresarEditarPartoState();
 }

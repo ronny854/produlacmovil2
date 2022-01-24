@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
+import 'package:produlacmovil/pages/ingresoegreso/ingresar_editar_ingreso_egreso.dart';
+import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
+import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
 
-class VisualizarPersonas extends StatefulWidget {
+class VisualizarIngresosEgresos extends StatefulWidget {
   List datos;
 
-  VisualizarPersonas(this.datos);
+  VisualizarIngresosEgresos(this.datos);
   @override
-  _VisualizarPersonasState createState() => new _VisualizarPersonasState();
+  _VisualizarIngresosEgresosState createState() => new _VisualizarIngresosEgresosState();
 }
 
-class _VisualizarPersonasState extends State<VisualizarPersonas> {
+class _VisualizarIngresosEgresosState extends State<VisualizarIngresosEgresos> {
   TextEditingController buscar = new TextEditingController();
   List lista_datos = [];
   @override
@@ -26,7 +30,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('TABLA PERSONAS'),
+        title: Text('TABLA INGRESO, EGRESO'),
       ),
       body: Container(
         child: Padding(
@@ -55,11 +59,20 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['per_nombre']
+                          .where((element) => (element['vac_fecha']
                               .toLowerCase()
-                              .contains(value.toLowerCase()) || element["per_apellido"]
+                              .contains(value.toLowerCase())|| element['tbl_finca']['fin_nombre']
                               .toLowerCase()
-                              .contains(value.toLowerCase())))
+                              .contains(value.toLowerCase())||element['ing_monto']
+                              .toLowerCase()
+                              .contains(value.toLowerCase())||element['tbl_item']['ite_nombre']
+                              .toLowerCase()
+                              .contains(value.toLowerCase())|| element["ing_descripcion"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase())|| element["ing_fecha"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase())
+                          ))
                           .toList();
                     });
                   },
@@ -74,7 +87,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                             columns: const <DataColumn>[
                               DataColumn(
                                 label: Text(
-                                  'Imagen Finca',
+                                  'Imagen',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -90,7 +103,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Imagen Persona',
+                                  'Tipo',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -98,7 +111,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre',
+                                  'Fecha',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -106,7 +119,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Apellido',
+                                  'Descripción',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -114,52 +127,12 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Usuario',
+                                  'Monto',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Cedula',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Correo',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Teléfono',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Dirección',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Rol',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
+                              ),                             
                               DataColumn(
                                 label: Text(
                                   'Acciones',
@@ -175,37 +148,57 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element['tbl_finca']["fin_imagen"]),
+                                                element["tbl_finca"]["fin_imagen"]),
                                           )),
                                           DataCell(Text(element["tbl_finca"]["fin_nombre"])),
-                                          DataCell(CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                element['tbl_persona']["per_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_persona"]["per_nombre"])),
-                                          
-                                          DataCell(Text(element["tbl_persona"]["per_apellido"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_usuario"])),
-                                          DataCell(Text(element["tbl_persona"]["per_cedula"])),
+                                              Text(element['tbl_item']["ite_nombre"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_correo"])),
-                                          DataCell(Text(element["tbl_persona"]["per_telefono"])),
+                                              Text(element["ing_fecha"])),
+                                          DataCell(Text(element["ing_descripcion"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_direccion"])),
-                                          DataCell(
-                                              Text(element["tbl_rol"]["rol_nombre"])),
+                                              Text(element["ing_monto"])),                                        
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
-                                                  icon: Icon(Icons.delete_outline_outlined),
+                                                  icon: Icon(Icons.edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
+                                                    List lista_ingreso_egreso= await listaIngresoEgreso();
 
-                                                    dialog(context, "Guardando Imagen", true);
+
+                                                    List lista = await listaFincasSegunPerID();
+                                                    List lista_fincas= listaFincasPerId(lista);
+
                                                     
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => IngresarEditarIngresoEgreso(
+                                                              int.parse(element[
+                                                                          "ing_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              int.parse(element[
+                                                                          "ing_monto"]
+                                                                      .toString())
+                                                                  as int,
+                                                              int.parse(element[
+                                                                          "ite_idingresoegreso"]
+                                                                      .toString())
+                                                                  as int,
+                                                              int.parse(element[
+                                                                          "fin_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              element[
+                                                                  "ing_descripcion"],
+                                                              element[
+                                                                  "ing_fecha"],
+                                                              lista_ingreso_egreso,lista_fincas)),
+                                                    );
                                                   },
                                                 ),
                                               ],
@@ -223,62 +216,6 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<dynamic> dialog(
-      BuildContext context, String mensaje, bool activar_acciones) {
-    return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        actions: [
-          activar_acciones
-              ? TextButton(
-                  onPressed: () async {
-
-                    Navigator.pop(context);
-                  },
-                  child: const Text('OK'))
-              : Container()
-        ],
-        content: Container(
-          width: 200,
-          height: 100,
-          child: Column(
-            children: [
-              Container(
-                height: 60,
-                width: 60,
-                child: activar_acciones == false
-                    ? CircularProgressIndicator(
-                        color: Colors.blue,
-                      )
-                    : Icon(
-                        Icons.warning_sharp,
-                        color: Colors.yellow,
-                        size: 70,
-                      ),
-              ),
-              Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          mensaje,
-                          style:
-                              TextStyle(color: Color.fromRGBO(76, 172, 230, 1)),
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
           ),
         ),
       ),

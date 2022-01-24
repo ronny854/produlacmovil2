@@ -168,7 +168,11 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                             _animales[index]['ani_codigo'],
                             _animales[index]['ani_sexo'],
                             _animales[index]['ani_raza'],
+<<<<<<< HEAD
                             _animales[index]['ite_id_nombre_etapa'].toString(),
+=======
+                            _animales[index]['ite_id_nombre_etapa'],
+>>>>>>> bd658e2672db41e53e723599bd4116814608e5fc
                             [_animales[index]]);
                       },
                     );
@@ -387,6 +391,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animales) {
+       
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,

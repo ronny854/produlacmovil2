@@ -1,17 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
+import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
+import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
 
-class VisualizarPersonas extends StatefulWidget {
+class VisualizarVacuna extends StatefulWidget {
   List datos;
 
-  VisualizarPersonas(this.datos);
+  VisualizarVacuna(this.datos);
   @override
-  _VisualizarPersonasState createState() => new _VisualizarPersonasState();
+  _VisualizarVacunaState createState() => new _VisualizarVacunaState();
 }
 
-class _VisualizarPersonasState extends State<VisualizarPersonas> {
+class _VisualizarVacunaState extends State<VisualizarVacuna> {
   TextEditingController buscar = new TextEditingController();
   List lista_datos = [];
   @override
@@ -26,7 +29,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('TABLA PERSONAS'),
+        title: Text('TABLA VACUNA'),
       ),
       body: Container(
         child: Padding(
@@ -55,9 +58,15 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['per_nombre']
+                          .where((element) => (element['vac_fecha']
                               .toLowerCase()
-                              .contains(value.toLowerCase()) || element["per_apellido"]
+                              .contains(value.toLowerCase())|| element['vac_vacuna']
+                              .toLowerCase()
+                              .contains(value.toLowerCase())||element['vac_enfermedad']
+                              .toLowerCase()
+                              .contains(value.toLowerCase())||element['vac_descripcion']
+                              .toLowerCase()
+                              .contains(value.toLowerCase())|| element["tbl_animal"]["ani_nombre"]
                               .toLowerCase()
                               .contains(value.toLowerCase())))
                           .toList();
@@ -74,7 +83,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                             columns: const <DataColumn>[
                               DataColumn(
                                 label: Text(
-                                  'Imagen Finca',
+                                  'Imagen',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -82,7 +91,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre Finca',
+                                  'Nombre animal',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -90,7 +99,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Imagen Persona',
+                                  'Fecha',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -98,7 +107,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre',
+                                  'vacuna',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -106,7 +115,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Apellido',
+                                  'enfermedad',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -114,52 +123,12 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Usuario',
+                                  'Descripción',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Cedula',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Correo',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Teléfono',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Dirección',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Rol',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
+                              ),                             
                               DataColumn(
                                 label: Text(
                                   'Acciones',
@@ -175,37 +144,52 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element['tbl_finca']["fin_imagen"]),
+                                                element["tbl_animal"]["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_finca"]["fin_nombre"])),
-                                          DataCell(CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                element['tbl_persona']["per_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_persona"]["per_nombre"])),
-                                          
-                                          DataCell(Text(element["tbl_persona"]["per_apellido"])),
+                                          DataCell(Text(element["tbl_animal"]["ani_nombre"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_usuario"])),
-                                          DataCell(Text(element["tbl_persona"]["per_cedula"])),
+                                              Text(element["vac_fecha"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_correo"])),
-                                          DataCell(Text(element["tbl_persona"]["per_telefono"])),
+                                              Text(element["vac_vacuna"])),
+                                          DataCell(Text(element["vac_enfermedad"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_direccion"])),
-                                          DataCell(
-                                              Text(element["tbl_rol"]["rol_nombre"])),
+                                              Text(element["vac_descripcion"])),                                        
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
-                                                  icon: Icon(Icons.delete_outline_outlined),
+                                                  icon: Icon(Icons.edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
-
-                                                    dialog(context, "Guardando Imagen", true);
-                                                    
+                                                    List lista = [];
+                                                    if(rol_id_usuario_logeado=="1"){
+                                                      lista = await listaAnimales();
+                                                    }else{
+                                                      lista = await listaAnimalesporfinca();
+                                                    }
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => IngresarEditarVacuna(
+                                                              int.parse(element[
+                                                                          "vac_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              element[
+                                                                  "vac_fecha"],
+                                                              int.parse(element[
+                                                                          "ani_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              element[
+                                                                  "vac_vacuna"],
+                                                              element[
+                                                                  "vac_enfermedad"],
+                                                              element[
+                                                                  "vac_descripcion"],
+                                                              lista)),
+                                                    );
                                                   },
                                                 ),
                                               ],
@@ -223,62 +207,6 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                 ),
               ],
             ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<dynamic> dialog(
-      BuildContext context, String mensaje, bool activar_acciones) {
-    return showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        actions: [
-          activar_acciones
-              ? TextButton(
-                  onPressed: () async {
-
-                    Navigator.pop(context);
-                  },
-                  child: const Text('OK'))
-              : Container()
-        ],
-        content: Container(
-          width: 200,
-          height: 100,
-          child: Column(
-            children: [
-              Container(
-                height: 60,
-                width: 60,
-                child: activar_acciones == false
-                    ? CircularProgressIndicator(
-                        color: Colors.blue,
-                      )
-                    : Icon(
-                        Icons.warning_sharp,
-                        color: Colors.yellow,
-                        size: 70,
-                      ),
-              ),
-              Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          mensaje,
-                          style:
-                              TextStyle(color: Color.fromRGBO(76, 172, 230, 1)),
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
           ),
         ),
       ),

@@ -1,17 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
+import 'package:produlacmovil/pages/partoaborto/ingresareditarparto.dart';
 
-class VisualizarPersonas extends StatefulWidget {
+class VisualizarParto extends StatefulWidget {
   List datos;
 
-  VisualizarPersonas(this.datos);
+  VisualizarParto(this.datos);
   @override
-  _VisualizarPersonasState createState() => new _VisualizarPersonasState();
+  _VisualizarPartoState createState() => new _VisualizarPartoState();
 }
 
-class _VisualizarPersonasState extends State<VisualizarPersonas> {
+class _VisualizarPartoState extends State<VisualizarParto> {
   TextEditingController buscar = new TextEditingController();
   List lista_datos = [];
   @override
@@ -26,7 +28,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('TABLA PERSONAS'),
+        title: Text('TABLA PARTOS'),
       ),
       body: Container(
         child: Padding(
@@ -55,11 +57,18 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['per_nombre']
-                              .toLowerCase()
-                              .contains(value.toLowerCase()) || element["per_apellido"]
-                              .toLowerCase()
-                              .contains(value.toLowerCase())))
+                          .where((element) => (element['animalhijo_ani_nombre']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["animalmadre_ani_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["par_descripcion"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["par_fecha"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase())))
                           .toList();
                     });
                   },
@@ -74,7 +83,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                             columns: const <DataColumn>[
                               DataColumn(
                                 label: Text(
-                                  'Imagen Finca',
+                                  'Fecha',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -82,7 +91,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre Finca',
+                                  'Nombre Madre',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -90,7 +99,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Imagen Persona',
+                                  'Nombre Hijo',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -98,63 +107,7 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Apellido',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Usuario',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Cedula',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Correo',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Teléfono',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Dirección',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
-                              DataColumn(
-                                label: Text(
-                                  'Rol',
+                                  'Descripción',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -173,39 +126,46 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                                 .map(
                                   ((element) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                element['tbl_finca']["fin_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_finca"]["fin_nombre"])),
-                                          DataCell(CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                element['tbl_persona']["per_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_persona"]["per_nombre"])),
-                                          
-                                          DataCell(Text(element["tbl_persona"]["per_apellido"])),
+                                          DataCell(Text(element["par_fecha"])),
+                                          DataCell(Text(element[
+                                              "animalmadre_ani_nombre"])),
+                                          DataCell(Text(element[
+                                              "animalhijo_ani_nombre"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_usuario"])),
-                                          DataCell(Text(element["tbl_persona"]["per_cedula"])),
-                                          DataCell(
-                                              Text(element["tbl_persona"]["per_correo"])),
-                                          DataCell(Text(element["tbl_persona"]["per_telefono"])),
-                                          DataCell(
-                                              Text(element["tbl_persona"]["per_direccion"])),
-                                          DataCell(
-                                              Text(element["tbl_rol"]["rol_nombre"])),
+                                              Text(element["par_descripcion"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
-                                                  icon: Icon(Icons.delete_outline_outlined),
+                                                  icon: Icon(Icons
+                                                      .delete_outline_outlined),
                                                   iconSize: 30.0,
                                                   color: Colors.red,
                                                   onPressed: () async {
 
-                                                    dialog(context, "Guardando Imagen", true);
                                                     
+                                                    List lista = [];
+                                                    if(rol_id_usuario_logeado=="1"){
+                                                      lista = await listaAnimales();
+                                                    }else{
+                                                      lista = await listaAnimalesporfinca();
+                                                    }
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => IngresarEditarParto(
+                                                              int.parse(element[
+                                                                          "par_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              element[
+                                                                  "par_fecha"],
+                                                              element[
+                                                                  "ani_idmadre"],
+                                                              element[
+                                                                  "ani_idhijo"],
+                                                              lista)),
+                                                    );
                                                   },
                                                 ),
                                               ],
@@ -239,7 +199,6 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
           activar_acciones
               ? TextButton(
                   onPressed: () async {
-
                     Navigator.pop(context);
                   },
                   child: const Text('OK'))

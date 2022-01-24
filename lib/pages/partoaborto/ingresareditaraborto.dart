@@ -9,17 +9,11 @@ class IngresarEditarAborto extends StatefulWidget {
   int abo_id;
   String fecha;
   String ani_id_madre;
-  // String ani_id_hijo;
-  String ite_id_parto_aborto_viejo;
-  List lista_parto_aborto;
   List lista_animales;
   IngresarEditarAborto(
       this.abo_id,
       this.fecha,
       this.ani_id_madre,
-      // this.ani_id_hijo,
-      this.ite_id_parto_aborto_viejo,
-      this.lista_parto_aborto,
       this.lista_animales);
   @override
   _IngresarEditarAbortoState createState() => _IngresarEditarAbortoState();
@@ -50,9 +44,6 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
     if (widget.lista_animales.length >= 1) {
       ani_id_hijo = widget.lista_animales[0]['ani_id'].toString();
     }
-    if (widget.lista_parto_aborto.length >= 1) {
-      ite_id_parto_aborto = widget.lista_parto_aborto[0]['ite_id'].toString();
-    }
 
     if (widget.fecha != "") {
       selectedDate = DateTime.parse(widget.fecha);
@@ -60,7 +51,6 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
 
     if (widget.abo_id != 0) {
       ani_id_madre = widget.ani_id_madre;
-      ite_id_parto_aborto = widget.ite_id_parto_aborto_viejo;
     }
   }
 
