@@ -1,163 +1,287 @@
-import 'dart:core';
-import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'package:syncfusion_flutter_datagrid_export/export.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart'
-    hide Alignment, Column, Row, Border;
+import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
 
-class PersonaView extends StatefulWidget {
-  PersonaView({Key? key}) : super(key: key);
+class VisualizarPersonas extends StatefulWidget {
+  List datos;
 
+  VisualizarPersonas(this.datos);
   @override
-  _PersonaViewState createState() => _PersonaViewState();
+  _VisualizarPersonasState createState() => new _VisualizarPersonasState();
 }
 
-class _PersonaViewState extends State<PersonaView> {
-  List<Employee> _employees = <Employee>[];
-  late EmployeeDataSource _employeeDataSource;
-  final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
-  @override
+class _VisualizarPersonasState extends State<VisualizarPersonas> {
+  TextEditingController buscar = new TextEditingController();
+  List lista_datos = [];
   @override
   void initState() {
+    lista_datos = widget.datos;
     super.initState();
-    _employees = _getEmployeeData();
-    _employeeDataSource = EmployeeDataSource(employeeData: _employees);
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // ignore: unnecessary_new
+    return new Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        //automaticallyImplyLeading: false,
-        toolbarOpacity: 0.7,
-        backgroundColor: Colors.blue[400],
-        title: const Text('Lista de Usuarios'),
+        title: Text('TABLA PERSONAS'),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: SfDataGrid(
-              key: _key,
-              source: _employeeDataSource,
-              columns: <GridColumn>[
-                GridColumn(
-                    columnName: 'ID',
-                    label: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'ID',
-                        ))),
-                GridColumn(
-                    columnName: 'Name',
-                    label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Name'))),
-                GridColumn(
-                    columnName: 'Designation',
-                    label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Designation',
-                          overflow: TextOverflow.ellipsis,
-                        ))),
-                GridColumn(
-                    columnName: 'Salary',
-                    label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('Salary'))),
-                GridColumn(
-                    columnName: 'opciones',
-                    label: Container(
-                        padding: const EdgeInsets.all(8.0),
-                        alignment: Alignment.center,
-                        child: const Text('opciones'))),
+      body: Container(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Container(
+            child: ListView(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      'BUSCAR',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                TextField(
+                  controller: buscar,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30)),
+                      fillColor: Colors.grey,
+                      suffixIcon: Icon(Icons.search),
+                      hintText: "BUSCAR",
+                      hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+                  onChanged: (value) {
+                    setState(() {
+                      lista_datos = widget.datos
+                          .where((element) => (element['per_nombre']
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) || element["per_apellido"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase())))
+                          .toList();
+                    });
+                  },
+                ),
+                Row(
+                  children: <Widget>[
+                    Container(
+                      child: Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            columns: const <DataColumn>[
+                              DataColumn(
+                                label: Text(
+                                  'Imagen Finca',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nombre Finca',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Imagen Persona',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Nombre',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Apellido',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Usuario',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Cedula',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Correo',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Teléfono',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Dirección',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Rol',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Acciones',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                            ],
+                            rows: lista_datos
+                                .map(
+                                  ((element) => DataRow(
+                                        cells: <DataCell>[
+                                          DataCell(CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                element['tbl_finca']["fin_imagen"]),
+                                          )),
+                                          DataCell(Text(element["tbl_finca"]["fin_nombre"])),
+                                          DataCell(CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                element['tbl_persona']["per_imagen"]),
+                                          )),
+                                          DataCell(Text(element["tbl_persona"]["per_nombre"])),
+                                          
+                                          DataCell(Text(element["tbl_persona"]["per_apellido"])),
+                                          DataCell(
+                                              Text(element["tbl_persona"]["per_usuario"])),
+                                          DataCell(Text(element["tbl_persona"]["per_cedula"])),
+                                          DataCell(
+                                              Text(element["tbl_persona"]["per_correo"])),
+                                          DataCell(Text(element["tbl_persona"]["per_telefono"])),
+                                          DataCell(
+                                              Text(element["tbl_persona"]["per_direccion"])),
+                                          DataCell(
+                                              Text(element["tbl_rol"]["rol_nombre"])),
+                                          DataCell(
+                                            Row(
+                                              children: <Widget>[
+                                                IconButton(
+                                                  icon: Icon(Icons.delete_outline_outlined),
+                                                  iconSize: 30.0,
+                                                  color: Colors.red,
+                                                  onPressed: () async {
+
+                                                    dialog(context, "Guardando Imagen", false);
+                                                    
+                                                  },
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 
-  List<Employee> _getEmployeeData() {
-    return <Employee>[
-      Employee(10001, 'James', 'Project Lead', 20000),
-      Employee(10002, 'Kathryn', 'Manager', 30000),
-      Employee(10003, 'Lara', 'Developer', 15000),
-      Employee(10004, 'Michael', 'Designer', 15000),
-      Employee(10005, 'Martin', 'Developer', 15000),
-      Employee(10006, 'Newberry', 'Developer', 15000),
-      Employee(10007, 'Balnc', 'Developer', 15000),
-      Employee(10008, 'Perry', 'Developer', 15000),
-      Employee(10009, 'Gable', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000),
-      Employee(10010, 'Grimes', 'Developer', 15000),
-    ];
-  }
-}
+  Future<dynamic> dialog(
+      BuildContext context, String mensaje, bool activar_acciones) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        actions: [
+          activar_acciones
+              ? TextButton(
+                  onPressed: () async {
 
-class Employee {
-  /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
-
-  /// Id of an employee.
-  final int id;
-
-  /// Name of an employee.
-  final String name;
-
-  /// Designation of an employee.
-  final String designation;
-
-  /// Salary of an employee.
-  final int salary;
-}
-
-class EmployeeDataSource extends DataGridSource {
-  /// Creates the employee data source class with required details.
-  EmployeeDataSource({required List<Employee> employeeData}) {
-    _employeeData = employeeData
-        .map<DataGridRow>((Employee e) => DataGridRow(cells: <DataGridCell>[
-              DataGridCell<int>(columnName: 'ID', value: e.id),
-              DataGridCell<String>(columnName: 'Name', value: e.name),
-              DataGridCell<String>(
-                  columnName: 'Designation', value: e.designation),
-              DataGridCell<int>(columnName: 'Salary', value: e.salary),
-              DataGridCell<MaterialButton>(
-                  columnName: "opciones",
-                  value: MaterialButton(
-                    child: Text('editar'),
-                    onPressed: () {
-                      print('esta editando');
-                    },
-                  )),
-            ]))
-        .toList();
-  }
-
-  List<DataGridRow> _employeeData = <DataGridRow>[];
-
-  @override
-  List<DataGridRow> get rows => _employeeData;
-
-  @override
-  DataGridRowAdapter buildRow(DataGridRow row) {
-    return DataGridRowAdapter(
-        cells: row.getCells().map<Widget>((DataGridCell cell) {
-      return Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(8.0),
-        child: Text(cell.value.toString()),
-      );
-    }).toList());
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'))
+              : Container()
+        ],
+        content: Container(
+          width: 200,
+          height: 100,
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                width: 60,
+                child: activar_acciones == false
+                    ? CircularProgressIndicator(
+                        color: Colors.blue,
+                      )
+                    : Icon(
+                        Icons.warning_sharp,
+                        color: Colors.yellow,
+                        size: 70,
+                      ),
+              ),
+              Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          mensaje,
+                          style:
+                              TextStyle(color: Color.fromRGBO(76, 172, 230, 1)),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

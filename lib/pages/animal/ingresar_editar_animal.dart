@@ -21,17 +21,18 @@ class IngresarEditarAnimal extends StatefulWidget {
   String ani_fecha_nacimiento;
   String ani_imagen;
   String ani_raza;
-  String ani_etapa;
+  String ite_idetapa;
   int ani_idpadre;
   int ani_idmadre;
   String ani_pesonacer;
-  int ite_esp_animal;
+  int ite_idespecie;
   int fin_id;
   int ite_idtipoestado;
   List lista_animales;
   List lista_especie_animal;
   List lista_fincas;
   List list_tipo_estado;
+  List lista_etapa;
   //
 
   IngresarEditarAnimal(
@@ -42,17 +43,18 @@ class IngresarEditarAnimal extends StatefulWidget {
       this.ani_fecha_nacimiento,
       this.ani_imagen,
       this.ani_raza,
-      this.ani_etapa,
+      this.ite_idetapa,
       this.ani_idpadre,
       this.ani_idmadre,
       this.ani_pesonacer,
-      this.ite_esp_animal,
+      this.ite_idespecie,
       this.fin_id,
       this.ite_idtipoestado,
       this.lista_animales,
       this.lista_especie_animal,
       this.lista_fincas, //TRAER LAS FINCAS SEGUN EL PER_ID
-      this.list_tipo_estado);
+      this.list_tipo_estado,
+      this.lista_etapa);
   @override
   _IngresarEditarAnimalState createState() => _IngresarEditarAnimalState();
 }
@@ -64,7 +66,6 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
 
   // TextEditigController imagen = new TextEditingController();
   TextEditingController raza = TextEditingController();
-  TextEditingController etapa = TextEditingController();
   TextEditingController idpadre = TextEditingController();
   TextEditingController idmadre = TextEditingController();
 
@@ -81,9 +82,10 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
 
   String select_ani_id_padre = "";
   String select_ani_id_madre = "";
-  String select_ite_especie_animal = "";
+  String select_ite_idespecie = "";
   String select_fin_id = "";
   String select_ite_tipo_estado = "";
+  String select_ite_idetapa = "";
 
   String nueva_url = "";
 
@@ -106,19 +108,19 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
       nombre.text = widget.ani_nombre;
       select_Sexo = widget.ani_sexo;
       raza.text = widget.ani_raza;
-      etapa.text = widget.ani_etapa;
       peso_nacer.text = widget.ani_pesonacer;
-      id_especie.text = widget.ite_esp_animal.toString();
       id_finca.text = widget.fin_id.toString();
       id_tipo_estado.text = widget.ite_idtipoestado.toString();
 
       select_ani_id_padre = widget.ani_idpadre.toString();
       select_ani_id_madre = widget.ani_idmadre.toString();
 
-      select_ite_especie_animal = widget.ite_esp_animal.toString();
+      select_ite_idespecie = widget.ite_idespecie.toString();
       select_fin_id = widget.fin_id.toString();
 
       select_ite_tipo_estado = widget.ite_idtipoestado.toString();
+
+      select_ite_idetapa=widget.ite_idetapa.toString();
 
       if (widget.ani_fecha_nacimiento != "") {
         selectedDate = DateTime.parse(widget.ani_fecha_nacimiento);
@@ -130,8 +132,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
       }
 
       if (widget.lista_especie_animal.length >= 1) {
-        select_ite_especie_animal =
-            widget.lista_especie_animal[0]['esp_id'].toString();
+        select_ite_idespecie =
+            widget.lista_especie_animal[0]['ite_id'].toString();
       }
       if (widget.lista_fincas.length >= 1) {
         select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
@@ -139,6 +141,9 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
       if (widget.list_tipo_estado.length >= 1) {
         select_ite_tipo_estado =
             widget.list_tipo_estado[0]['ite_id'].toString();
+      }
+      if(widget.lista_etapa.length>=1){
+        select_ite_idetapa=widget.lista_etapa[0]['ite_id'].toString();
       }
     }
   }
@@ -312,8 +317,53 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                           ),
                           buildTextField(
                               Icons.recommend, "Raza", false, false, raza),
-                          buildTextField(
-                              Icons.timeline, "Etapa", false, false, etapa),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_ite_idetapa,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_ite_idetapa = newValue!;
+                                  });
+                                },
+                                items: widget.lista_etapa.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value['ite_id'].toString(),
+                                    child: Text(value['ite_nombre'].toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -437,7 +487,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 30),
                               child: DropdownButton<String>(
-                                value: select_ite_especie_animal,
+                                value: select_ite_idespecie,
                                 icon: const Icon(Icons.arrow_downward),
                                 isExpanded: true,
                                 elevation: 16,
@@ -448,13 +498,13 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                                     Color.fromRGBO(76, 172, 230, 1),
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                    select_ite_especie_animal = newValue!;
+                                    select_ite_idespecie = newValue!;
                                   });
                                 },
                                 items: widget.lista_especie_animal.map((value) {
                                   return DropdownMenuItem<String>(
-                                    value: value['esp_id'].toString(),
-                                    child: Text(value['esp_nombre'].toString()),
+                                    value: value['ite_id'].toString(),
+                                    child: Text(value['ite_nombre'].toString()),
                                   );
                                 }).toList(),
                               ),
@@ -626,7 +676,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
     if (nombre.text == "" &&
         _selectedDate_a_enviar == "" &&
         raza.text == "" &&
-        etapa.text == "" &&
+        select_ite_idetapa == "" &&
         peso_nacer.text == "" &&
         codigo.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
@@ -654,11 +704,11 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
         "ani_fechanacimiento": _selectedDate_a_enviar,
         "ani_imagen": nueva_url,
         "ani_raza": raza.text,
-        "ani_etapa": etapa.text,
+        "ite_idetapa": select_ite_idetapa,
         "ani_idpadre": select_ani_id_padre,
         "ani_idmadre": select_ani_id_madre,
         "ani_pesonacer": peso_nacer.text,
-        "esp_id": select_ite_especie_animal,
+        "ite_idespecie": select_ite_idespecie,
         "fin_id": select_fin_id,
         "ite_idtipoestado": select_ite_tipo_estado
       });
