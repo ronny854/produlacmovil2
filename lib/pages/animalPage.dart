@@ -147,7 +147,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               height: queryData.size.height - 200,
               width: queryData.size.width,
               child: FutureBuilder(
-                future: rol_id_usuario_logeado=="1" ?  listaAnimales():listaAnimalesporfinca(),
+                future: rol_id_usuario_logeado == "1"
+                    ? listaAnimales()
+                    : listaAnimalesporfinca(),
                 builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                   var _animales = snapshot.data;
 
@@ -166,7 +168,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                             _animales[index]['ani_codigo'],
                             _animales[index]['ani_sexo'],
                             _animales[index]['ani_raza'],
-                            _animales[index]['ani_etapa'],
+                            _animales[index]['ite_id_nombre_etapa'].toString(),
                             [_animales[index]]);
                       },
                     );
@@ -201,7 +203,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_animales = await listaAnimales();
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
-    List lista_etapa=await getEtapaAnimal();
+    List lista_etapa = await getEtapaAnimal();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -223,7 +225,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             lista_animales,
             lista_especie_animal,
             lista_fincas_per_id,
-            lista_tipo_estado,lista_etapa),
+            lista_tipo_estado,
+            lista_etapa),
       ),
     );
   }
@@ -347,11 +350,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) {
-        Navigator.pushNamed(
-      context,
-      ruta,
-      arguments: animalesLista
-    );
+        Navigator.pushNamed(context, ruta, arguments: animalesLista);
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -359,7 +358,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       label: textItem,
     );
   }
-  
 
   SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
@@ -401,13 +399,13 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             animales[0]['ani_fechanacimiento'],
             animales[0]['ani_imagen'],
             animales[0]['ani_raza'],
-            animales[0]['ani_etapa'],
-            animales[0]['ani_idpadre'],
-            animales[0]['ani_idmadre'],
+            animales[0]['ite_id_etapa'].toString(),
+            animales[0]['ani_id_padre'],
+            animales[0]['ani_id_madre'],
             animales[0]['ani_pesonacer'],
-            animales[0]['esp_id'],
+            animales[0]['ite_id_especie'],
             animales[0]['fin_id'],
-            animales[0]['ite_idtipoestado']);
+            animales[0]['ite_id_tipo_estado']);
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -480,7 +478,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 }
 
-class PageArguments{
+class PageArguments {
   final int id;
   final String title;
   PageArguments({required this.id, required this.title});

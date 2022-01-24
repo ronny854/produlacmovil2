@@ -102,7 +102,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
   @override
   void initState() {
     super.initState();
-
+    print(widget.lista_etapa);
+    print(widget.ite_idetapa);
     if (widget.ani_id != 0) {
       codigo.text = widget.ani_codigo;
       nombre.text = widget.ani_nombre;
@@ -120,7 +121,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
 
       select_ite_tipo_estado = widget.ite_idtipoestado.toString();
 
-      select_ite_idetapa=widget.ite_idetapa.toString();
+      select_ite_idetapa = widget.ite_idetapa.toString();
 
       if (widget.ani_fecha_nacimiento != "") {
         selectedDate = DateTime.parse(widget.ani_fecha_nacimiento);
@@ -142,8 +143,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
         select_ite_tipo_estado =
             widget.list_tipo_estado[0]['ite_id'].toString();
       }
-      if(widget.lista_etapa.length>=1){
-        select_ite_idetapa=widget.lista_etapa[0]['ite_id'].toString();
+      if (widget.lista_etapa.length >= 1) {
+        select_ite_idetapa = widget.lista_etapa[0]['ite_id'].toString();
       }
     }
   }
@@ -317,7 +318,6 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                           ),
                           buildTextField(
                               Icons.recommend, "Raza", false, false, raza),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -363,7 +363,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                                 }).toList(),
                               ),
                             ),
-                          ),                          
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
