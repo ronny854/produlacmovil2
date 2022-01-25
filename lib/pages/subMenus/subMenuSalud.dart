@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
 import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
+import 'package:produlacmovil/pages/views/tratamientoView.dart';
 
 import '../../listas.dart';
 
@@ -91,8 +92,9 @@ class GridDashboard extends StatelessWidget {
                 //Navigator.pushNamed(context, data.ruta);
                 //print('enviar a ruta ' + data.ruta);
                 // ignore: non_constant_identifier_names
-                List<dynamic> lista_animales = await listaAnimales();
                 if (data.ruta == 'tratamiento') {
+                  List<dynamic> lista_animales = await listaAnimales();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -108,6 +110,7 @@ class GridDashboard extends StatelessWidget {
                     ),
                   );
                 } else if (data.ruta == 'vacunar') {
+                  List<dynamic> lista_animales = await listaAnimales();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -121,6 +124,17 @@ class GridDashboard extends StatelessWidget {
                           lista_animales),
                     ),
                   );
+                } else if (data.ruta == 'verTratamiento') {
+                  List lista_tratamientos = await getTratamientoPorAnimal(
+                      animalesLista[0]['ani_id'].toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VisualizarTratamiento(lista_tratamientos)));
+                } else if (data.ruta == 'verVacunas') {
+                  List lista_vacunas = await getVacunaPorAnimal(
+                      animalesLista[0]['ani_id'].toString());
                 }
               },
               child: Container(

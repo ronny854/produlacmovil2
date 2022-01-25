@@ -4,7 +4,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/venta/ingresar_editar_venta.dart';
+import 'package:produlacmovil/pages/views/ventasView.dart';
 
 import '../../listas.dart';
 
@@ -49,7 +51,7 @@ class GridDashboard extends StatelessWidget {
   Items item2 = Items(
     title: "Ver ventas",
     img: "assets/images/registrado.png",
-    ruta: 'vacunar',
+    ruta: 'verVentas',
   );
   /* Items item3 = Items(
     title: "Deceso",
@@ -96,7 +98,16 @@ class GridDashboard extends StatelessWidget {
                           0, 0, '', 0, '', '', '', '', '', lista_animales),
                     ),
                   );
-                } /* else if (data.ruta == 'vacunar') {
+                } else if (data.ruta == 'verVentas') {
+                  List<dynamic> lista_ventas =
+                      await getVentasPorFinca(fin_id_usuario_logeado);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VisualizarVentas(lista_ventas)));
+                }
+                /* else if (data.ruta == 'vacunar') {
                   Navigator.push(
                     context,
                     MaterialPageRoute(

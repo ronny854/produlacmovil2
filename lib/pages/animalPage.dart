@@ -147,7 +147,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               height: queryData.size.height - 200,
               width: queryData.size.width,
               child: FutureBuilder(
-                future: rol_id_usuario_logeado=="1" ?  listaAnimales():listaAnimalesporfinca(),
+                future: rol_id_usuario_logeado == "1"
+                    ? listaAnimales()
+                    : listaAnimalesporfinca(),
                 builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
                   var _animales = snapshot.data;
 
@@ -201,7 +203,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_animales = await listaAnimales();
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
-    List lista_etapa=await getEtapaAnimal();
+    List lista_etapa = await getEtapaAnimal();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -223,7 +225,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             lista_animales,
             lista_especie_animal,
             lista_fincas_per_id,
-            lista_tipo_estado,lista_etapa),
+            lista_tipo_estado,
+            lista_etapa),
       ),
     );
   }
@@ -347,11 +350,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       // An action can be bigger than the others.
       flex: 1,
       onPressed: (context) {
-        Navigator.pushNamed(
-      context,
-      ruta,
-      arguments: animalesLista
-    );
+        Navigator.pushNamed(context, ruta, arguments: animalesLista);
       },
       backgroundColor: colorFondo,
       foregroundColor: colorTexto,
@@ -359,7 +358,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       label: textItem,
     );
   }
-  
 
   SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
@@ -389,7 +387,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animales) {
-       
     return SlidableAction(
       // An action can be bigger than the others.
       flex: 1,
@@ -481,7 +478,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 }
 
-class PageArguments{
+class PageArguments {
   final int id;
   final String title;
   PageArguments({required this.id, required this.title});

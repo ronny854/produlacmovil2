@@ -25,8 +25,8 @@ Future<List<dynamic>> listaTipoEstado() async {
 }
 
 Future<List<dynamic>> listaEspecieAnimal() async {
-  List lista_especie_animal =
-      await controller_general.httpgeneral(ip_server + "items/categoria/7", "GET", "");
+  List lista_especie_animal = await controller_general.httpgeneral(
+      ip_server + "items/categoria/7", "GET", "");
   return lista_especie_animal;
 }
 
@@ -35,9 +35,10 @@ Future<List<dynamic>> listaAnimales() async {
       await controller_general.httpgeneral(ip_server + "animales", "GET", "");
   return lista_animales;
 }
+
 Future<List<dynamic>> listaAnimalesporfinca() async {
-  List lista_animales =
-      await controller_general.httpgeneral(ip_server + "animales/finca/"+fin_id_usuario_logeado, "GET", "");
+  List lista_animales = await controller_general.httpgeneral(
+      ip_server + "animales/finca/" + fin_id_usuario_logeado, "GET", "");
   return lista_animales;
 }
 
@@ -136,5 +137,23 @@ Future<List<dynamic>> getAbortoporanimal(String ani_id) async {
 Future<List<dynamic>> getDecesoporFinca(String fin_id) async {
   List lista = await controller_general.httpgeneral(
       ip_server + ""+fin_id, "GET", "");
+      return lista;
+}
+
+Future<List<dynamic>> getTratamientoPorAnimal(String ani_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "tratamientos/animal/$ani_id", "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getVacunaPorAnimal(String ani_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "vacunas/animal/$ani_id", "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getVentasPorFinca(String fin_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "ventas/finca/$fin_id", "GET", "");
   return lista;
 }
