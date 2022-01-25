@@ -10,7 +10,8 @@ class VisualizarTratamiento extends StatefulWidget {
 
   VisualizarTratamiento(this.datos);
   @override
-  _VisualizarTratamientoState createState() => new _VisualizarTratamientoState();
+  _VisualizarTratamientoState createState() =>
+      new _VisualizarTratamientoState();
 }
 
 class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
@@ -58,20 +59,26 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                     setState(() {
                       lista_datos = widget.datos
                           .where((element) => (element['tra_fecha']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())|| element['tra_descripcion']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['tra_diastratamiento']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['tra_medicamento']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['tra_diagnostico']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['fin_nombre']
-                              .toLowerCase()
-                              .contains(value.toLowerCase()) || element["tbl_animal"]["ani_nombre"]
-                              .toLowerCase()
-                              .contains(value.toLowerCase())))
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['tra_descripcion']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['tra_diastratamiento']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['tra_medicamento']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['tra_diagnostico']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['fin_nombre']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["tbl_animale"]["ani_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase())))
                           .toList();
                     });
                   },
@@ -139,7 +146,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                              ),                              
+                              ),
                               DataColumn(
                                 label: Text(
                                   'Acciones',
@@ -155,17 +162,20 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element["tbl_animal"]["ani_imagen"]),
+                                                element["tbl_animal"]
+                                                    ["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_animal"]["ani_nombre"])),
-                                          DataCell(
-                                              Text(element["tra_fecha"])),
+                                          DataCell(Text(element["tbl_animal"]
+                                              ["ani_nombre"])),
+                                          DataCell(Text(element["tra_fecha"])),
                                           DataCell(
                                               Text(element["tra_diagnostico"])),
-                                          DataCell(Text(element["tra_medicamento"])),
                                           DataCell(
-                                              Text(element["tra_diastratamiento"])),
-                                          DataCell(Text(element["tra_descripcion"])),                                          
+                                              Text(element["tra_medicamento"])),
+                                          DataCell(Text(
+                                              element["tra_diastratamiento"])),
+                                          DataCell(
+                                              Text(element["tra_descripcion"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
@@ -175,17 +185,19 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                                                   color: Colors.blue,
                                                   onPressed: () async {
                                                     List lista = [];
-                                                    if(rol_id_usuario_logeado=="1"){
-                                                      lista = await listaAnimales();
-                                                    }else{
-                                                      lista = await listaAnimalesporfinca();
+                                                    if (rol_id_usuario_logeado ==
+                                                        "1") {
+                                                      lista =
+                                                          await listaAnimales();
+                                                    } else {
+                                                      lista =
+                                                          await listaAnimalesporfinca();
                                                     }
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (_) => IngresarEditarTratamiento(
-                                                              int.parse(element[
-                                                                          "tra_id"]
+                                                              int.parse(element["tra_id"]
                                                                       .toString())
                                                                   as int,
                                                               element[

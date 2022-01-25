@@ -59,16 +59,20 @@ class _VisualizarVacunaState extends State<VisualizarVacuna> {
                     setState(() {
                       lista_datos = widget.datos
                           .where((element) => (element['vac_fecha']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())|| element['vac_vacuna']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['vac_enfermedad']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())||element['vac_descripcion']
-                              .toLowerCase()
-                              .contains(value.toLowerCase())|| element["tbl_animal"]["ani_nombre"]
-                              .toLowerCase()
-                              .contains(value.toLowerCase())))
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['vac_vacuna']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['vac_enfermedad']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element['vac_descripcion']
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["tbl_animale"]["ani_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase())))
                           .toList();
                     });
                   },
@@ -128,7 +132,7 @@ class _VisualizarVacunaState extends State<VisualizarVacuna> {
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
-                              ),                             
+                              ),
                               DataColumn(
                                 label: Text(
                                   'Acciones',
@@ -144,16 +148,17 @@ class _VisualizarVacunaState extends State<VisualizarVacuna> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element["tbl_animal"]["ani_imagen"]),
+                                                element["tbl_animal"]
+                                                    ["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_animal"]["ani_nombre"])),
+                                          DataCell(Text(element["tbl_animal"]
+                                              ["ani_nombre"])),
+                                          DataCell(Text(element["vac_fecha"])),
+                                          DataCell(Text(element["vac_vacuna"])),
                                           DataCell(
-                                              Text(element["vac_fecha"])),
+                                              Text(element["vac_enfermedad"])),
                                           DataCell(
-                                              Text(element["vac_vacuna"])),
-                                          DataCell(Text(element["vac_enfermedad"])),
-                                          DataCell(
-                                              Text(element["vac_descripcion"])),                                        
+                                              Text(element["vac_descripcion"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
@@ -163,17 +168,19 @@ class _VisualizarVacunaState extends State<VisualizarVacuna> {
                                                   color: Colors.blue,
                                                   onPressed: () async {
                                                     List lista = [];
-                                                    if(rol_id_usuario_logeado=="1"){
-                                                      lista = await listaAnimales();
-                                                    }else{
-                                                      lista = await listaAnimalesporfinca();
+                                                    if (rol_id_usuario_logeado ==
+                                                        "1") {
+                                                      lista =
+                                                          await listaAnimales();
+                                                    } else {
+                                                      lista =
+                                                          await listaAnimalesporfinca();
                                                     }
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (_) => IngresarEditarVacuna(
-                                                              int.parse(element[
-                                                                          "vac_id"]
+                                                              int.parse(element["vac_id"]
                                                                       .toString())
                                                                   as int,
                                                               element[

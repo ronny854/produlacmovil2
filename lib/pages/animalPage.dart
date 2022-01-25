@@ -143,40 +143,37 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                //height: queryData.size.height - 200,
-                width: queryData.size.width,
-                child: FutureBuilder(
-                  future: rol_id_usuario_logeado == "1"
-                      ? listaAnimales()
-                      : listaAnimalesporfinca(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<List> snapshot) {
-                    var _animales = snapshot.data;
+            Container(
+              height: queryData.size.height - 200,
+              width: queryData.size.width,
+              child: FutureBuilder(
+                future: rol_id_usuario_logeado == "1"
+                    ? listaAnimales()
+                    : listaAnimalesporfinca(),
+                builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+                  var _animales = snapshot.data;
 
-                    if (!snapshot.hasData) {
-                      return Container(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return ListView.builder(
-                        itemCount: _animales?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return animalItemWidget(
-                              queryData,
-                              _animales![index]['ani_imagen'],
-                              _animales[index]['ani_nombre'],
-                              _animales[index]['ani_codigo'],
-                              _animales[index]['ani_sexo'],
-                              _animales[index]['ani_raza'],
-                              _animales[index]['ite_id_nombre_etapa'],
-                              [_animales[index]]);
-                        },
-                      );
-                    }
-                  },
-                ),
+                  if (!snapshot.hasData) {
+                    return Container(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: _animales?.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return animalItemWidget(
+                            queryData,
+                            _animales![index]['ani_imagen'],
+                            _animales[index]['ani_nombre'],
+                            _animales[index]['ani_codigo'],
+                            _animales[index]['ani_sexo'],
+                            _animales[index]['ani_raza'],
+                            _animales[index]['ite_id_nombre_etapa'],
+                            [_animales[index]]);
+                      },
+                    );
+                  }
+                },
               ),
             ),
           ],
@@ -207,7 +204,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
