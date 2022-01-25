@@ -5,10 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/catalogo/ingresar_editar_catalogo.dart';
+import 'package:produlacmovil/pages/deceso/ingresar_editar_deceso.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
 import 'package:produlacmovil/pages/fincapersona/ingresar_editar_finca_persona.dart';
 import 'package:produlacmovil/pages/item/insertar_actualizar_item.dart';
 import 'package:produlacmovil/pages/persona/ingresar_editar_persona.dart';
+import 'package:produlacmovil/pages/views/catalogoView.dart';
+import 'package:produlacmovil/pages/views/decesoView.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
 
 class SubMenuAdministrar extends StatefulWidget {
@@ -79,10 +82,32 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/todo.png",
     ruta: 'Agregarfincaspersona',
   );
-  /* Items item6 = Items(
-    title: "Settings",
-    img: "assets/images/setting.png",
-  ); */
+
+   Items item8 = Items(
+    title: "Deceso",
+    img: "assets/images/map.png",
+    ruta: 'deceso',
+  );
+
+  Items item9 = Items(
+    title: "Ver Decesos",
+    img: "assets/images/festival.png",
+    ruta: 'verDeceso',
+  );
+
+  Items item10 = Items(
+    title: "Ver Catalogo",
+    img: "assets/images/festival.png",
+    ruta: 'verCatalogo',
+  );
+
+  Items item11 = Items(
+    title: "Ver Item",
+    img: "assets/images/festival.png",
+    ruta: 'verItemCatalogo',
+  );
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -124,9 +149,6 @@ class GridDashboard extends StatelessWidget {
                   //Aqui hacer el navigator
 
                 }
-
-
-
 
                 if(data.ruta=="AgregarCatalogo"){
                   Navigator.push(
@@ -178,6 +200,39 @@ class GridDashboard extends StatelessWidget {
                       builder: (_) => IngresarEditarFincaPersona(0,0,0,fincas,lista_personas),
                     ),
                   );
+                }
+
+                if (data.ruta == 'deceso') {
+                  List<dynamic> lista_animales = await listaAnimales();
+                  print('ruta');
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => IngresarEditarDeceso(
+                              0, 0, '', '', '', lista_animales)));
+                }
+
+                if(data.ruta=="verDeceso"){//FALTA TERMINAR
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarDeceso([])));
+
+                }
+
+                if(data.ruta=="verCatalogo"){
+                  List lista = await getTodosCatalogos();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarCatalogo(lista)));
+                }
+                if(data.ruta=="verItemCatalogo"){
+                  List lista = await getTodosCatalogos();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarCatalogo(lista)));
                 }
 
                 

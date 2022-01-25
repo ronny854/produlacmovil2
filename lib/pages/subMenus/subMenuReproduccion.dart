@@ -9,6 +9,10 @@ import 'package:produlacmovil/pages/deceso/ingresar_editar_deceso.dart';
 import 'package:produlacmovil/pages/inseminacion/ingresar_editar_inseminacion.dart';
 import 'package:produlacmovil/pages/partoaborto/ingresareditaraborto.dart';
 import 'package:produlacmovil/pages/partoaborto/ingresareditarparto.dart';
+import 'package:produlacmovil/pages/views/abortoView.dart';
+import 'package:produlacmovil/pages/views/decesoView.dart';
+import 'package:produlacmovil/pages/views/inseminacionView.dart';
+import 'package:produlacmovil/pages/views/partoView.dart';
 
 import '../../listas.dart';
 
@@ -62,28 +66,40 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/registrado.png",
     ruta: 'aborto',
   );
-  Items item3 = Items(
-    title: "Deceso",
-    img: "assets/images/map.png",
-    ruta: 'deceso',
-  );
+ 
   Items item4 = Items(
     title: "Parto",
     img: "assets/images/festival.png",
     ruta: 'parto',
   );
-  /* Items item5 = Items(
-    title: "To do",
-    img: "assets/images/todo.png",
+
+  Items item5 = Items(
+    title: "Parto",
+    img: "assets/images/festival.png",
+    ruta: 'verInseminacion',
   );
   Items item6 = Items(
-    title: "Settings",
-    img: "assets/images/setting.png",
-  ); */
+    title: "Parto",
+    img: "assets/images/festival.png",
+    ruta: 'verParto',
+  );
+  Items item7 = Items(
+    title: "Parto",
+    img: "assets/images/festival.png",
+    ruta: 'verAborto',
+  );
+  
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2, item3, item4];
+    List<Items> myList = [
+      item1,
+      item2,
+      item4,
+      item5,
+      item6,
+      item7,
+    ];
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(
@@ -96,8 +112,9 @@ class GridDashboard extends StatelessWidget {
             return GestureDetector(
               onTap: () async {
                 // Navigator.pushNamed(context, data.ruta);
-                List<dynamic> lista_animales = await listaAnimales();
+                
                 if (data.ruta == 'inseminacion') {
+                  List<dynamic> lista_animales = await listaAnimales();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -115,26 +132,39 @@ class GridDashboard extends StatelessWidget {
                               [],
                               lista_animales)));
                 } else if (data.ruta == 'aborto') {
+                  List<dynamic> lista_animales = await listaAnimales();
                   print('ruta aborto');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarAborto(
-                              0, '', '','', lista_animales)));
-                } else if (data.ruta == 'deceso') {
-                  print('ruta');
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => IngresarEditarDeceso(
-                              0, 0, '', '', '', lista_animales)));
-                } else if (data.ruta == 'parto') {
+                              0, '', '', '', lista_animales)));
+                }else if (data.ruta == 'parto') {
+                  List<dynamic> lista_animales = await listaAnimales();
                   print('ruta parto');
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarParto(
                               0, '', '', '', lista_animales)));
+                } else if(data.ruta == 'verInseminacion'){//FALTA TERMINAR
+                  List lista = await getInseminacionporanimal(animalesLista[0]['ani_id'].toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarInseminacion([])));
+                }else if(data.ruta == 'verParto'){//FALTA TERMINAR
+                  List lista = await getPartoporanimal(animalesLista[0]['ani_id'].toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarParto([])));
+                }else if(data.ruta == 'verAborto'){
+                  List lista = await getAbortoporanimal(animalesLista[0]['ani_id'].toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarAborto([])));
                 }
               },
               child: Container(

@@ -114,3 +114,27 @@ Future<List<dynamic>> getEtapaAnimal() async {
       ip_server + "items/categoria/6", "GET", "");
   return lista;
 }
+
+Future<List<dynamic>> getInseminacionporanimal(String ani_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + ""+ani_id, "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getPartoporanimal(String ani_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + ""+ani_id, "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getAbortoporanimal(String ani_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + ""+ani_id, "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getDecesoporFinca(String fin_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + ""+fin_id, "GET", "");
+  return lista;
+}

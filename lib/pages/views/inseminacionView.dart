@@ -7,15 +7,15 @@ import 'package:produlacmovil/pages/inseminacion/ingresar_editar_inseminacion.da
 import 'package:produlacmovil/pages/partoaborto/ingresareditaraborto.dart';
 import 'package:produlacmovil/pages/partoaborto/ingresareditarparto.dart';
 
-class VisualizarAborto extends StatefulWidget {
+class VisualizarInseminacion extends StatefulWidget {
   List datos;
 
-  VisualizarAborto(this.datos);
+  VisualizarInseminacion(this.datos);
   @override
-  _VisualizarAbortoState createState() => new _VisualizarAbortoState();
+  _VisualizarInseminacionState createState() => new _VisualizarInseminacionState();
 }
 
-class _VisualizarAbortoState extends State<VisualizarAborto> {
+class _VisualizarInseminacionState extends State<VisualizarInseminacion> {
   TextEditingController buscar = new TextEditingController();
   List lista_datos = [];
   @override
