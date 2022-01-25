@@ -13,6 +13,7 @@ import 'package:produlacmovil/pages/persona/ingresar_editar_persona.dart';
 import 'package:produlacmovil/pages/views/catalogoView.dart';
 import 'package:produlacmovil/pages/views/decesoView.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
+import 'package:produlacmovil/pages/views/fincapersonaView.dart';
 import 'package:produlacmovil/pages/views/itemcatalogoView.dart';
 import 'package:produlacmovil/pages/views/personaView.dart';
 
@@ -108,13 +109,38 @@ class GridDashboard extends StatelessWidget {
     img: "assets/images/festival.png",
     ruta: 'verItemCatalogo',
   );
+
+  Items item12 = Items(
+    title: "Ver Finca Persona",
+    img: "assets/images/festival.png",
+    ruta: 'verfincapersona',
+  );
+
+  Items item13 = Items(
+    title: "Ver Produccion Global",
+    img: "assets/images/festival.png",
+    ruta: 'verproduccionglobal',
+  );
+  Items item14 = Items(
+    title: "Ver Produccion Individual",
+    img: "assets/images/festival.png",
+    ruta: 'verproduccionIndividual',
+  );
   
 
 
   @override
   Widget build(BuildContext context) {
-    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11];
-    List<Items> listaDueno = [item1, item2];
+    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11,item12,item13,item14];
+    List<Items> listaDueno = [item1, item2, item13,item14];
+    List <Items> lista_recorrer=[];
+    if(rol_id_usuario_logeado=="1"){
+      lista_recorrer=listaAdmin;
+    }else{
+      if(rol_id_usuario_logeado=="2"){
+        lista_recorrer=listaDueno;
+      }
+    }
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(
@@ -123,7 +149,7 @@ class GridDashboard extends StatelessWidget {
           crossAxisCount: 2,
           crossAxisSpacing: 18,
           mainAxisSpacing: 18,
-          children: listaAdmin.map((data) {
+          children: lista_recorrer.map((data) {
             return GestureDetector(
               onTap: () async {               
                 
@@ -243,6 +269,22 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarItemCatalogo(lista)));
+                }
+
+                if(data.ruta=="verfincapersona"){
+                  List lista = await getTodosFincasPersonas();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarFincaPersona(lista)));
+                }
+
+                if(data.ruta=="verproduccionglobal"){
+                  List lista = await listaprodGlobal(fin_id_usuario_logeado);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarFincaPersona(lista)));
                 }
 
                 
