@@ -207,6 +207,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -281,8 +282,10 @@ class _AnimalPAgeState extends State<AnimalPAge> {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => onlyAnimalPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => onlyAnimalPage(animalesLista)));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -291,8 +294,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 direction: Axis.horizontal,
                 children: [
                   Container(
-                    height: 140.0,
-                    width: 130.0,
+                    height: queryData.size.height * 0.2048,
+                    width: queryData.size.width * 0.316,
                     //padding: EdgeInsets.only(top: 40.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -310,7 +313,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                   children: [
                     Container(
                       width: queryData.size.width,
-                      height: 140,
+                      height: queryData.size.height * 0.2048,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: shadowList,
@@ -402,7 +405,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             animales[0]['ani_fechanacimiento'],
             animales[0]['ani_imagen'],
             animales[0]['ani_raza'],
-            animales[0]['ite_id_etapa_nombre'].toString(),
+            animales[0]['ite_id_etapa'].toString(),
             animales[0]['ani_id_padre'],
             animales[0]['ani_id_madre'],
             animales[0]['ani_pesonacer'],
@@ -455,18 +458,19 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 
   Future<dynamic> dialogCargando(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => AlertDialog(
         content: Container(
-          width: 200,
-          height: 100,
+          width: size.width * 0.4861,
+          height: size.height * 0.1463,
           child: Column(
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: size.height * 0.0878,
+                width: size.width * 0.1458,
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),
