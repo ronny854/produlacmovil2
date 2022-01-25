@@ -176,13 +176,13 @@ class _VisualizarVentasState extends State<VisualizarVentas> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element["tbl_animal"]["ani_imagen"]),
+                                                element["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_animal"]["ani_nombre"])),
+                                          DataCell(Text(element["ani_nombre"])),
                                           DataCell(
                                               Text(element["ven_fecha"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_nombre"]+" "+element["tbl_persona"]["per_apellido"])),
+                                              Text(element["per_nombre"]+" "+element["per_apellido"])),
                                           DataCell(
                                               Text(element["ven_comprador"])),
                                           DataCell(Text(element["ven_telcomprador"])),

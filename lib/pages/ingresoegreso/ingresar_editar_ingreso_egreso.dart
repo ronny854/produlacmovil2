@@ -394,12 +394,12 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
       if (widget.ing_id== 0) {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "ingresoEgreso", "POST", body);
+            ip_server + "ingresosEgresos", "POST", body);
         Navigator.pop(context);
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "ingresoEgreso/" + widget.ing_id.toString(),
+            ip_server + "ingresosEgresos/" + widget.ing_id.toString(),
             "PUT",
             body);
         Navigator.pop(context);

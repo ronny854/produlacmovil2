@@ -157,3 +157,17 @@ Future<List<dynamic>> getVentasPorFinca(String fin_id) async {
       ip_server + "ventas/finca/$fin_id", "GET", "");
   return lista;
 }
+
+Future<List<dynamic>> getIngresosEgresosPorFinca(String fin_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "ingresosEgresos/finca/$fin_id", "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getItems() async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "items", "GET", "");
+  return lista;
+}
+
+

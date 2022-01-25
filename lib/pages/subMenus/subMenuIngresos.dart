@@ -4,7 +4,9 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/ingresoegreso/ingresar_editar_ingreso_egreso.dart';
+import 'package:produlacmovil/pages/views/ingresosegresosView.dart';
 
 import '../../listas.dart';
 
@@ -113,6 +115,17 @@ class GridDashboard extends StatelessWidget {
                     ),
                   );
                 } */
+
+                if(data.ruta=="verIngreso"){
+
+                  List lista_ingresos_egresos = await getIngresosEgresosPorFinca(fin_id_usuario_logeado);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => VisualizarIngresosEgresos(lista_ingresos_egresos),
+                    ),
+                  );
+                }
               },
               child: Container(
                 decoration: BoxDecoration(

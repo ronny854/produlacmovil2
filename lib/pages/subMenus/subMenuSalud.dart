@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
 import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
 import 'package:produlacmovil/pages/views/tratamientoView.dart';
+import 'package:produlacmovil/pages/views/vacunaView.dart';
 
 import '../../listas.dart';
 
@@ -135,6 +136,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verVacunas') {
                   List lista_vacunas = await getVacunaPorAnimal(
                       animalesLista[0]['ani_id'].toString());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VisualizarVacuna(lista_vacunas)));
                 }
               },
               child: Container(

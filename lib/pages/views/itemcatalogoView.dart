@@ -22,6 +22,9 @@ class _VisualizarItemCatalogoState extends State<VisualizarItemCatalogo> {
   @override
   void initState() {
     lista_datos = widget.datos;
+    print( widget.datos);
+
+
     super.initState();
   }
 

@@ -13,6 +13,7 @@ import 'package:produlacmovil/pages/persona/ingresar_editar_persona.dart';
 import 'package:produlacmovil/pages/views/catalogoView.dart';
 import 'package:produlacmovil/pages/views/decesoView.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
+import 'package:produlacmovil/pages/views/itemcatalogoView.dart';
 
 class SubMenuAdministrar extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -111,7 +112,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7];
+    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11];
     List<Items> listaDueno = [item1, item2];
     var color = 0xFF70C3FA;
     return Flexible(
@@ -228,11 +229,11 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => VisualizarCatalogo(lista)));
                 }
                 if(data.ruta=="verItemCatalogo"){
-                  List lista = await getTodosCatalogos();
+                  List lista = await getItems();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarCatalogo(lista)));
+                          builder: (context) => VisualizarItemCatalogo(lista)));
                 }
 
                 

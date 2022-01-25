@@ -162,10 +162,10 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element["tbl_animal"]
+                                                element["tbl_animale"]
                                                     ["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_animal"]
+                                          DataCell(Text(element["tbl_animale"]
                                               ["ani_nombre"])),
                                           DataCell(Text(element["tra_fecha"])),
                                           DataCell(
