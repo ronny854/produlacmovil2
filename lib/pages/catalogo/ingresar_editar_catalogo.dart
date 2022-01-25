@@ -220,6 +220,10 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
       } else {
         print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+
+        if(widget.cat_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

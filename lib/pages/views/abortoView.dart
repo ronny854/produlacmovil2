@@ -64,7 +64,7 @@ class _VisualizarAbortoState extends State<VisualizarAborto> {
                               element["abo_descripcion"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element["tbl_animal"]["ani_nombre"]
+                              element["tbl_animale"]["ani_nombre"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ))
                           .toList();
@@ -117,18 +117,18 @@ class _VisualizarAbortoState extends State<VisualizarAborto> {
                                   ((element) => DataRow(
                                         cells: <DataCell>[
                                           DataCell(Text(element["abo_fecha"])),
-                                          DataCell(Text(element["tbl_animal"][
+                                          DataCell(Text(element["tbl_animale"][
                                               "ani_nombre"])),
                                           DataCell(Text(element[
-                                              "abo_descipcion"])),
+                                              "abo_descripcion"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
                                                   icon: Icon(Icons
-                                                      .delete_outline_outlined),
+                                                      .edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
                                                     
                                                     List lista = [];

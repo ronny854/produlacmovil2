@@ -401,7 +401,11 @@ class _IngresarEditarInseminacionState
         print("Ruta del login");
       } else {
         print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); 
+        if(widget.ins_id!=0){
+          Navigator.pop(context);
+        }
+        
       }
     }
   }

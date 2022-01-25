@@ -254,8 +254,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           children: [
             itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
                 Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista),
-            itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
-                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt, animalesLista),
+            /*itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
+                Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt, animalesLista),*/
           ],
         ),
         endActionPane: ActionPane(

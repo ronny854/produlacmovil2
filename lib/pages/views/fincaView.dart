@@ -187,7 +187,7 @@ class _VisualizarFincaState extends State<VisualizarFinca> {
                                                       MaterialPageRoute(
                                                           builder: (_) => IngresarEditarFinca(
                                                               int.parse(element[
-                                                                          "fin_telefono"]
+                                                                          "fin_id"]
                                                                       .toString())
                                                                   as int,
                                                               element[

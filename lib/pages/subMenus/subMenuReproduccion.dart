@@ -74,17 +74,17 @@ class GridDashboard extends StatelessWidget {
   );
 
   Items item5 = Items(
-    title: "Parto",
+    title: "Ver Inseminacion",
     img: "assets/images/festival.png",
     ruta: 'verInseminacion',
   );
   Items item6 = Items(
-    title: "Parto",
+    title: "Ver Parto",
     img: "assets/images/festival.png",
     ruta: 'verParto',
   );
   Items item7 = Items(
-    title: "Parto",
+    title: "Ver Aborto",
     img: "assets/images/festival.png",
     ruta: 'verAborto',
   );
@@ -147,24 +147,24 @@ class GridDashboard extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarParto(
                               0, '', '', '', lista_animales)));
-                } else if(data.ruta == 'verInseminacion'){//FALTA TERMINAR
+                } else if(data.ruta == 'verInseminacion'){
                   List lista = await getInseminacionporanimal(animalesLista[0]['ani_id'].toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarInseminacion([])));
-                }else if(data.ruta == 'verParto'){//FALTA TERMINAR
+                          builder: (context) => VisualizarInseminacion(lista)));
+                }else if(data.ruta == 'verParto'){
                   List lista = await getPartoporanimal(animalesLista[0]['ani_id'].toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarParto([])));
+                          builder: (context) => VisualizarParto(lista)));
                 }else if(data.ruta == 'verAborto'){
-                  List lista = await getAbortoporanimal(animalesLista[0]['ani_id'].toString());
+                  List lista = await getAbortoporanimal(animalesLista[0]['ani_id'].toString());                  
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarAborto([])));
+                          builder: (context) => VisualizarAborto(lista)));
                 }
               },
               child: Container(

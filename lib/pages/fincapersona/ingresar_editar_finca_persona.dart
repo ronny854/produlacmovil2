@@ -372,6 +372,9 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
       } else {
         print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        if(widget.fper_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

@@ -411,7 +411,10 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
         print("Ruta del login");
       } else {
         print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        if(widget.ing_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

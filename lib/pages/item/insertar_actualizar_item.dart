@@ -314,6 +314,9 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
       } else {
         print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        if(widget.ite_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

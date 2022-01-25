@@ -739,7 +739,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
             ModalRoute.withName('/'));
       } else {
         print(datos);
-        Navigator.pop(context);
+        Navigator.pop(context);        
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

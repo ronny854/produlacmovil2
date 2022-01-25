@@ -14,6 +14,7 @@ import 'package:produlacmovil/pages/views/catalogoView.dart';
 import 'package:produlacmovil/pages/views/decesoView.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
 import 'package:produlacmovil/pages/views/itemcatalogoView.dart';
+import 'package:produlacmovil/pages/views/personaView.dart';
 
 class SubMenuAdministrar extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -147,7 +148,14 @@ class GridDashboard extends StatelessWidget {
                       lista_fincapersonas=await getTodosFincasPersonadeunafinca(fin_id_usuario_logeado);
                     }
                   }
-                  //Aqui hacer el navigator
+                  print(lista_fincapersonas);
+                  
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => VisualizarPersonas(lista_fincapersonas),
+                    ),
+                  );
 
                 }
 
@@ -213,11 +221,12 @@ class GridDashboard extends StatelessWidget {
                               0, 0, '', '', '', lista_animales)));
                 }
 
-                if(data.ruta=="verDeceso"){//FALTA TERMINAR
+                if(data.ruta=="verDeceso"){
+                  List lista = await getDecesoporFinca(fin_id_usuario_logeado);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarDeceso([])));
+                          builder: (context) => VisualizarDeceso(lista)));
 
                 }
 

@@ -443,7 +443,12 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
       } else {
         print(datos);
         Navigator.pop(
-            context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+            context);
+            if(widget.par_id!=0){
+              Navigator.pop(
+            context);
+            }
+        
       }
     }
   }

@@ -5,7 +5,9 @@ import 'package:produlacmovil/controller/cloudinary.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/views/fincaView.dart';
 
 class IngresarEditarFinca extends StatefulWidget {
   int fin_id;
@@ -57,7 +59,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
       Navigator.pop(context);
@@ -68,7 +70,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
       Navigator.pop(context);
@@ -412,10 +414,10 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
         dialog(context, "Guardando Imagen", false);
         nueva_url = await api_cloudinary.uploadFile(_image);
         Navigator.pop(context);
-      } else {        
-        if(widget.fin_imagen==""){
+      } else {
+        if (widget.fin_imagen == "") {
           nueva_url = url_no_foto;
-        }else{
+        } else {
           nueva_url = widget.fin_imagen;
         }
       }
@@ -431,6 +433,9 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
         "per_id": per_id
       });
 
+      print(body_finca);
+      print(widget.fin_id);
+
       List datos = [];
       if (widget.fin_id == 0) {
         dialog(context, "Enviando Datos", false);
@@ -443,15 +448,20 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
             ip_server + "fincas/" + widget.fin_id.toString(),
             "PUT",
             body_finca);
-        Navigator.pop(context);
+        Navigator.pop(context);       
+        
       }
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
         print("Ruta del login");
+        print(datos);
       } else {
         print(datos);
-        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context);
+        if(widget.fin_id!=0){
+          Navigator.pop(context);
+        }  
       }
     }
   }

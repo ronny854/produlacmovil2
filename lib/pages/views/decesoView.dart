@@ -60,8 +60,7 @@ class _VisualizarDecesoState extends State<VisualizarDeceso> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['tbl_animal']
-                                      ['ani_nombre']
+                          .where((element) => (element['ani_nombre']
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
                               element["dec_fecha"]
@@ -140,10 +139,9 @@ class _VisualizarDecesoState extends State<VisualizarDeceso> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element['tbl_animal']
-                                                    ["ani_imagen"]),
+                                                element["ani_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_animal"]
+                                          DataCell(Text(element
                                               ['ani_nombre'])),
                                           DataCell(Text(element["dec_fecha"])),
                                           DataCell(Text(element["dec_causa"])),
@@ -154,9 +152,9 @@ class _VisualizarDecesoState extends State<VisualizarDeceso> {
                                               children: <Widget>[
                                                 IconButton(
                                                   icon: Icon(Icons
-                                                      .delete_outline_outlined),
+                                                      .edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
                                                     List lista = [];
                                                     if (rol_id_usuario_logeado ==

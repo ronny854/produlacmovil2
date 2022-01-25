@@ -68,6 +68,8 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
 
   String nueva_url = "";
 
+  List Lista_lista_roles = [];
+
   @override
   void initState() {
     super.initState();
@@ -85,13 +87,21 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
       rol_id.text = widget.rol_id.toString();
 
       select_rol_id = widget.rol_id.toString();
-    }else{
-      if(widget.lista_rol.length>=1){
-        select_rol_id = widget.lista_rol[0]['rol_id'].toString();
+    }
+
+    if (rol_id_usuario_logeado == "1") {
+      Lista_lista_roles = widget.lista_rol;
+    } else {
+      for (var item in widget.lista_rol) {
+        if (item['rol_id'] != 1 && item['rol_id'] != 2) {
+          Lista_lista_roles.add(item);
+        }
       }
     }
-    
-    
+
+    if (Lista_lista_roles.length >= 1) {
+      select_rol_id = Lista_lista_roles[0]['rol_id'].toString();
+    }
   }
 
   @override
@@ -220,25 +230,22 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
                               "Teléfono", false, true, telefono),
                           buildTextField(Icons.import_contacts_outlined,
                               "Dirección", false, false, direccion),
-                          buildTextField(Icons.lock,
-                              "Contraseña", true, false, contrasena),
-
+                          buildTextField(Icons.lock, "Contraseña", true, false,
+                              contrasena),
                           Container(
-                            padding: EdgeInsets.only(top: 20),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Seleccione el Rol',
-                                    style:
-                                        TextStyle(color: Colors.black45 ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ),
+                              padding: EdgeInsets.only(top: 20),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Seleccione el Rol',
+                                      style: TextStyle(color: Colors.black45),
+                                    ),
+                                  ],
+                                ),
+                              )),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors
@@ -264,10 +271,10 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
                                     Color.fromRGBO(76, 172, 230, 1),
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                     select_rol_id = newValue!;
+                                    select_rol_id = newValue!;
                                   });
                                 },
-                                items: widget.lista_rol.map((value) {
+                                items: Lista_lista_roles.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['rol_id'].toString(),
                                     child: Text(value['rol_nombre'].toString()),
@@ -343,10 +350,10 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
     setState(() {
       _image = image;
 
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
-      
+
       Navigator.pop(context);
     });
   }
@@ -355,7 +362,7 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
       Navigator.pop(context);
@@ -416,7 +423,6 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
     );
   }
 
-
   Widget buildTextField(IconData icon, String hintText, bool isPassword,
       bool isNumber, TextEditingController controller) {
     return Padding(
@@ -447,63 +453,62 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
   }
 
   guardar_datos() async {
-    if ( nombre.text == "" &&
+    if (nombre.text == "" &&
         apellido.text == "" &&
         usuario.text == "" &&
-        cedula.text == "" && 
-        correo.text=="" && 
-        telefono.text=="" &&
-        direccion.text=="" &&
-        contrasena.text=="") {
+        cedula.text == "" &&
+        correo.text == "" &&
+        telefono.text == "" &&
+        direccion.text == "" &&
+        contrasena.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {    
-      
+    } else {
       ApiCloudinary api_cloudinary = new ApiCloudinary();
 
       if (_image != null) {
         dialog(context, "Guardando Imagen", false);
         nueva_url = await api_cloudinary.uploadFile(_image);
         Navigator.pop(context);
-      } else {        
-        if(widget.per_imagen==""){
+      } else {
+        if (widget.per_imagen == "") {
           nueva_url = url_no_foto;
-        }else{
+        } else {
           nueva_url = widget.per_imagen;
         }
       }
       String body = jsonEncode({
-        "per_nombre":nombre.text,
-        "per_apellido":apellido.text,
-        "per_usuario":usuario.text,
-        "per_contraseña":contrasena.text,
-        "per_imagen":nueva_url,
-        "per_cedula":cedula.text,
-        "per_correo":correo.text,
-        "per_telefono":telefono.text,
-        "per_direccion":direccion.text,
-        "rol_id":select_rol_id
+        "per_nombre": nombre.text,
+        "per_apellido": apellido.text,
+        "per_usuario": usuario.text,
+        "per_contraseña": contrasena.text,
+        "per_imagen": nueva_url,
+        "per_cedula": cedula.text,
+        "per_correo": correo.text,
+        "per_telefono": telefono.text,
+        "per_direccion": direccion.text,
+        "rol_id": select_rol_id
       });
       List datos = [];
-      if (widget.per_id== 0) {
+      if (widget.per_id == 0) {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
             ip_server + "personas", "POST", body);
 
-        if(rol_id_usuario_logeado=="2" && datos[0]['per_id']!= null  && datos[0]['per_id']!=0){          
+        if (rol_id_usuario_logeado == "2" &&
+            datos[0]['per_id'] != null &&
+            datos[0]['per_id'] != 0) {
           body = jsonEncode({
-            "per_id":datos[0]['per_id'].toString(),
-            "fin_id":fin_id_usuario_logeado,
+            "per_id": datos[0]['per_id'].toString(),
+            "fin_id": fin_id_usuario_logeado,
           });
           datos = await controller_general.httpgeneral(
-            ip_server + "fincaPersona", "POST", body);
+              ip_server + "fincaPersona", "POST", body);
         }
         Navigator.pop(context);
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "personas/" + widget.per_id.toString(),
-            "PUT",
-            body);
+            ip_server + "personas/" + widget.per_id.toString(), "PUT", body);
         Navigator.pop(context);
       }
 
@@ -513,7 +518,10 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
         print("Ruta del login");
       } else {
         print(datos);
-        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR        
+        if(widget.per_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }
@@ -572,5 +580,4 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
       ),
     );
   }
-
 }

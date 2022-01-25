@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
+import 'package:produlacmovil/pages/persona/ingresar_editar_persona.dart';
 
 class VisualizarPersonas extends StatefulWidget {
   List datos;
@@ -17,6 +18,8 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
   @override
   void initState() {
     lista_datos = widget.datos;
+    print("aqui");
+    print(widget.datos);
     super.initState();
   }
 
@@ -59,7 +62,12 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                               .toLowerCase()
                               .contains(value.toLowerCase()) || element["per_apellido"]
                               .toLowerCase()
-                              .contains(value.toLowerCase())))
+                              .contains(value.toLowerCase()) || element["fin_nombre"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) || element["rol_nombre"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase())
+                          ))
                           .toList();
                     });
                   },
@@ -175,36 +183,71 @@ class _VisualizarPersonasState extends State<VisualizarPersonas> {
                                         cells: <DataCell>[
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element['tbl_finca']["fin_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_finca"]["fin_nombre"])),
+                                                element["fin_imagen"]),
+                                          )
+                                          ),
+                                          DataCell(Text(element["fin_nombre"])),
                                           DataCell(CircleAvatar(
                                             backgroundImage: NetworkImage(
-                                                element['tbl_persona']["per_imagen"]),
+                                                element["per_imagen"]),
                                           )),
-                                          DataCell(Text(element["tbl_persona"]["per_nombre"])),
+                                          DataCell(Text(element["per_nombre"])),
                                           
-                                          DataCell(Text(element["tbl_persona"]["per_apellido"])),
+                                          DataCell(Text(element["per_apellido"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_usuario"])),
-                                          DataCell(Text(element["tbl_persona"]["per_cedula"])),
+                                              Text(element["per_usuario"])),
+                                          DataCell(Text(element["per_cedula"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_correo"])),
-                                          DataCell(Text(element["tbl_persona"]["per_telefono"])),
+                                              Text(element["per_correo"])),
+                                          DataCell(Text(element["per_telefono"])),
                                           DataCell(
-                                              Text(element["tbl_persona"]["per_direccion"])),
+                                              Text(element["per_direccion"])),
                                           DataCell(
-                                              Text(element["tbl_rol"]["rol_nombre"])),
+                                              Text(element["rol_nombre"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
-                                                  icon: Icon(Icons.delete_outline_outlined),
+                                                  icon: Icon(Icons.edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
+                                                    List lista = await getRoles();
 
-                                                    dialog(context, "Guardando Imagen", true);
+
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) => IngresarEditarPersona(
+                                                              int.parse(element[
+                                                                          "per_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              element[
+                                                                  "per_nombre"],
+                                                              element[
+                                                                  "per_apellido"],
+                                                              element[
+                                                                  "per_usuario"],
+                                                              element[
+                                                                  "per_contraseña"],
+                                                                  element[
+                                                                  "per_imagen"],
+                                                                  element[
+                                                                  "per_cedula"],
+                                                                  element[
+                                                                  "per_correo"],
+                                                                  element[
+                                                                  "per_telefono"],
+                                                                  element[
+                                                                  "per_direccion"],
+                                                                  int.parse(element[
+                                                                          "rol_id"]
+                                                                      .toString())
+                                                                  as int,
+                                                              lista)),
+                                                    );
+                                                    
                                                     
                                                   },
                                                 ),

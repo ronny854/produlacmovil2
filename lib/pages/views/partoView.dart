@@ -128,9 +128,9 @@ class _VisualizarPartoState extends State<VisualizarParto> {
                                         cells: <DataCell>[
                                           DataCell(Text(element["par_fecha"])),
                                           DataCell(Text(element[
-                                              "animalmadre_ani_nombre"])),
+                                              "ani_id_madre_nombre"])),
                                           DataCell(Text(element[
-                                              "animalhijo_ani_nombre"])),
+                                              "ani_id_hijo_nombre"])),
                                           DataCell(
                                               Text(element["par_descripcion"])),
                                           DataCell(
@@ -138,9 +138,9 @@ class _VisualizarPartoState extends State<VisualizarParto> {
                                               children: <Widget>[
                                                 IconButton(
                                                   icon: Icon(Icons
-                                                      .delete_outline_outlined),
+                                                      .edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
 
                                                     

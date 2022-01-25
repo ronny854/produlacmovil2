@@ -12,7 +12,8 @@ class VisualizarInseminacion extends StatefulWidget {
 
   VisualizarInseminacion(this.datos);
   @override
-  _VisualizarInseminacionState createState() => new _VisualizarInseminacionState();
+  _VisualizarInseminacionState createState() =>
+      new _VisualizarInseminacionState();
 }
 
 class _VisualizarInseminacionState extends State<VisualizarInseminacion> {
@@ -88,9 +89,7 @@ class _VisualizarInseminacionState extends State<VisualizarInseminacion> {
                                   .contains(value.toLowerCase()) ||
                               element["per_apellido"]
                                   .toLowerCase()
-                                  .contains(value.toLowerCase()) 
-
-                          ))
+                                  .contains(value.toLowerCase())))
                           .toList();
                     });
                   },
@@ -188,73 +187,75 @@ class _VisualizarInseminacionState extends State<VisualizarInseminacion> {
                                 .map(
                                   ((element) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text(element["ins_fechainseminacion"])),
-                                          DataCell(Text(element["ani_id_padre_nombre"])),
-                                          DataCell(Text(element["ani_id_animal_nombre"])),
-                                          DataCell(Text(element["per_nombre"]+" "+element["per_apellido"])),
-                                          DataCell(Text(element["ins_fechacomprobacion"])),
-                                          DataCell(Text(element["ins_cargada"])),
-                                          DataCell(Text(element["ins_tipoinseminacion"])),
-                                          DataCell(Text(element["ins_numpajuela"])),
-                                          DataCell(Text(element["ins_descripcion"])),
+                                          DataCell(Text(element[
+                                              "ins_fechainseminacion"])),
+                                          DataCell(Text(
+                                              element["ani_id_padre_nombre"])),
+                                          DataCell(Text(
+                                              element["ani_id_animal_nombre"])),
+                                          DataCell(Text(element["per_nombre"] +
+                                              " " +
+                                              element["per_apellido"])),
+                                          DataCell(Text(element[
+                                              "ins_fechacomprobacion"])),
+                                          DataCell(
+                                              Text(element["ins_cargada"])),
+                                          DataCell(Text(
+                                              element["ins_tipoinseminacion"])),
+                                          DataCell(
+                                              Text(element["ins_numpajuela"])),
+                                          DataCell(
+                                              Text(element["ins_descripcion"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
                                                 IconButton(
                                                   icon: Icon(Icons
-                                                      .delete_outline_outlined),
+                                                      .edit),
                                                   iconSize: 30.0,
-                                                  color: Colors.red,
+                                                  color: Colors.blue,
                                                   onPressed: () async {
-                                                    
                                                     List lista = [];
-                                                    List lista_personas=[];
-                                                    if(rol_id_usuario_logeado=="1"){
-                                                      lista = await listaAnimales();
-                                                      lista_personas = await listapersonas();
-                                                    }else{
-                                                      lista = await listaAnimalesporfinca();
-                                                      lista_personas = await getTodosFincasPersonadeunafinca(fin_id_usuario_logeado);
+                                                    List lista_personas = [];
+                                                    if (rol_id_usuario_logeado ==
+                                                        "1") {
+                                                      lista =
+                                                          await listaAnimales();
+                                                      lista_personas =
+                                                          await listapersonas();
+                                                    } else {
+                                                      lista =
+                                                          await listaAnimalesporfinca();
+                                                      lista_personas =
+                                                          await getTodosFincasPersonadeunafinca(
+                                                              fin_id_usuario_logeado);
                                                     }
-
-                                                    
-
-
-
-
                                                     Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (_) => IngresarEditarInseminacion(
-                                                              int.parse(element[
-                                                                          "ins_id"]
-                                                                      .toString())
+                                                              int.parse(element["ins_id"].toString())
                                                                   as int,
                                                               element[
                                                                   "ins_fechainseminacion"],
-                                                              int.parse(element[
-                                                                          "per_id"]
-                                                                      .toString())
+                                                              int.parse(element["per_id"].toString())
                                                                   as int,
-                                                              int.parse(element[
-                                                                          "ani_id"]
-                                                                      .toString())
+                                                              int.parse(element["ani_id"].toString())
                                                                   as int,
                                                               element[
                                                                   "ins_fechacomprobacion"],
                                                               element[
-                                                                  "ins_cargada"],element[
+                                                                  "ins_cargada"],
+                                                              element[
                                                                   "ins_tipoinseminacion"],
-                                                              int.parse(element[
-                                                                          "ani_idpadre"]
+                                                              int.parse(element["ani_idpadre"]
                                                                       .toString())
                                                                   as int,
                                                               int.parse(element[
-                                                                          "ins_numpajuela"]
-                                                                      .toString())
-                                                                  as int,
-                                                                  element[
-                                                                  "ins_descripcion"],lista_personas,
+                                                                      "ins_numpajuela"]
+                                                                  .toString()) as int,
+                                                              element["ins_descripcion"],
+                                                              lista_personas,
                                                               lista)),
                                                     );
                                                   },
