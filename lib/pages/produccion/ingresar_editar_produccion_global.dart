@@ -436,6 +436,10 @@ class _IngresarEditarProduccionGlobalState
         print(datos);
         Navigator.pop(context);
 
+        if(widget.pglo_id!=0){
+          Navigator.pop(context);
+        }
+
                
       }
     }

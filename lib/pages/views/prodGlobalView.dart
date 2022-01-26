@@ -151,15 +151,14 @@ class _VisualizarProdGlobalState extends State<VisualizarProdGlobal> {
                                                                       .toString())
                                                                   as int,
                                                               element[
-                                                                  "pglo_fecha"],
+                                                                  "pglo_fecha"].toString(),
                                                               element[
-                                                                  "ite_idhorario"],
+                                                                  "ite_idhorario"].toString(),
                                                               element[
-                                                                  "pglo_litros"],
+                                                                  "pglo_litros"].toString(),
                                                                   element[
-                                                                  "pglo_numvacas"],
-                                                                  element[
-                                                                  "fin_id"],
+                                                                  "pglo_numvacas"].toString(),                                                                  
+                                                                  element["fin_id"].toString(),
                                                               lista,lista_horario)),
                                                     );
                                                   },

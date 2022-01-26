@@ -16,6 +16,8 @@ import 'package:produlacmovil/pages/views/fincaView.dart';
 import 'package:produlacmovil/pages/views/fincapersonaView.dart';
 import 'package:produlacmovil/pages/views/itemcatalogoView.dart';
 import 'package:produlacmovil/pages/views/personaView.dart';
+import 'package:produlacmovil/pages/views/prodGlobalView.dart';
+import 'package:produlacmovil/pages/views/prodIndividual.dart';
 
 class SubMenuAdministrar extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -131,7 +133,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11,item12,item13,item14];
+    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11,item12];
     List<Items> listaDueno = [item1, item2, item13,item14];
     List <Items> lista_recorrer=[];
     if(rol_id_usuario_logeado=="1"){
@@ -280,11 +282,20 @@ class GridDashboard extends StatelessWidget {
                 }
 
                 if(data.ruta=="verproduccionglobal"){
-                  List lista = await listaprodGlobal(fin_id_usuario_logeado);
+                  List lista = await getListaProdGlobalporfinca(fin_id_usuario_logeado);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarFincaPersona(lista)));
+                          builder: (context) => VisualizarProdGlobal(lista)));
+                }
+
+                if(data.ruta=="verproduccionIndividual"){
+                  List lista = await getListaProdIndividualporfinca(fin_id_usuario_logeado);
+                  print(lista);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => VisualizarProdIndividual(lista)));
                 }
 
                 

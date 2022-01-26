@@ -170,4 +170,23 @@ Future<List<dynamic>> getItems() async {
   return lista;
 }
 
+Future<List<dynamic>> getListaProdGlobalporfinca(String fin_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "prodGlobal/editar/"+fin_id, "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getListaProdIndividualporfinca(String fin_id) async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "prodIndividual/finca/"+fin_id, "GET", "");
+      if(lista.length>=1){
+        return lista[0];
+      }else{
+        return [];
+      }
+  
+}
+
+
+
 

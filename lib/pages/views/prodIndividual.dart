@@ -145,12 +145,15 @@ class _VisualizarProdIndividualState extends State<VisualizarProdIndividual> {
                                 .map(
                                   ((element) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(Text(element["tbl_animale"]["ani_imagen"])),
-                                          DataCell(Text(element["tbl_animale"]["ani_nombre"])),
-                                          DataCell(Text(element["prd_fecha"])),
-                                          DataCell(Text(element["prd_litros"])),
-                                          DataCell(Text(element["prd_dieta"])),
-                                          DataCell(Text(element["tbl_item"]["ite_nombre"])),
+                                          DataCell(CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                element["ani_imagen"]),
+                                          )),
+                                          DataCell(Text(element["ani_nombre"])),
+                                          DataCell(Text(element["pro_fecha"])),
+                                          DataCell(Text(element["pro_litros"])),
+                                          DataCell(Text(element["pro_dieta"])),
+                                          DataCell(Text(element["ite_nombre"])),
                                           DataCell(
                                             Row(
                                               children: <Widget>[
@@ -171,16 +174,18 @@ class _VisualizarProdIndividualState extends State<VisualizarProdIndividual> {
                                                                           "pro_id"]
                                                                       .toString())
                                                                   as int,
+                                                              int.parse(element[
+                                                                          "ani_id"]
+                                                                      .toString())
+                                                                  as int,
                                                               element[
-                                                                  "ani_id"],
+                                                                  "pro_fecha"].toString(),
                                                               element[
-                                                                  "pro_fecha"],
-                                                              element[
-                                                                  "ite_idhorario"],
+                                                                  "ite_idhorario"].toString(),
                                                                   element[
-                                                                  "pro_litros"],
+                                                                  "pro_litros"].toString(),
                                                                   element[
-                                                                  "pro_dieta"],
+                                                                  "pro_dieta"].toString(),
                                                               lista,lista_horario)),
                                                     );
                                                   },
