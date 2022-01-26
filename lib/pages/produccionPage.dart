@@ -61,9 +61,28 @@ class _ProduccionPageState extends State<ProduccionPage> {
                   ),
                 );
               },
-              child: Text(
-                'Agregar',
-                textAlign: TextAlign.center,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(80.0)),
+              textColor: Colors.white,
+              padding: const EdgeInsets.all(0),
+              child: Container(
+                alignment: Alignment.center,
+                height: size.height * 0.0512,
+                width: size.width - 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80.0),
+                  gradient: const LinearGradient(
+                    colors: [
+                      Color.fromRGBO(35, 144, 255, 1.0),
+                      Color.fromRGBO(14, 57, 102, 1.0),
+                    ],
+                  ),
+                ),
+                child: const Text('Agregar',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )),
               ),
             ),
           )
