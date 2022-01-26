@@ -190,10 +190,16 @@ class _LoginPageState extends State<LoginPage> {
       _mostrarDialogInicio = false;
       _mostrarErrorUsuario = false;
 
-      List fincas_segun_per_id = await listaFincasSegunPerID();
-
+      if(rol_id_usuario_logeado=="1"){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => NavigationHomeScreen(),
+          ),
+        );
+      }else{
+        List fincas_segun_per_id = await listaFincasSegunPerID();
       List fincas_per_id = listaFincasPerId(fincas_segun_per_id);
-
       if (fincas_per_id.length == 1) {
         fin_id_usuario_logeado = fincas_per_id[0]['fin_id'].toString();
         Navigator.pushReplacement(
@@ -213,6 +219,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     }
+      }
     _controllerPassword.clear();
     _controllerUser.clear();
   }
