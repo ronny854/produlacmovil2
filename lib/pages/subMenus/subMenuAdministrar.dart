@@ -141,19 +141,27 @@ class GridDashboard extends StatelessWidget {
       item5,
       item6,
       item7,
-      item8,
-      item9,
       item10,
       item11,
       item12
     ];
-    List<Items> listaDueno = [item1, item2, item13, item14];
+    List<Items> listaDueno = [item1, item2, item13, item14, item8, item9];
+    List<Items> listaEmpleado = [item13, item14, item8, item9];
+    List<Items> listaVeterinario = [item8, item9];
     List<Items> lista_recorrer = [];
     if (rol_id_usuario_logeado == "1") {
       lista_recorrer = listaAdmin;
     } else {
       if (rol_id_usuario_logeado == "2") {
         lista_recorrer = listaDueno;
+      } else {
+        if (rol_id_usuario_logeado == "3") {
+          lista_recorrer = listaVeterinario;
+        } else {
+          if (rol_id_usuario_logeado == "4") {
+            lista_recorrer = listaEmpleado;
+          }
+        }
       }
     }
     var color = 0xFF70C3FA;
