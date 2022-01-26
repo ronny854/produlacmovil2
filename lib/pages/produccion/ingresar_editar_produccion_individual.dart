@@ -417,14 +417,16 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             ModalRoute.withName('/'));
       } else {
         Navigator.pop(context);
+        if(widget.pro_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

@@ -118,7 +118,7 @@ class GridDashboard extends StatelessWidget {
                       width: size.width * 0.1944,
                     ),
                     SizedBox(
-                      height: size.height * 0.03,
+                      height: size.height * 0.02,
                     ),
                     Text(
                       data.title,

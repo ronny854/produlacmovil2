@@ -1,9 +1,6 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names
 import 'package:flutter/material.dart';
-import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
-
 import 'package:produlacmovil/pages/loginPage.dart';
-import 'package:produlacmovil/pages/registrogeneralPage.dart';
 import 'package:produlacmovil/routers/routes.dart' as route;
 
 import 'components/app_theme.dart';

@@ -139,7 +139,7 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarAborto(
-                              0, '', '', '', lista_animales)));
+                              0, '', animalesLista[0]['ani_id'].toString(), '', lista_animales)));
                 } else if (data.ruta == 'parto') {
                   List<dynamic> lista_animales = await listaAnimales();
                   print('ruta parto');

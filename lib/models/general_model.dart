@@ -39,6 +39,8 @@ class ModeloGenral {
       }
     }
 
+    
+
     if (response.statusCode == 200) {
       var resultado = jsonDecode(response.body);
       if (resultado['token'] != null) {
@@ -51,7 +53,7 @@ class ModeloGenral {
         rol_id_usuario_logeado=resultado['dato'][0]['rol_id'].toString();
       }
 
-     
+      
       if (resultado['dato'] != null) {
         return resultado['dato'];
       } else {

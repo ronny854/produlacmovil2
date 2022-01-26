@@ -728,6 +728,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
         "fin_id": select_fin_id,
         "ite_idtipoestado": select_ite_tipo_estado
       });
+      print("asd");
+      print("aqui: "+body);
       List datos = [];
       if (widget.ani_id == 0) {
         dialog(context, "Enviando Datos", false);

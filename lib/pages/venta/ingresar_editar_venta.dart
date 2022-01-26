@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
@@ -296,7 +297,7 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
       String body = jsonEncode({
         "ani_id": select_ani_id,
         "ven_fecha": _selectedDate_a_enviar,
-        "per_idvendedor": widget.per_idvendedor,
+        "per_idvendedor": per_id_usuario_logeado,
         "ven_comprador": comprador.text,
         "ven_telcomprador": telcomprador.text,
         "ven_cedulacomprador": cedulacomprador.text,
@@ -318,11 +319,15 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
-        //Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        if(widget.ven_id!=0){
+          Navigator.pop(context);
+        }
       }
     }
   }

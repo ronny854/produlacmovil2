@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 
 class IngresarEditarPersona extends StatefulWidget {
   int per_id;
@@ -521,10 +522,11 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR        
         if(widget.per_id!=0){
           Navigator.pop(context);

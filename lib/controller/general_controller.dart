@@ -4,12 +4,7 @@ class ControllerGenral {
   ModeloGenral modelo_general = new ModeloGenral();
 
   Future<List> httpgeneral(String url,String tipo,String body) async {
-           
-    
     List datos = await modelo_general.api_backend(url,tipo,body);
-    
-    
-
     return datos;
   }
 
