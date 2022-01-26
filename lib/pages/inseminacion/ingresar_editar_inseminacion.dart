@@ -97,6 +97,7 @@ class _IngresarEditarInseminacionState
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -106,10 +107,10 @@ class _IngresarEditarInseminacionState
             right: 0,
             left: 0,
             child: Container(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -120,13 +121,13 @@ class _IngresarEditarInseminacionState
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -182,13 +183,21 @@ class _IngresarEditarInseminacionState
                               ),
                             ],
                           ),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate_fecha_inseminacion,
-                            initialSelectedDate:
-                                selectedDate_fecha_inseminacion,
-                            onSelectionChanged:
-                                _onSelectionChanged_fecha_inseminacion,
+                          const SizedBox(height: 8.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate:
+                                  selectedDate_fecha_inseminacion,
+                              initialSelectedDate:
+                                  selectedDate_fecha_inseminacion,
+                              onSelectionChanged:
+                                  _onSelectionChanged_fecha_inseminacion,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -238,6 +247,7 @@ class _IngresarEditarInseminacionState
                               ),
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -287,6 +297,7 @@ class _IngresarEditarInseminacionState
                               ),
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -296,19 +307,30 @@ class _IngresarEditarInseminacionState
                               ),
                             ],
                           ),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate_fecha_comprobacion,
-                            initialSelectedDate:
-                                selectedDate_fecha_comprobacion,
-                            onSelectionChanged:
-                                _onSelectionChanged_fecha_comprobacion,
+                          const SizedBox(height: 8.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate:
+                                  selectedDate_fecha_comprobacion,
+                              initialSelectedDate:
+                                  selectedDate_fecha_comprobacion,
+                              onSelectionChanged:
+                                  _onSelectionChanged_fecha_comprobacion,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.list_alt_rounded, "Cargada",
                               false, false, cargada),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.list, "Tipo de Inseminacón",
                               false, false, tipo_inseminacion),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.format_list_numbered_rtl,
                               "Número Pajuela", false, true, num_pajuela),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.description, "Descripción",
                               false, false, descripcion),
                           const SizedBox(
@@ -465,7 +487,7 @@ class _IngresarEditarInseminacionState
     return AnimatedPositioned(
       duration: Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

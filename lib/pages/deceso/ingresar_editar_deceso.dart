@@ -13,22 +13,18 @@ class IngresarEditarDeceso extends StatefulWidget {
   String dec_descripcion;
   List lista_animales;
 
-  IngresarEditarDeceso(this.dec_id, this.ani_id, this.dec_fecha,
-      this.dec_causa, this.dec_descripcion, this.lista_animales);
+  IngresarEditarDeceso(this.dec_id, this.ani_id, this.dec_fecha, this.dec_causa,
+      this.dec_descripcion, this.lista_animales);
   @override
-  _IngresarEditarDecesoState createState() =>
-      _IngresarEditarDecesoState();
+  _IngresarEditarDecesoState createState() => _IngresarEditarDecesoState();
 }
 
 class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
-  
   TextEditingController causa = TextEditingController();
   TextEditingController descripcion = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
   String _select_ani_id = "";
-
-  
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -38,24 +34,23 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
     super.initState();
 
     if (widget.dec_id != 0) {
-      
       causa.text = widget.dec_causa.toString();
       descripcion.text = widget.dec_descripcion.toString();
 
-      _select_ani_id=widget.ani_id.toString();
+      _select_ani_id = widget.ani_id.toString();
       if (widget.dec_fecha != "") {
-      selectedDate = DateTime.parse(widget.dec_fecha);
-    }
-    }else{
-      if(widget.lista_animales.length>=1){
-        _select_ani_id= widget.lista_animales[0]['ani_id'].toString();
+        selectedDate = DateTime.parse(widget.dec_fecha);
+      }
+    } else {
+      if (widget.lista_animales.length >= 1) {
+        _select_ani_id = widget.lista_animales[0]['ani_id'].toString();
       }
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -65,10 +60,10 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -79,13 +74,13 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -141,7 +136,6 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -191,18 +185,23 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
                               ),
                             ),
                           ),
-
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
-
-                          buildTextField(Icons.calendar_today_outlined,
-                              "Causa", false, false, causa),
+                          const SizedBox(height: 15.0),
+                          buildTextField(Icons.calendar_today_outlined, "Causa",
+                              false, false, causa),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.calendar_today_outlined,
                               "Descripción", false, false, descripcion),
-                          
                           const SizedBox(
                             height: 40,
                           )
@@ -232,7 +231,7 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(
@@ -312,24 +311,24 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
   }
 
   guardar_datos() async {
-    if(_selectedDate_a_enviar==""){
+    if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if ( causa.text == "" &&
+    if (causa.text == "" &&
         _selectedDate_a_enviar == "" &&
         descripcion.text == "" &&
-        _select_ani_id=="" ) {
+        _select_ani_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      if(_selectedDate_a_enviar==""){
-        _selectedDate_a_enviar=widget.dec_fecha;
-      } 
-      
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.dec_fecha;
+      }
+
       String body = jsonEncode({
-        "dec_fecha":_selectedDate_a_enviar,
-        "dec_causa":causa.text,
-        "dec_descripcion":descripcion.text,
-        "ani_id":_select_ani_id,
+        "dec_fecha": _selectedDate_a_enviar,
+        "dec_causa": causa.text,
+        "dec_descripcion": descripcion.text,
+        "ani_id": _select_ani_id,
       });
       List datos = [];
       if (widget.dec_id == 0) {
@@ -340,9 +339,7 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "decesos/" + widget.dec_id.toString(),
-            "PUT",
-            body);
+            ip_server + "decesos/" + widget.dec_id.toString(), "PUT", body);
         Navigator.pop(context);
       }
 

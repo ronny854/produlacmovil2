@@ -57,7 +57,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
     final XFile? image = await _picker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
       Navigator.pop(context);
@@ -68,7 +68,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
     setState(() {
       _image = image;
-      if(image!=null){
+      if (image != null) {
         foto = File(image.path);
       }
       Navigator.pop(context);
@@ -100,6 +100,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Color(0xFFECF3F9),
       body: Stack(
@@ -109,10 +110,10 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
             right: 0,
             left: 0,
             child: Container(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: EdgeInsets.only(top: 90, left: 8),
-                color: Color(0xFF3b5999).withOpacity(.85),
+                color: Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -122,13 +123,13 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -206,19 +207,25 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 8.0),
+                          SizedBox(height: 15.0),
                           buildTextField(Icons.person, "Nombre de la Finca",
                               false, false, nombre),
+                          const SizedBox(height: 10.0),
                           buildTextField(Icons.person, "Extensión", false, true,
                               extencion),
+                          const SizedBox(height: 10.0),
                           buildTextField(
                               Icons.person, "Pais", false, false, pais),
+                          const SizedBox(height: 10.0),
                           buildTextField(Icons.person, "Provincia", false,
                               false, provincia),
+                          const SizedBox(height: 10.0),
                           buildTextField(Icons.email_outlined, "Ciudad", false,
                               false, ciudad),
+                          const SizedBox(height: 10.0),
                           buildTextField(
                               Icons.lock, "Telefono", false, true, telefono),
+                          const SizedBox(height: 10.0),
                           Container(
                             //width: MediaQuery.of(context).size.width - 40,
                             decoration: BoxDecoration(
@@ -281,7 +288,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
     return AnimatedPositioned(
       duration: Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(
@@ -412,10 +419,10 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
         dialog(context, "Guardando Imagen", false);
         nueva_url = await api_cloudinary.uploadFile(_image);
         Navigator.pop(context);
-      } else {        
-        if(widget.fin_imagen==""){
+      } else {
+        if (widget.fin_imagen == "") {
           nueva_url = url_no_foto;
-        }else{
+        } else {
           nueva_url = widget.fin_imagen;
         }
       }
@@ -451,7 +458,8 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
         print("Ruta del login");
       } else {
         print(datos);
-        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(
+            context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
       }
     }
   }

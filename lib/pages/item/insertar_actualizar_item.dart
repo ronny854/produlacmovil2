@@ -9,39 +9,36 @@ class IngresarEditarItem extends StatefulWidget {
   int cat_id;
   List lista_catalogo;
 
-  IngresarEditarItem(this.ite_id, this.ite_nombre, this.cat_id,
-      this.lista_catalogo);
+  IngresarEditarItem(
+      this.ite_id, this.ite_nombre, this.cat_id, this.lista_catalogo);
   @override
-  _IngresarEditarItemState createState() =>
-      _IngresarEditarItemState();
+  _IngresarEditarItemState createState() => _IngresarEditarItemState();
 }
 
 class _IngresarEditarItemState extends State<IngresarEditarItem> {
-  
   TextEditingController nombre = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
   String _select_cat_id = "";
-  
+
   @override
   void initState() {
     super.initState();
 
     if (widget.ite_id != 0) {
-      
       nombre.text = widget.ite_nombre.toString();
 
-      _select_cat_id=widget.cat_id.toString();
-    }else{
-      if(widget.lista_catalogo.length>=1){
-        _select_cat_id= widget.lista_catalogo[0]['cat_id'].toString();
+      _select_cat_id = widget.cat_id.toString();
+    } else {
+      if (widget.lista_catalogo.length >= 1) {
+        _select_cat_id = widget.lista_catalogo[0]['cat_id'].toString();
       }
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -51,10 +48,10 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -65,13 +62,13 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 200,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 450,
+              height: size.height - 380,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -127,7 +124,6 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -174,10 +170,9 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
                               ),
                             ),
                           ),
-
-                          
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.calendar_today_outlined,
-                              "Nombre", false, false, nombre),                          
+                              "Nombre", false, false, nombre),
                           const SizedBox(
                             height: 40,
                           )
@@ -197,12 +192,12 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
     );
   }
 
- 
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 300,//AQUI SE CAMBIA EL ALTO DEL BOTON ->
+      top: MediaQuery.of(context).size.height -
+          370, //AQUI SE CAMBIA EL ALTO DEL BOTON ->
       right: 0,
       left: 0,
       child: Center(
@@ -282,15 +277,12 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
   }
 
   guardar_datos() async {
-    
-    if ( nombre.text == "" &&
-        _select_cat_id=="" ) {
+    if (nombre.text == "" && _select_cat_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      
+    } else {
       String body = jsonEncode({
-        "ite_nombre":nombre.text,
-        "cat_id":_select_cat_id,
+        "ite_nombre": nombre.text,
+        "cat_id": _select_cat_id,
       });
       List datos = [];
       if (widget.ite_id == 0) {
@@ -301,9 +293,7 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "items/" + widget.ite_id.toString(),
-            "PUT",
-            body);
+            ip_server + "items/" + widget.ite_id.toString(), "PUT", body);
         Navigator.pop(context);
       }
 
@@ -313,7 +303,8 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
         print("Ruta del login");
       } else {
         print(datos);
-        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(
+            context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
       }
     }
   }

@@ -42,7 +42,7 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
               height: 300,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -140,7 +140,7 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 400,
+      top: MediaQuery.of(context).size.height - 390,
       right: 0,
       left: 0,
       child: Center(
@@ -189,14 +189,13 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
       ),
     );
   }
+
   guardar_datos() async {
-   
-    if ( nombre.text == "" ) {
+    if (nombre.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      
+    } else {
       String body = jsonEncode({
-        "cat_nombre":nombre.text,        
+        "cat_nombre": nombre.text,
       });
       List datos = [];
       if (widget.cat_id == 0) {
@@ -207,9 +206,7 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
       } else {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
-            ip_server + "catalogos/" + widget.cat_id.toString(),
-            "PUT",
-            body);
+            ip_server + "catalogos/" + widget.cat_id.toString(), "PUT", body);
         Navigator.pop(context);
       }
 
@@ -219,7 +216,8 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
         print("Ruta del login");
       } else {
         print(datos);
-        Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+        Navigator.pop(
+            context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
       }
     }
   }

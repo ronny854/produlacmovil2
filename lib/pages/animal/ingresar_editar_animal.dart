@@ -163,7 +163,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
               height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF4D85FF),
+                color: const Color(0xFF2E90FF),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -314,20 +314,23 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                             ),
                           ),
                           const SizedBox(height: 15.0),
-                          Container(
-                            height: 280,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black)),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
                             child: SfDateRangePicker(
                               initialDisplayDate: selectedDate,
                               initialSelectedDate: selectedDate,
                               onSelectionChanged: _onSelectionChanged,
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField(
                               Icons.recommend, "Raza", false, false, raza),
+                          const SizedBox(height: 8.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            // ignore: prefer_const_literals_to_create_immutables
                             children: [
                               Text(
                                 'Seleccione',
@@ -372,6 +375,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -421,6 +425,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -470,8 +475,10 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.line_weight_outlined,
                               "Peso al nacer", false, true, peso_nacer),
+                          const SizedBox(height: 10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -518,6 +525,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

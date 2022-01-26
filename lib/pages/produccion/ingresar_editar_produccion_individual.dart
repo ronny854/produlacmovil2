@@ -17,8 +17,15 @@ class IngresarEditarIndividual extends StatefulWidget {
   List lista_horario;
   //
 
-  IngresarEditarIndividual(this.pro_id, this.ani_id, this.pro_fecha,
-      this.ite_idhorario, this.pro_litros, this.pro_dieta, this.lista_animales,this.lista_horario);
+  IngresarEditarIndividual(
+      this.pro_id,
+      this.ani_id,
+      this.pro_fecha,
+      this.ite_idhorario,
+      this.pro_litros,
+      this.pro_dieta,
+      this.lista_animales,
+      this.lista_horario);
   @override
   _IngresarEditarIndividualState createState() =>
       _IngresarEditarIndividualState();
@@ -44,7 +51,7 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
       dieta.text = widget.pro_dieta.toString();
 
       _select_ani_id = widget.ani_id.toString();
-      _select_ite_idhorario=widget.ite_idhorario.toString();
+      _select_ite_idhorario = widget.ite_idhorario.toString();
       if (widget.pro_fecha != "") {
         selectedDate = DateTime.parse(widget.pro_fecha);
       }
@@ -56,14 +63,15 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
       if (widget.ani_id != 0) {
         _select_ani_id = widget.ani_id.toString();
       }
-      if(widget.lista_horario.length>=1){
-        _select_ite_idhorario=widget.lista_horario[0]['ite_id'].toString();
+      if (widget.lista_horario.length >= 1) {
+        _select_ite_idhorario = widget.lista_horario[0]['ite_id'].toString();
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -73,10 +81,10 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -87,13 +95,13 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 70,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -198,6 +206,7 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -244,14 +253,21 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
                               ),
                             ),
                           ),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
-                          ),                         
-
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
+                          ),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.calendar_today_outlined,
                               "Litros de producción", false, true, litros),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.food_bank_outlined, "Dieta",
                               false, false, dieta),
                           const SizedBox(
@@ -283,7 +299,7 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(
