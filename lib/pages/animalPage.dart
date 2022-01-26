@@ -1,6 +1,5 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, sized_box_for_whitespace, avoid_unnecessary_containers, deprecated_member_use, non_constant_identifier_names
-import 'dart:math';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,10 +9,8 @@ import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
 
 import 'package:produlacmovil/pages/onlyAnimalPage.dart';
-import 'package:produlacmovil/pages/subMenus/subMenuSalud.dart';
 
 import 'animal/ingresar_editar_animal.dart';
-import 'subMenus/subMenuProduccion.dart';
 
 class AnimalPAge extends StatefulWidget {
   AnimalPAge({Key? key}) : super(key: key);

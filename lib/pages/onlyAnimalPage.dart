@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors_in_immutables, prefer_const_constructors, non_constant_identifier_names, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class onlyAnimalPage extends StatefulWidget {

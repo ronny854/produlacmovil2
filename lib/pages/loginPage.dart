@@ -1,14 +1,13 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, deprecated_member_use
 
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/components/background.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
-import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
-import 'package:produlacmovil/pages/registerPage.dart';
+import 'package:produlacmovil/pages/seleccionfincaatrabajar.dart';
 import 'dart:convert';
 
 import 'drawer/navigation_home_screen.dart';
@@ -27,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _mostrarErrorUsuario = false;
 
   ControllerGenral controller_general = new ControllerGenral();
+  String select_fin_id_veterinario = "";
 
   @override
   void dispose() {
@@ -190,32 +190,28 @@ class _LoginPageState extends State<LoginPage> {
       _mostrarDialogInicio = false;
       _mostrarErrorUsuario = false;
 
-     
       List fincas_segun_per_id = await listaFincasSegunPerID();
-      
+
       List fincas_per_id = listaFincasPerId(fincas_segun_per_id);
-      
+
       if (fincas_per_id.length == 1) {
-        
         fin_id_usuario_logeado = fincas_per_id[0]['fin_id'].toString();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => NavigationHomeScreen(),
+          ),
+        );
       } else {
         if (fincas_per_id.length >= 2) {
-          //ESCOGER EN QUE FINCA VA A TRABAJAR
-          print("ESCOGER EN QUE FINCA VA A TRABAJAR");
-        } else {
-          if (fincas_per_id.length == 0) {
-            //NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN
-            print("NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN ");
-          }
+          Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => SeleccioneFincaATrabajar(fincas_per_id),
+          ),
+        );
         }
       }
-
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (_) => NavigationHomeScreen(),
-        ),
-      );
     }
     _controllerPassword.clear();
     _controllerUser.clear();
@@ -248,4 +244,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
+  
 }
