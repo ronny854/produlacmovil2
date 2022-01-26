@@ -62,7 +62,6 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
     if (drawerIndex != drawerIndexdata) {
       drawerIndex = drawerIndexdata;
       if (drawerIndex == DrawerIndex.inicio) {
-        
         setState(() {
           screenView = PrincipalPage();
         });
@@ -73,9 +72,6 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
       } else if (drawerIndex == DrawerIndex.produccion) {
 
         List lista_fecha_litros = await listaprodGlobal(fin_id_usuario_logeado);
-
-        print(lista_fecha_litros);
-        print(fin_id_usuario_logeado);
         
         setState(() {
           screenView = ProduccionPage(lista_fecha_litros);

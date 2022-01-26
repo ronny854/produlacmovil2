@@ -187,6 +187,12 @@ Future<List<dynamic>> getListaProdIndividualporfinca(String fin_id) async {
   
 }
 
+Future<List<dynamic>> getUnaFinca() async {  
+  List lista = await controller_general.httpgeneral(
+      ip_server + "fincas/"+fin_id_usuario_logeado, "GET", "");
+  return lista;
+}
+
 
 
 
