@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
@@ -393,7 +394,7 @@ class _IngresarEditarInseminacionState
 
       String body = jsonEncode({
         "ins_fechainseminacion": _selectedDate_a_enviar_fecha_inseminacion,
-        "per_id": select_per_id,
+        "per_id": per_id_usuario_logeado,
         "ani_id": select_ani_id,
         "ins_fechacomprobacion": _selectedDate_a_enviar_fecha_comprobacion,
         "ins_cargada": cargada.text,
@@ -402,8 +403,9 @@ class _IngresarEditarInseminacionState
         "ins_numpajuela": num_pajuela.text,
         "ins_descripcion": descripcion.text,
       });
+      print(body);
       List datos = [];
-      if (widget.ani_id == 0) {
+      if (widget.ins_id == 0) {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
             ip_server + "inseminacion", "POST", body);
@@ -419,10 +421,11 @@ class _IngresarEditarInseminacionState
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context); 
         if(widget.ins_id!=0){
           Navigator.pop(context);

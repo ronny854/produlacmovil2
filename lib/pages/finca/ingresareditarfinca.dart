@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
 
 class IngresarEditarFinca extends StatefulWidget {
@@ -440,9 +441,7 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
         "per_id": per_id
       });
 
-      print(body_finca);
-      print(widget.fin_id);
-
+      
       List datos = [];
       if (widget.fin_id == 0) {
         dialog(context, "Enviando Datos", false);
@@ -461,10 +460,11 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print("Ruta del login");
-        print(datos);
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context);
         if(widget.fin_id!=0){
           Navigator.pop(context);

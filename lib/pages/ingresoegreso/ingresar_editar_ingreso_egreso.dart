@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
@@ -392,7 +393,7 @@ class _IngresarEditarIngresoEgresoState
       }
 
       String body = jsonEncode({
-        "ing_monto": monto.toString(),
+        "ing_monto": monto.text,
         "ite_idingresoegreso": _select_ite_idingreso_egreso,
         "fin_id": _select_fin_id,
         "ing_descripcion": descripcion.text,
@@ -415,10 +416,11 @@ class _IngresarEditarIngresoEgresoState
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
         if(widget.ing_id!=0){
           Navigator.pop(context);

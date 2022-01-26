@@ -80,8 +80,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
   List Lista_sexo = ["Macho", "Hembra"];
   String select_Sexo = "Macho";
 
-  String select_ani_id_padre = "";
-  String select_ani_id_madre = "";
+  String select_ani_id_padre = " ";
+  String select_ani_id_madre = " ";
   String select_ite_idespecie = "";
   String select_fin_id = "";
   String select_ite_tipo_estado = "";
@@ -728,6 +728,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
         "fin_id": select_fin_id,
         "ite_idtipoestado": select_ite_tipo_estado
       });
+      print("asd");
+      print("aqui: "+body);
       List datos = [];
       if (widget.ani_id == 0) {
         dialog(context, "Enviando Datos", false);

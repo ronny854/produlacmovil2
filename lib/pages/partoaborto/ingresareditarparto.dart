@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class IngresarEditarParto extends StatefulWidget {
@@ -22,7 +23,7 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
   String ani_id_hijo = "";
   // String ite_id_parto_aborto = "";
 
-  List lista_hembras = [];
+ 
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -31,17 +32,11 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
   @override
   void initState() {
     super.initState();
-    for (var item in widget.lista_animales) {
-      if (item['ani_sexo'].toString() == "Hembra") {
-        lista_hembras.add(item);
-      }
-    }
-    if (lista_hembras.length >= 1) {
-      ani_id_madre = lista_hembras[0]["ani_id"].toString();
-    }
+    
 
     if (widget.lista_animales.length >= 1) {
       ani_id_hijo = widget.lista_animales[0]['ani_id'].toString();
+      ani_id_madre = widget.lista_animales[0]['ani_id'].toString();
     }
     // if (widget.lista_parto_aborto.length >= 1) {
     //   ite_id_parto_aborto = widget.lista_parto_aborto[0]['ite_id'].toString();
@@ -182,7 +177,7 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
                                     ani_id_madre = newValue!;
                                   });
                                 },
-                                items: lista_hembras.map((value) {
+                                items: widget.lista_animales.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['ani_id'].toString(),
                                     child: Text("Nombre: " +
@@ -446,9 +441,11 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(
             context);
             if(widget.par_id!=0){

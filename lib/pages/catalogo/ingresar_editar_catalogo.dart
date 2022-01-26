@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 
 class IngresarEditarCatalogo extends StatefulWidget {
   int cat_id;
@@ -212,10 +213,11 @@ class _IngresarEditarCatalogoState extends State<IngresarEditarCatalogo> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
 
         if(widget.cat_id!=0){

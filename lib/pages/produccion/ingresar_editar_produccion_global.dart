@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:produlacmovil/listas.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:produlacmovil/pages/produccionPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
@@ -425,10 +426,12 @@ class _IngresarEditarProduccionGlobalState
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
+        
         Navigator.pop(context);
 
         if(widget.pglo_id!=0){

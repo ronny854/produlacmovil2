@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:produlacmovil/controller/general_controller.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class IngresarEditarAborto extends StatefulWidget {
@@ -33,18 +34,10 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
 
   @override
   void initState() {
-    super.initState();
-    for (var item in widget.lista_animales) {
-      if (item['ani_sexo'].toString() == "Hembra") {
-        lista_hembras.add(item);
-      }
-    }
-    if (lista_hembras.length >= 1) {
-      ani_id_madre = lista_hembras[0]["ani_id"].toString();
-    }
+    super.initState();    
 
     if (widget.lista_animales.length >= 1) {
-      ani_id_hijo = widget.lista_animales[0]['ani_id'].toString();
+      ani_id_madre = widget.lista_animales[0]['ani_id'].toString();
     }
 
     if (widget.fecha != "") {
@@ -52,6 +45,9 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
     }
 
     if (widget.abo_id != 0) {
+      ani_id_madre = widget.ani_id_madre;
+    }
+    if(widget.ani_id_madre!= "0"){
       ani_id_madre = widget.ani_id_madre;
     }
     controller_descripcion.text=widget.descripcrion;
@@ -181,7 +177,7 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
                                     ani_id_madre = newValue!;
                                   });
                                 },
-                                items: lista_hembras.map((value) {
+                                items: widget.lista_animales.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['ani_id'].toString(),
                                     child: Text("Nombre: " +
@@ -387,9 +383,11 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print("Ruta del login");
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
+            ModalRoute.withName('/'));
       } else {
-        print(datos);
         Navigator.pop(context); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
         
         if(widget.abo_id!=0){
