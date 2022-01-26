@@ -80,8 +80,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
   List Lista_sexo = ["Macho", "Hembra"];
   String select_Sexo = "Macho";
 
-  String select_ani_id_padre = "";
-  String select_ani_id_madre = "";
+  String select_ani_id_padre = " ";
+  String select_ani_id_madre = " ";
   String select_ite_idespecie = "";
   String select_fin_id = "";
   String select_ite_tipo_estado = "";
@@ -754,8 +754,8 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             ModalRoute.withName('/'));
       } else {
-        print(datos);
-        Navigator.pop(context);        
+        print(body);
+        Navigator.pop(context);
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

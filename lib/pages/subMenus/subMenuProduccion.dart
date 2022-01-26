@@ -63,6 +63,7 @@ class GridDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<Items> myList = [item1, item2];
     var color = 0xFF70C3FA;
     return Flexible(
@@ -114,10 +115,10 @@ class GridDashboard extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       data.img,
-                      width: 80,
+                      width: size.width * 0.1944,
                     ),
                     SizedBox(
-                      height: 14,
+                      height: size.height * 0.03,
                     ),
                     Text(
                       data.title,

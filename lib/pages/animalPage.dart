@@ -108,39 +108,40 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               ),
             ), */
             //categoriesWidget(),
-            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"?
-            Container(
-              padding: EdgeInsets.only(bottom: 15.0),
-              child: RaisedButton(
-                onPressed: () async {
-                  await enviarIngresarEditar(
-                      0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0);
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                textColor: Colors.white,
-                padding: const EdgeInsets.all(0),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: queryData.size.height * 0.0512,
-                  width: queryData.size.width - 100,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(80.0),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromRGBO(35, 144, 255, 1.0),
-                        Color.fromRGBO(14, 57, 102, 1.0),
-                      ],
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"
+                ? Container(
+                    padding: EdgeInsets.only(bottom: 15.0),
+                    child: RaisedButton(
+                      onPressed: () async {
+                        await enviarIngresarEditar(
+                            0, '', '', '', '', '', '', '', 0, 0, '', 0, 0, 0);
+                      },
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(80.0)),
+                      textColor: Colors.white,
+                      padding: const EdgeInsets.all(0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: queryData.size.height * 0.0512,
+                        width: queryData.size.width - 100,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(80.0),
+                          gradient: const LinearGradient(
+                            colors: [
+                              Color.fromRGBO(35, 144, 255, 1.0),
+                              Color.fromRGBO(14, 57, 102, 1.0),
+                            ],
+                          ),
+                        ),
+                        child: const Text('Agregar nuevo animal',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
                     ),
-                  ),
-                  child: const Text('Agregar nuevo animal',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-              ),
-            ):Text(''),
+                  )
+                : Text(''),
             Expanded(
               child: Container(
                 //height: queryData.size.height - 200,
@@ -205,7 +206,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
-    Navigator.pushReplacement(
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => IngresarEditarAnimal(
@@ -253,11 +254,10 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           extentRatio: 1.0,
           motion: ScrollMotion(),
           children: [
-            
-            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado=="4"?
-            itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
-                Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista):Text(''),
-
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"
+                ? itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
+                    Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista)
+                : Text(''),
 
             /*itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
                 Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt, animalesLista),*/
@@ -268,13 +268,19 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           //openThreshold: 0.9,
           motion: ScrollMotion(),
           children: [
-            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="3"?
-            itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
-                FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista):Text(''),
-            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="4"?
-            itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
-                FontAwesomeIcons.clipboard, 'subMenuProduccion', animalesLista):Text(''),
-
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "3"
+                ? itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
+                    FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista)
+                : Text(''),
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"
+                ? itemSlidable(
+                    'Producción',
+                    Color(0xCE6CB1FF),
+                    Color(0xFF000000),
+                    FontAwesomeIcons.clipboard,
+                    'subMenuProduccion',
+                    animalesLista)
+                : Text(''),
             itemSlidable(
                 'Reproducción',
                 Color(0xCEFDFF6C),
