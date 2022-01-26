@@ -121,12 +121,12 @@ class GridDashboard extends StatelessWidget {
                               fontSize: 16,
                               fontWeight: FontWeight.w600)),
                     ),
-                    SizedBox(
+                    /*SizedBox(
                       height: 8,
                     ),
                     SizedBox(
                       height: 14,
-                    ),
+                    ),*/
                   ],
                 ),
               ),
