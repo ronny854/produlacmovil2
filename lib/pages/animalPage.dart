@@ -111,6 +111,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
               ),
             ), */
             //categoriesWidget(),
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"?
             Container(
               padding: EdgeInsets.only(bottom: 15.0),
               child: RaisedButton(
@@ -142,7 +143,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                       )),
                 ),
               ),
-            ),
+            ):Text(''),
             Expanded(
               child: Container(
                 //height: queryData.size.height - 200,
@@ -255,8 +256,12 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           extentRatio: 1.0,
           motion: ScrollMotion(),
           children: [
+            
+            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado=="4"?
             itemSlidableEditarAnimal('Editar', Color(0xDE0084FF),
-                Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista),
+                Color(0xFFF1F1F1), FontAwesomeIcons.edit, animalesLista):Text(''),
+
+
             /*itemSlidableEliminar('Eliminar', Color(0xDAFF0000),
                 Color(0xFFFFFFFF), FontAwesomeIcons.trashAlt, animalesLista),*/
           ],
@@ -266,10 +271,13 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           //openThreshold: 0.9,
           motion: ScrollMotion(),
           children: [
+            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="3"?
             itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
-                FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista),
+                FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista):Text(''),
+            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="4"?
             itemSlidable('Producción', Color(0xCE6CB1FF), Color(0xFF000000),
-                FontAwesomeIcons.clipboard, 'subMenuProduccion', animalesLista),
+                FontAwesomeIcons.clipboard, 'subMenuProduccion', animalesLista):Text(''),
+
             itemSlidable(
                 'Reproducción',
                 Color(0xCEFDFF6C),

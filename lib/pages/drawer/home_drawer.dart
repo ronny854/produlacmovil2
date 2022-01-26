@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:produlacmovil/components/app_theme.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 
 import '../loginPage.dart';
 
@@ -31,7 +32,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   void setDrawerListArray() {
-    drawerList = <DrawerList>[
+    /*drawerList = <DrawerList>[
       DrawerList(
         index: DrawerIndex.inicio,
         labelName: 'Inicio',
@@ -52,11 +53,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: 'Ventas',
         icon: FaIcon(FontAwesomeIcons.notesMedical),
       ),
-/*       DrawerList(
-        index: DrawerIndex.cicloVida,
-        labelName: 'Ciclo de vida',
-        icon: FaIcon(FontAwesomeIcons.stumbleupon),
-      ), */
       DrawerList(
         index: DrawerIndex.ingresos,
         labelName: 'Ingresos',
@@ -67,7 +63,106 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: 'Administrar',
         icon: FaIcon(FontAwesomeIcons.userCog),
       ),
-    ];
+    ];*/
+    if (rol_id_usuario_logeado == "1") {
+      drawerList = <DrawerList>[
+        DrawerList(
+          index: DrawerIndex.inicio,
+          labelName: 'Inicio',
+          icon: FaIcon(FontAwesomeIcons.home),
+        ),
+        DrawerList(
+          index: DrawerIndex.animales,
+          labelName: 'Animales',
+          icon: FaIcon(FontAwesomeIcons.paw),
+        ),
+        DrawerList(
+          index: DrawerIndex.administrar,
+          labelName: 'Administrar',
+          icon: FaIcon(FontAwesomeIcons.userCog),
+        ),
+      ];
+    } else {
+      if (rol_id_usuario_logeado == "2") {
+        drawerList = <DrawerList>[
+          DrawerList(
+            index: DrawerIndex.inicio,
+            labelName: 'Inicio',
+            icon: FaIcon(FontAwesomeIcons.home),
+          ),
+          DrawerList(
+            index: DrawerIndex.animales,
+            labelName: 'Animales',
+            icon: FaIcon(FontAwesomeIcons.paw),
+          ),
+          DrawerList(
+            index: DrawerIndex.produccion,
+            labelName: 'Produccion',
+            icon: FaIcon(FontAwesomeIcons.pollH),
+          ),
+          DrawerList(
+            index: DrawerIndex.ventas,
+            labelName: 'Ventas',
+            icon: FaIcon(FontAwesomeIcons.notesMedical),
+          ),
+          DrawerList(
+            index: DrawerIndex.ingresos,
+            labelName: 'Ingresos',
+            icon: FaIcon(FontAwesomeIcons.chartLine),
+          ),
+          DrawerList(
+            index: DrawerIndex.administrar,
+            labelName: 'Administrar',
+            icon: FaIcon(FontAwesomeIcons.userCog),
+          ),
+        ];
+      } else {
+        if (rol_id_usuario_logeado == "3") {
+          drawerList = <DrawerList>[
+            DrawerList(
+              index: DrawerIndex.inicio,
+              labelName: 'Inicio',
+              icon: FaIcon(FontAwesomeIcons.home),
+            ),
+            DrawerList(
+              index: DrawerIndex.animales,
+              labelName: 'Animales',
+              icon: FaIcon(FontAwesomeIcons.paw),
+            ),
+            DrawerList(
+              index: DrawerIndex.administrar,
+              labelName: 'Administrar',
+              icon: FaIcon(FontAwesomeIcons.userCog),
+            ),
+          ];
+        } else {
+          if (rol_id_usuario_logeado == "4") {
+            drawerList = <DrawerList>[
+              DrawerList(
+                index: DrawerIndex.inicio,
+                labelName: 'Inicio',
+                icon: FaIcon(FontAwesomeIcons.home),
+              ),
+              DrawerList(
+                index: DrawerIndex.animales,
+                labelName: 'Animales',
+                icon: FaIcon(FontAwesomeIcons.paw),
+              ),
+              DrawerList(
+                index: DrawerIndex.produccion,
+                labelName: 'Produccion',
+                icon: FaIcon(FontAwesomeIcons.pollH),
+              ),
+              DrawerList(
+                index: DrawerIndex.administrar,
+                labelName: 'Administrar',
+                icon: FaIcon(FontAwesomeIcons.userCog),
+              ),
+            ];
+          }
+        }
+      }
+    }
   }
 
   @override
