@@ -27,6 +27,7 @@ class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
   List animalesLista = [];
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     if (ModalRoute.of(context)!.settings.arguments != null) {
       animalesLista = ModalRoute.of(context)!.settings.arguments as List;
       //var listaA = jsonDecode(objeto);
@@ -43,7 +44,7 @@ class _SubMenuReproduccionState extends State<SubMenuReproduccion> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 30,
+            height: size.height * 0.0438,
           ),
           GridDashboard(animalesLista)
         ],
@@ -57,41 +58,41 @@ class GridDashboard extends StatelessWidget {
   GridDashboard(this.animalesLista);
   Items item1 = Items(
     title: "Inseminación",
-    img: "assets/images/vacaOrd.png",
+    img: "assets/images/inseminacion.png",
     ruta: 'inseminacion',
   );
 
   Items item2 = Items(
     title: "Aborto",
-    img: "assets/images/registrado.png",
+    img: "assets/images/aborto.png",
     ruta: 'aborto',
   );
- 
+
   Items item4 = Items(
     title: "Parto",
-    img: "assets/images/festival.png",
+    img: "assets/images/parto.png",
     ruta: 'parto',
   );
 
   Items item5 = Items(
     title: "Ver Inseminacion",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verInseminacion',
   );
   Items item6 = Items(
     title: "Ver Parto",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verParto',
   );
   Items item7 = Items(
     title: "Ver Aborto",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verAborto',
   );
-  
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<Items> myList = [
       item1,
       item2,
@@ -112,7 +113,7 @@ class GridDashboard extends StatelessWidget {
             return GestureDetector(
               onTap: () async {
                 // Navigator.pushNamed(context, data.ruta);
-                
+
                 if (data.ruta == 'inseminacion') {
                   List<dynamic> lista_animales = await listaAnimales();
                   Navigator.push(
@@ -139,7 +140,7 @@ class GridDashboard extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarAborto(
                               0, '', '', '', lista_animales)));
-                }else if (data.ruta == 'parto') {
+                } else if (data.ruta == 'parto') {
                   List<dynamic> lista_animales = await listaAnimales();
                   print('ruta parto');
                   Navigator.push(
@@ -147,20 +148,23 @@ class GridDashboard extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarParto(
                               0, '', '', '', lista_animales)));
-                } else if(data.ruta == 'verInseminacion'){
-                  List lista = await getInseminacionporanimal(animalesLista[0]['ani_id'].toString());
+                } else if (data.ruta == 'verInseminacion') {
+                  List lista = await getInseminacionporanimal(
+                      animalesLista[0]['ani_id'].toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarInseminacion(lista)));
-                }else if(data.ruta == 'verParto'){
-                  List lista = await getPartoporanimal(animalesLista[0]['ani_id'].toString());
+                } else if (data.ruta == 'verParto') {
+                  List lista = await getPartoporanimal(
+                      animalesLista[0]['ani_id'].toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarParto(lista)));
-                }else if(data.ruta == 'verAborto'){
-                  List lista = await getAbortoporanimal(animalesLista[0]['ani_id'].toString());                  
+                } else if (data.ruta == 'verAborto') {
+                  List lista = await getAbortoporanimal(
+                      animalesLista[0]['ani_id'].toString());
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -176,10 +180,10 @@ class GridDashboard extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       data.img,
-                      width: 80,
+                      width: size.width * 0.1944,
                     ),
                     SizedBox(
-                      height: 14,
+                      height: size.height * 0.03,
                     ),
                     Text(
                       data.title,
@@ -190,12 +194,12 @@ class GridDashboard extends StatelessWidget {
                               fontSize: 16,
                               fontWeight: FontWeight.w600)),
                     ),
-                    SizedBox(
+/*                     SizedBox(
                       height: 8,
                     ),
                     SizedBox(
                       height: 14,
-                    ),
+                    ), */
                   ],
                 ),
               ),

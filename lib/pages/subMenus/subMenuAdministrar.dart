@@ -30,6 +30,7 @@ class SubMenuAdministrar extends StatefulWidget {
 class _SubMenuAdministrarState extends State<SubMenuAdministrar> {
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
@@ -41,7 +42,7 @@ class _SubMenuAdministrarState extends State<SubMenuAdministrar> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 30,
+            height: size.height * 0.0438,
           ),
           GridDashboard()
         ],
@@ -53,94 +54,106 @@ class _SubMenuAdministrarState extends State<SubMenuAdministrar> {
 class GridDashboard extends StatelessWidget {
   Items item1 = Items(
     title: "Agregar Usuario",
-    img: "assets/images/vacaOrd.png",
+    img: "assets/images/usuario.png",
     ruta: 'AgregarUsuario',
   );
 
   Items item2 = Items(
     title: "Ver usuarios",
-    img: "assets/images/registrado.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'personasView',
   );
   Items item3 = Items(
     title: "Agregar Catalogo",
-    img: "assets/images/map.png",
+    img: "assets/images/catalogo.png",
     ruta: 'AgregarCatalogo',
   );
   Items item4 = Items(
     title: "Agregar Item Catalogo",
-    img: "assets/images/festival.png",
+    img: "assets/images/item.png",
     ruta: 'AgregarItemCatalogo',
   );
   Items item5 = Items(
     title: "Agregar Finca",
-    img: "assets/images/todo.png",
+    img: "assets/images/terreno.png",
     ruta: 'AgregarFinca',
   );
   Items item6 = Items(
     title: "Ver Fincas",
-    img: "assets/images/todo.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verfincas',
   );
   Items item7 = Items(
     title: "Agregar Fincas Persona",
-    img: "assets/images/todo.png",
+    img: "assets/images/agregarUsuario.png",
     ruta: 'Agregarfincaspersona',
   );
 
-   Items item8 = Items(
+  Items item8 = Items(
     title: "Deceso",
-    img: "assets/images/map.png",
+    img: "assets/images/craneo.png",
     ruta: 'deceso',
   );
 
   Items item9 = Items(
     title: "Ver Decesos",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verDeceso',
   );
 
   Items item10 = Items(
     title: "Ver Catalogo",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verCatalogo',
   );
 
   Items item11 = Items(
     title: "Ver Item",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verItemCatalogo',
   );
 
   Items item12 = Items(
     title: "Ver Finca Persona",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verfincapersona',
   );
 
   Items item13 = Items(
     title: "Ver Produccion Global",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verproduccionglobal',
   );
   Items item14 = Items(
     title: "Ver Produccion Individual",
-    img: "assets/images/festival.png",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verproduccionIndividual',
   );
-  
-
 
   @override
   Widget build(BuildContext context) {
-    List<Items> listaAdmin = [item1, item2, item3, item4, item5, item6, item7,item8,item9,item10,item11,item12];
-    List<Items> listaDueno = [item1, item2, item13,item14];
-    List <Items> lista_recorrer=[];
-    if(rol_id_usuario_logeado=="1"){
-      lista_recorrer=listaAdmin;
-    }else{
-      if(rol_id_usuario_logeado=="2"){
-        lista_recorrer=listaDueno;
+    final size = MediaQuery.of(context).size;
+    List<Items> listaAdmin = [
+      item1,
+      item2,
+      item3,
+      item4,
+      item5,
+      item6,
+      item7,
+      item8,
+      item9,
+      item10,
+      item11,
+      item12
+    ];
+    List<Items> listaDueno = [item1, item2, item13, item14];
+    List<Items> lista_recorrer = [];
+    if (rol_id_usuario_logeado == "1") {
+      lista_recorrer = listaAdmin;
+    } else {
+      if (rol_id_usuario_logeado == "2") {
+        lista_recorrer = listaDueno;
       }
     }
     var color = 0xFF70C3FA;
@@ -153,9 +166,7 @@ class GridDashboard extends StatelessWidget {
           mainAxisSpacing: 18,
           children: lista_recorrer.map((data) {
             return GestureDetector(
-              onTap: () async {               
-                
-                
+              onTap: () async {
                 if (data.ruta == "AgregarUsuario") {
                   List lista_rol = await getRoles();
                   Navigator.push(
@@ -167,54 +178,56 @@ class GridDashboard extends StatelessWidget {
                   );
                 }
 
-                if(data.ruta=="personasView"){
-                  List lista_fincapersonas=[];
-                  if(rol_id_usuario_logeado=="1"){//Trae todas las personas de todas las fincas
-                    lista_fincapersonas= await getTodosFincasPersonas();
-                  }else{
-                    if(rol_id_usuario_logeado=="2"){//trae a todas las personas de una finca
-                      lista_fincapersonas=await getTodosFincasPersonadeunafinca(fin_id_usuario_logeado);
+                if (data.ruta == "personasView") {
+                  List lista_fincapersonas = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    //Trae todas las personas de todas las fincas
+                    lista_fincapersonas = await getTodosFincasPersonas();
+                  } else {
+                    if (rol_id_usuario_logeado == "2") {
+                      //trae a todas las personas de una finca
+                      lista_fincapersonas =
+                          await getTodosFincasPersonadeunafinca(
+                              fin_id_usuario_logeado);
                     }
                   }
                   print(lista_fincapersonas);
-                  
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => VisualizarPersonas(lista_fincapersonas),
                     ),
                   );
-
                 }
 
-                if(data.ruta=="AgregarCatalogo"){
+                if (data.ruta == "AgregarCatalogo") {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => IngresarEditarCatalogo(
-                          0, ""),
+                      builder: (_) => IngresarEditarCatalogo(0, ""),
                     ),
                   );
                 }
 
-                if(data.ruta=="AgregarItemCatalogo"){
+                if (data.ruta == "AgregarItemCatalogo") {
                   List lista_catalogos = await getTodosCatalogos();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => IngresarEditarItem(
-                          0, "",0,lista_catalogos),
+                      builder: (_) =>
+                          IngresarEditarItem(0, "", 0, lista_catalogos),
                     ),
                   );
                 }
 
-                if(data.ruta=="AgregarFinca"){
+                if (data.ruta == "AgregarFinca") {
                   List lista_personas = await listapersonas();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => IngresarEditarFinca(
-                          0, "","","","", "","","","",lista_personas),
+                          0, "", "", "", "", "", "", "", "", lista_personas),
                     ),
                   );
                 }
@@ -228,13 +241,14 @@ class GridDashboard extends StatelessWidget {
                   );
                 }
 
-                if(data.ruta=="Agregarfincaspersona"){
+                if (data.ruta == "Agregarfincaspersona") {
                   List fincas = await listaTodaslasfincas();
                   List lista_personas = await listapersonas();
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => IngresarEditarFincaPersona(0,0,0,fincas,lista_personas),
+                      builder: (_) => IngresarEditarFincaPersona(
+                          0, 0, 0, fincas, lista_personas),
                     ),
                   );
                 }
@@ -249,23 +263,22 @@ class GridDashboard extends StatelessWidget {
                               0, 0, '', '', '', lista_animales)));
                 }
 
-                if(data.ruta=="verDeceso"){
+                if (data.ruta == "verDeceso") {
                   List lista = await getDecesoporFinca(fin_id_usuario_logeado);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarDeceso(lista)));
-
                 }
 
-                if(data.ruta=="verCatalogo"){
+                if (data.ruta == "verCatalogo") {
                   List lista = await getTodosCatalogos();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarCatalogo(lista)));
                 }
-                if(data.ruta=="verItemCatalogo"){
+                if (data.ruta == "verItemCatalogo") {
                   List lista = await getItems();
                   Navigator.push(
                       context,
@@ -273,7 +286,7 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => VisualizarItemCatalogo(lista)));
                 }
 
-                if(data.ruta=="verfincapersona"){
+                if (data.ruta == "verfincapersona") {
                   List lista = await getTodosFincasPersonas();
                   Navigator.push(
                       context,
@@ -281,24 +294,25 @@ class GridDashboard extends StatelessWidget {
                           builder: (context) => VisualizarFincaPersona(lista)));
                 }
 
-                if(data.ruta=="verproduccionglobal"){
-                  List lista = await getListaProdGlobalporfinca(fin_id_usuario_logeado);
+                if (data.ruta == "verproduccionglobal") {
+                  List lista =
+                      await getListaProdGlobalporfinca(fin_id_usuario_logeado);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => VisualizarProdGlobal(lista)));
                 }
 
-                if(data.ruta=="verproduccionIndividual"){
-                  List lista = await getListaProdIndividualporfinca(fin_id_usuario_logeado);
+                if (data.ruta == "verproduccionIndividual") {
+                  List lista = await getListaProdIndividualporfinca(
+                      fin_id_usuario_logeado);
                   print(lista);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualizarProdIndividual(lista)));
+                          builder: (context) =>
+                              VisualizarProdIndividual(lista)));
                 }
-
-                
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -309,10 +323,10 @@ class GridDashboard extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       data.img,
-                      width: 80,
+                      width: size.width * 0.1944,
                     ),
                     SizedBox(
-                      height: 14,
+                      height: size.height * 0.03,
                     ),
                     Text(
                       data.title,

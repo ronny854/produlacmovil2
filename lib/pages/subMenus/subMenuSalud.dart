@@ -23,6 +23,7 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     if (ModalRoute.of(context)!.settings.arguments != null) {
       animalesLista = ModalRoute.of(context)!.settings.arguments as List;
       //var listaA = jsonDecode(objeto);
@@ -35,12 +36,12 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
         //automaticallyImplyLeading: false,
         toolbarOpacity: 0.7,
         backgroundColor: Colors.blue[400],
-        title: Text('Menú Producción del Animal'),
+        title: Text('Menú Salud del Animal'),
       ),
       body: Column(
         children: <Widget>[
           SizedBox(
-            height: 30,
+            height: size.height * 0.0438,
           ),
           GridDashboard(animalesLista)
         ],
@@ -51,6 +52,7 @@ class _SubMenuSaludState extends State<SubMenuSalud> {
 
 class GridDashboard extends StatelessWidget {
   List animalesLista = [];
+
   GridDashboard(this.animalesLista);
 
   Items item1 = Items(
@@ -65,19 +67,20 @@ class GridDashboard extends StatelessWidget {
     ruta: 'vacunar',
   );
   Items item3 = Items(
-    title: "Ver tratamiento Animal",
-    img: "assets/images/registroMedicos.png",
+    title: "Ver tratamientos",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verTratamiento',
   );
 
   Items item4 = Items(
-    title: "Ver vacunas Animal",
-    img: "assets/images/jeringuilla.png",
+    title: "Ver vacunas",
+    img: "assets/images/verRegistro2.png",
     ruta: 'verVacunas',
   );
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<Items> myList = [item1, item2, item3, item4];
     var color = 0xFF70C3FA;
     return Flexible(
@@ -152,10 +155,10 @@ class GridDashboard extends StatelessWidget {
                   children: <Widget>[
                     Image.asset(
                       data.img,
-                      width: 80,
+                      width: size.width * 0.1944,
                     ),
                     SizedBox(
-                      height: 14,
+                      height: size.height * 0.03,
                     ),
                     Text(
                       data.title,
@@ -166,12 +169,12 @@ class GridDashboard extends StatelessWidget {
                               fontSize: 16,
                               fontWeight: FontWeight.w600)),
                     ),
-                    SizedBox(
+/*                     SizedBox(
                       height: 8,
                     ),
                     SizedBox(
                       height: 14,
-                    ),
+                    ), */
                   ],
                 ),
               ),
