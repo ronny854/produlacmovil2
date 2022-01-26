@@ -1,6 +1,7 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, avoid_unnecessary_containers
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PrincipalPage extends StatefulWidget {
   PrincipalPage({Key? key}) : super(key: key);
@@ -52,11 +53,33 @@ class _PrincipalPageState extends State<PrincipalPage> {
                       SizedBox(
                         height: 20.0,
                       ),
-                      Text("Finca San Antonio"),
-                      Text("Dueño de la Finca"),
-                      Text("Pais - Provincia - Ciudad"),
-                      Text('direccion'),
-                      Text("telefono"),
+                      Text(
+                        "Finca San Antonio",
+                        style: GoogleFonts.questrial(fontSize: 28),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text("Dueño de la Finca",
+                          style: GoogleFonts.questrial(fontSize: 28)),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text("Pais - Provincia - Ciudad",
+                          style: GoogleFonts.questrial(fontSize: 28)),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text('direccion',
+                          style: GoogleFonts.questrial(fontSize: 28)),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      Text("telefono",
+                          style: GoogleFonts.questrial(fontSize: 28)),
+                      SizedBox(
+                        height: 20.0,
+                      ),
                     ],
                   ),
                 ),

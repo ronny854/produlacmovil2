@@ -106,6 +106,7 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -115,10 +116,10 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -129,13 +130,13 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -215,19 +216,25 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8.0),
+                          const SizedBox(height: 15.0),
                           buildTextField(
                               Icons.person, "Nombre", false, false, nombre),
+                          const SizedBox(height: 15.0),
                           buildTextField(
                               Icons.person, "Apellido", false, false, apellido),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.account_circle_outlined,
                               "Usuario", false, false, usuario),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.assignment_ind_outlined,
                               "Cédula", false, true, cedula),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.email_outlined, "Correo", false,
                               false, correo),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.phone_iphone_outlined,
                               "Teléfono", false, true, telefono),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.import_contacts_outlined,
                               "Dirección", false, false, direccion),
                           buildTextField(Icons.lock, "Contraseña", true, false,
@@ -373,7 +380,7 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

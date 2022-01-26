@@ -54,21 +54,21 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   '''Bienvenido a ProduLac'''.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: Colors.blue,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: size.height * 0.0292),
               TextField(
                 controller: _controllerUser,
                 decoration: const InputDecoration(
                   labelText: 'Usuario',
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 12,
+                    fontSize: 16,
                   ),
                 ),
               ),
@@ -79,12 +79,12 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: const InputDecoration(
                   labelText: 'Contraseña',
                   labelStyle: TextStyle(
-                    fontSize: 12,
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: size.height * 0.0292),
 /*               Container(
                 alignment: Alignment.centerRight,
                 child: const Text(
@@ -103,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Contraseña o usuario incorrectos',
                     style: TextStyle(color: Colors.red),
                   )),
-              const SizedBox(height: 50),
+              SizedBox(height: size.height * 0.0731),
               RaisedButton(
                 onPressed: () async {
                   dialogInicioSesion(context);
@@ -128,13 +128,13 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: const Text('Iniciar Sesión',
                       style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18)),
                 ),
               ),
-              const SizedBox(height: 20),
-              Row(
+              SizedBox(height: size.height * 0.0292),
+/*               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  SizedBox(width: size.width * 0.0243),
                   GestureDetector(
                     onTap: () => Navigator.push(
                       context,
@@ -161,7 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ],
-              ),
+              ), */
             ],
           ),
         ),
@@ -189,26 +189,23 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       _mostrarDialogInicio = false;
       _mostrarErrorUsuario = false;
-      
 
-      List fincas_segun_per_id=await listaFincasSegunPerID();
-      List fincas_per_id= listaFincasPerId(fincas_segun_per_id);
+      List fincas_segun_per_id = await listaFincasSegunPerID();
+      List fincas_per_id = listaFincasPerId(fincas_segun_per_id);
 
-      if(fincas_per_id.length==1){
-        fin_id_usuario_logeado=fincas_per_id[0]['fin_id'].toString();
-      }else{
-        if(fincas_per_id.length>=2){
+      if (fincas_per_id.length == 1) {
+        fin_id_usuario_logeado = fincas_per_id[0]['fin_id'].toString();
+      } else {
+        if (fincas_per_id.length >= 2) {
           //ESCOGER EN QUE FINCA VA A TRABAJAR
           print("ESCOGER EN QUE FINCA VA A TRABAJAR");
-        }else{
-          if(fincas_per_id.length==0){
-            //NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN 
+        } else {
+          if (fincas_per_id.length == 0) {
+            //NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN
             print("NO PERTENECE A NINGUNA FINCA -> ENVIAR AL LOGIN ");
           }
         }
       }
-
-
 
       Navigator.pushReplacement(
         context,
@@ -222,18 +219,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<dynamic> dialogInicioSesion(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => AlertDialog(
         content: Container(
-          width: 200,
-          height: 100,
+          width: size.width * 0.4861,
+          height: size.height * 0.1463,
           child: Column(
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: size.width * 0.1458,
+                width: size.height * 0.0878,
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),

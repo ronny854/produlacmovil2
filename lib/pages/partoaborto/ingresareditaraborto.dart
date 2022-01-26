@@ -59,6 +59,7 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -68,10 +69,10 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
             right: 0,
             left: 0,
             child: Container(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: EdgeInsets.only(top: 90, left: 8),
-                color: Color(0xFF3b5999).withOpacity(.85),
+                color: Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -81,13 +82,13 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -132,11 +133,17 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
                       margin: EdgeInsets.only(top: 20),
                       child: Column(
                         children: [
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -186,7 +193,7 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 15),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             // ignore: prefer_const_literals_to_create_immutables
@@ -262,7 +269,7 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

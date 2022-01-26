@@ -15,15 +15,22 @@ class IngresarEditarIngresoEgreso extends StatefulWidget {
   List lista_ingreso_egreso;
   List lista_fincas;
 
-  IngresarEditarIngresoEgreso(this.ing_id, this.ing_monto, this.ite_ingreso_egreso,
-      this.fin_id, this.ing_descripcion, this.ing_fecha,this.lista_ingreso_egreso,this.lista_fincas);
+  IngresarEditarIngresoEgreso(
+      this.ing_id,
+      this.ing_monto,
+      this.ite_ingreso_egreso,
+      this.fin_id,
+      this.ing_descripcion,
+      this.ing_fecha,
+      this.lista_ingreso_egreso,
+      this.lista_fincas);
   @override
   _IngresarEditarIngresoEgresoState createState() =>
       _IngresarEditarIngresoEgresoState();
 }
 
-class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgreso> {
-  
+class _IngresarEditarIngresoEgresoState
+    extends State<IngresarEditarIngresoEgreso> {
   TextEditingController monto = TextEditingController();
   TextEditingController descripcion = TextEditingController();
 
@@ -31,8 +38,6 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
 
   String _select_fin_id = "";
   String _select_ite_idingreso_egreso = "";
-
-  
 
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
@@ -42,29 +47,29 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
     super.initState();
 
     if (widget.ing_id != 0) {
-      
       monto.text = widget.ing_monto.toString();
       descripcion.text = widget.ing_descripcion.toString();
 
-      _select_fin_id=widget.fin_id.toString();
-      _select_ite_idingreso_egreso=widget.ite_ingreso_egreso.toString();
+      _select_fin_id = widget.fin_id.toString();
+      _select_ite_idingreso_egreso = widget.ite_ingreso_egreso.toString();
 
       if (widget.ing_fecha != "") {
-      selectedDate = DateTime.parse(widget.ing_fecha);
-    }
-    }else{
-      if(widget.lista_fincas.length>=1){
-        _select_fin_id= widget.lista_fincas[0]['fin_id'].toString();
+        selectedDate = DateTime.parse(widget.ing_fecha);
       }
-      if(widget.lista_ingreso_egreso.length>=1){
-        _select_ite_idingreso_egreso= widget.lista_ingreso_egreso[0]['ite_id'].toString();
+    } else {
+      if (widget.lista_fincas.length >= 1) {
+        _select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
+      }
+      if (widget.lista_ingreso_egreso.length >= 1) {
+        _select_ite_idingreso_egreso =
+            widget.lista_ingreso_egreso[0]['ite_id'].toString();
       }
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -74,10 +79,10 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -88,13 +93,13 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -118,16 +123,15 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
                             children: [
                               SingleChildScrollView(
                                 scrollDirection: Axis.horizontal,
-                                child: 
-                              Text(
-                                widget.ing_id == 0
-                                    ? "AGREGAR INGRESO EGRESO"
-                                    : "ACTUALIZAR INGRESO EGRESO",
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF09126C)),
-                              ),
+                                child: Text(
+                                  widget.ing_id == 0
+                                      ? "AGREGAR INGRESO EGRESO"
+                                      : "ACTUALIZAR INGRESO EGRESO",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFF09126C)),
+                                ),
                               ),
                               Container(
                                 margin: const EdgeInsets.only(top: 3),
@@ -154,7 +158,6 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
                             ],
                           ),
                           const SizedBox(height: 8.0),
-                          
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -201,7 +204,7 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
                               ),
                             ),
                           ),
-
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -248,18 +251,23 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
                               ),
                             ),
                           ),
-
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
-
-                          buildTextField(Icons.calendar_today_outlined,
-                              "Monto", false, true, monto),
+                          const SizedBox(height: 15.0),
+                          buildTextField(Icons.calendar_today_outlined, "Monto",
+                              false, true, monto),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.calendar_today_outlined,
                               "Descripción", false, false, descripcion),
-                          
                           const SizedBox(
                             height: 40,
                           )
@@ -289,7 +297,7 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(
@@ -369,29 +377,29 @@ class _IngresarEditarIngresoEgresoState extends State<IngresarEditarIngresoEgres
   }
 
   guardar_datos() async {
-    if(_selectedDate_a_enviar==""){
+    if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if ( monto.text == "" &&
+    if (monto.text == "" &&
         _selectedDate_a_enviar == "" &&
         descripcion.text == "" &&
-        _select_fin_id=="" &&
-        _select_ite_idingreso_egreso =="" ) {
+        _select_fin_id == "" &&
+        _select_ite_idingreso_egreso == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      if(_selectedDate_a_enviar==""){
-        _selectedDate_a_enviar=widget.ing_fecha;
-      } 
-      
+    } else {
+      if (_selectedDate_a_enviar == "") {
+        _selectedDate_a_enviar = widget.ing_fecha;
+      }
+
       String body = jsonEncode({
-        "ing_monto":monto.toString(),
-        "ite_idingresoegreso":_select_ite_idingreso_egreso,
-        "fin_id":_select_fin_id,
-        "ing_descripcion":descripcion.text,
-        "ing_fecha":_selectedDate_a_enviar
+        "ing_monto": monto.toString(),
+        "ite_idingresoegreso": _select_ite_idingreso_egreso,
+        "fin_id": _select_fin_id,
+        "ing_descripcion": descripcion.text,
+        "ing_fecha": _selectedDate_a_enviar
       });
       List datos = [];
-      if (widget.ing_id== 0) {
+      if (widget.ing_id == 0) {
         dialog(context, "Enviando Datos", false);
         datos = await controller_general.httpgeneral(
             ip_server + "ingresosEgresos", "POST", body);

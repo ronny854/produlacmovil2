@@ -64,6 +64,7 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -73,10 +74,10 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -87,13 +88,13 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -136,6 +137,7 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
                       ],
                     ),
                     //Foto
+                    const SizedBox(height: 15.0),
                     Container(
                       margin: const EdgeInsets.only(top: 20),
                       child: Column(
@@ -151,6 +153,7 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
                           const SizedBox(height: 8.0),
                           buildTextField(Icons.health_and_safety_sharp,
                               "Vacuna", false, false, vacuna),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -200,13 +203,21 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
                               ),
                             ),
                           ),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.sick_sharp, "Enfermedad", false,
                               false, enfermedad),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.description_outlined,
                               "Descripcion", false, false, descripcion),
                           const SizedBox(
@@ -238,7 +249,7 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

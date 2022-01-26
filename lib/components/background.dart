@@ -20,7 +20,7 @@ class BackGround extends StatelessWidget {
               'assets/images/top1.png',
               // color: Colors.blue,
               width: size.width,
-              height: 100,
+              height: size.height * 0.1463,
               fit: BoxFit.fill,
             ),
           ),
@@ -31,17 +31,17 @@ class BackGround extends StatelessWidget {
               'assets/images/top2.png',
               // color: Colors.blueAccent,
               width: size.width,
-              height: 130,
+              height: size.height * 0.1902,
               fit: BoxFit.fill,
             ),
           ),
           Positioned(
-            top: 70,
+            top: size.height * 0.1024,
             //right: 20,
-            left: 20,
+            left: size.width * 0.0486,
             child: Image.asset(
               'assets/images/produlac.png',
-              width: 200,
+              width: size.width * 0.4861,
             ),
           ),
           Positioned(
@@ -50,7 +50,7 @@ class BackGround extends StatelessWidget {
             child: Image.asset(
               'assets/images/bottom1.png',
               width: size.width,
-              height: 130,
+              height: size.height * 0.1902,
               fit: BoxFit.fill,
             ),
           ),
@@ -60,7 +60,7 @@ class BackGround extends StatelessWidget {
             child: Image.asset(
               'assets/images/bottom2.png',
               width: size.width,
-              height: 100,
+              height: size.height * 0.1463,
               fit: BoxFit.fill,
             ),
           ),

@@ -33,8 +33,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => SaludPage());
     case 'nacimientoPage':
       return MaterialPageRoute(builder: (context) => NacimientoPage());
-    // case 'personasView':
-    //   return MaterialPageRoute(builder: (context) => PersonaView());
+    /* case 'personasView':
+      return MaterialPageRoute(builder: (context) => PersonaView()); */
     case 'subMenuSalud':
       return MaterialPageRoute(
           builder: (context) => SubMenuSalud(), settings: settings);

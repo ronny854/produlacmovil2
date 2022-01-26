@@ -83,6 +83,7 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -92,10 +93,10 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -106,13 +107,13 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -217,25 +218,37 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
                               ),
                             ),
                           ),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField1(
                               Icons.sell, "Vendedor", false, false, idvendedor),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.badge_outlined, "Comprador",
                               false, false, comprador),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.person, "Telefono Comprador",
                               false, true, telcomprador),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.important_devices_sharp,
                               "Cédula Comprador", false, true, cedulacomprador),
+                          const SizedBox(height: 15.0),
                           buildTextField(
                               Icons.add_rounded,
                               "Dirección Comprador",
                               false,
                               false,
                               direccioncomprador),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.monetization_on, "Valor", false,
                               true, valor),
                           const SizedBox(
@@ -373,7 +386,7 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

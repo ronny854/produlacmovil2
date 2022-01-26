@@ -59,7 +59,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
         child: Column(
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            Container(
+/*             Container(
               margin: EdgeInsets.symmetric(horizontal: 5.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,8 +70,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                   ),
                 ],
               ),
-            ),
-            Container(
+            ), */
+            /* Container(
               padding: EdgeInsets.symmetric(
                 horizontal: 20.0,
                 vertical: 10.0,
@@ -93,7 +93,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                   Icon(Icons.settings),
                 ],
               ),
-            ),
+            ), */
 /*             Container(
               padding: EdgeInsets.only(bottom: 10.0),
               child: RaisedButton(
@@ -124,7 +124,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 padding: const EdgeInsets.all(0),
                 child: Container(
                   alignment: Alignment.center,
-                  height: 35.0,
+                  height: queryData.size.height * 0.0512,
                   width: queryData.size.width - 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(80.0),
@@ -143,37 +143,40 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 ),
               ),
             ),
-            Container(
-              height: queryData.size.height - 200,
-              width: queryData.size.width,
-              child: FutureBuilder(
-                future: rol_id_usuario_logeado == "1"
-                    ? listaAnimales()
-                    : listaAnimalesporfinca(),
-                builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
-                  var _animales = snapshot.data;
+            Expanded(
+              child: Container(
+                //height: queryData.size.height - 200,
+                width: queryData.size.width,
+                child: FutureBuilder(
+                  future: rol_id_usuario_logeado == "1"
+                      ? listaAnimales()
+                      : listaAnimalesporfinca(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<List> snapshot) {
+                    var _animales = snapshot.data;
 
-                  if (!snapshot.hasData) {
-                    return Container(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    return ListView.builder(
-                      itemCount: _animales?.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return animalItemWidget(
-                            queryData,
-                            _animales![index]['ani_imagen'],
-                            _animales[index]['ani_nombre'],
-                            _animales[index]['ani_codigo'],
-                            _animales[index]['ani_sexo'],
-                            _animales[index]['ani_raza'],
-                            _animales[index]['ite_id_nombre_etapa'],
-                            [_animales[index]]);
-                      },
-                    );
-                  }
-                },
+                    if (!snapshot.hasData) {
+                      return Container(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: _animales?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return animalItemWidget(
+                              queryData,
+                              _animales![index]['ani_imagen'],
+                              _animales[index]['ani_nombre'],
+                              _animales[index]['ani_codigo'],
+                              _animales[index]['ani_sexo'],
+                              _animales[index]['ani_raza'],
+                              _animales[index]['ite_id_nombre_etapa'],
+                              [_animales[index]]);
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
             ),
           ],
@@ -278,8 +281,10 @@ class _AnimalPAgeState extends State<AnimalPAge> {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => onlyAnimalPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => onlyAnimalPage(animalesLista)));
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -288,8 +293,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                 direction: Axis.horizontal,
                 children: [
                   Container(
-                    height: 140.0,
-                    width: 130.0,
+                    height: queryData.size.height * 0.2048,
+                    width: queryData.size.width * 0.316,
                     //padding: EdgeInsets.only(top: 40.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -307,7 +312,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                   children: [
                     Container(
                       width: queryData.size.width,
-                      height: 140,
+                      height: queryData.size.height * 0.2048,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         boxShadow: shadowList,
@@ -452,18 +457,19 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   }
 
   Future<dynamic> dialogCargando(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) => AlertDialog(
         content: Container(
-          width: 200,
-          height: 100,
+          width: size.width * 0.4861,
+          height: size.height * 0.1463,
           child: Column(
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: size.height * 0.0878,
+                width: size.width * 0.1458,
                 child: CircularProgressIndicator(
                   color: Colors.blue,
                 ),

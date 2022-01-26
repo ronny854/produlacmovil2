@@ -30,7 +30,7 @@ class _ProduccionPageState extends State<ProduccionPage> {
       body: Stack(
         children: [
           Container(
-            height: 400.0,
+            height: size.height * 0.5852,
             width: size.width,
             padding: EdgeInsets.symmetric(horizontal: 1.0),
             child: Card(
@@ -52,12 +52,12 @@ class _ProduccionPageState extends State<ProduccionPage> {
               onPressed: () async {
                 List lista_fincas_segun_per_id = await listaFincasSegunPerID();
                 List lista_fincas = listaFincasPerId(lista_fincas_segun_per_id);
-                List lista_horario= await getlistaHorario();
+                List lista_horario = await getlistaHorario();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => IngresarEditarProduccionGlobal(
-                        0, "", "", "", "", "", lista_fincas,lista_horario),
+                        0, "", "", "", "", "", lista_fincas, lista_horario),
                   ),
                 );
               },

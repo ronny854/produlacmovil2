@@ -17,42 +17,36 @@ class IngresarEditarFincaPersona extends StatefulWidget {
       _IngresarEditarFincaPersonaState();
 }
 
-class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona> {
-  
-  
+class _IngresarEditarFincaPersonaState
+    extends State<IngresarEditarFincaPersona> {
   ControllerGenral controller_general = new ControllerGenral();
 
   String _select_fin_id = "";
 
   String _select_per_id = "";
 
-  
   @override
   void initState() {
     super.initState();
 
     if (widget.fper_id != 0) {
-      
-      
-
-      _select_per_id=widget.per_id.toString();
-      _select_fin_id=widget.fin_id.toString();
-      
-    }else{
-      if(widget.lista_persona.length>=1){
-        _select_per_id= widget.lista_persona[0]['per_id'].toString();
+      _select_per_id = widget.per_id.toString();
+      _select_fin_id = widget.fin_id.toString();
+    } else {
+      if (widget.lista_persona.length >= 1) {
+        _select_per_id = widget.lista_persona[0]['per_id'].toString();
       }
-      if(widget.lista_fincas.length>=1){
-        _select_fin_id= widget.lista_fincas[0]['fin_id'].toString();
+      if (widget.lista_fincas.length >= 1) {
+        _select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
       }
     }
 
     print(widget.lista_persona);
-
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -62,10 +56,10 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -76,13 +70,13 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 450,
+              height: size.height - 380,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -137,8 +131,7 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
                               )
                             ],
                           ),
-                          const SizedBox(height: 8.0),
-                          
+                          const SizedBox(height: 5.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -179,13 +172,15 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
                                 items: widget.lista_persona.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['per_id'].toString(),
-                                    child: Text(value['per_nombre'].toString()+" "+value['per_apellido'].toString()),
+                                    child: Text(value['per_nombre'].toString() +
+                                        " " +
+                                        value['per_apellido'].toString()),
                                   );
                                 }).toList(),
                               ),
                             ),
                           ),
-
+                          const SizedBox(height: 12),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -232,8 +227,6 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
                               ),
                             ),
                           ),
-                         
-                          
                           const SizedBox(
                             height: 40,
                           )
@@ -253,13 +246,11 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
     );
   }
 
-  
-
   Widget buildBottomHalfContainer(bool showShadow) {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 400,
+      top: MediaQuery.of(context).size.height - 370,
       right: 0,
       left: 0,
       child: Center(
@@ -339,16 +330,12 @@ class _IngresarEditarFincaPersonaState extends State<IngresarEditarFincaPersona>
   }
 
   guardar_datos() async {
-    
-    if (  _select_fin_id== "" &&
-        _select_per_id=="" ) {
+    if (_select_fin_id == "" && _select_per_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
-    } else {     
-      
-      
+    } else {
       String body = jsonEncode({
-         "per_id":_select_per_id,
-          "fin_id":_select_fin_id,
+        "per_id": _select_per_id,
+        "fin_id": _select_fin_id,
       });
       List datos = [];
       if (widget.fper_id == 0) {

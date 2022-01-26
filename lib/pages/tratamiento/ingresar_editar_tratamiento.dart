@@ -67,6 +67,7 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -76,10 +77,10 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -90,13 +91,13 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -154,11 +155,18 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
                           const SizedBox(height: 8.0),
                           buildTextField(Icons.pets, "Tratamiento", false,
                               false, diagnostico),
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -208,14 +216,17 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.medication_outlined,
                               "Medicamento", false, false, medicamento),
+                          const SizedBox(height: 15.0),
                           buildTextField(
                               Icons.today_outlined,
                               "Días de tratamiento",
                               false,
                               true,
                               diastratamiento),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.description_outlined,
                               "Descripción", false, false, descripcion),
                           const SizedBox(
@@ -247,7 +258,7 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(

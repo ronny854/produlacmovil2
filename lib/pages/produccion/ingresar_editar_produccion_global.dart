@@ -20,28 +20,25 @@ class IngresarEditarProduccionGlobal extends StatefulWidget {
   //
 
   IngresarEditarProduccionGlobal(
-    this.pglo_id,
-    this.pglo_fecha,
-    this.ite_idhorario,
-    this.pglo_litros,
-    this.pglo_numvacas,
-    this.fin_id,
-    this.lista_fincas,
-    this.lista_horario
-  );
+      this.pglo_id,
+      this.pglo_fecha,
+      this.ite_idhorario,
+      this.pglo_litros,
+      this.pglo_numvacas,
+      this.fin_id,
+      this.lista_fincas,
+      this.lista_horario);
   @override
   _IngresarEditarProduccionGlobalState createState() =>
       _IngresarEditarProduccionGlobalState();
 }
 
 class _IngresarEditarProduccionGlobalState
-    extends State<IngresarEditarProduccionGlobal> {  
-
+    extends State<IngresarEditarProduccionGlobal> {
   TextEditingController litros = TextEditingController();
   TextEditingController numvacas = TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
 
-  
   String _select_fin_id = "";
 
   String _select_ite_idhorario = "";
@@ -54,36 +51,29 @@ class _IngresarEditarProduccionGlobalState
     super.initState();
 
     if (widget.pglo_id != 0) {
-      
       litros.text = widget.pglo_litros.toString();
       numvacas.text = widget.pglo_numvacas.toString();
 
-      _select_fin_id=widget.fin_id.toString();
-      _select_ite_idhorario=widget.ite_idhorario.toString();
+      _select_fin_id = widget.fin_id.toString();
+      _select_ite_idhorario = widget.ite_idhorario.toString();
 
       if (widget.pglo_fecha != "") {
         selectedDate = DateTime.parse(widget.pglo_fecha);
       }
-
-    }else{
-
+    } else {
       if (widget.lista_fincas.length >= 1) {
-       _select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
+        _select_fin_id = widget.lista_fincas[0]['fin_id'].toString();
       }
 
-      if(widget.lista_horario.length>=1){
-        _select_ite_idhorario=widget.lista_horario[0]['ite_id'].toString();
+      if (widget.lista_horario.length >= 1) {
+        _select_ite_idhorario = widget.lista_horario[0]['ite_id'].toString();
       }
-
-       
-
     }
-
-   
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color(0xFFECF3F9),
       body: Stack(
@@ -93,10 +83,10 @@ class _IngresarEditarProduccionGlobalState
             right: 0,
             left: 0,
             child: SizedBox(
-              height: 300,
+              height: size.width * 0.439,
               child: Container(
                 padding: const EdgeInsets.only(top: 90, left: 8),
-                color: const Color(0xFF3b5999).withOpacity(.85),
+                color: const Color(0xFF2E90FF).withOpacity(.85),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                 ),
@@ -107,13 +97,13 @@ class _IngresarEditarProduccionGlobalState
           AnimatedPositioned(
             duration: const Duration(milliseconds: 700),
             curve: Curves.bounceInOut,
-            top: 100,
+            top: 50,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 700),
               curve: Curves.bounceInOut,
-              height: MediaQuery.of(context).size.height - 200,
+              height: size.height - 120,
               padding: const EdgeInsets.all(20),
-              width: MediaQuery.of(context).size.width - 40,
+              width: size.width - 40,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
@@ -136,25 +126,25 @@ class _IngresarEditarProduccionGlobalState
                           child: Column(
                             children: [
                               Container(
-                              padding: EdgeInsets.only(top: 20),
-                              child: SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                            widget.pglo_id == 0
-                                                ? "AGREGAR PROD. GLOBAL"
-                                                : "ACTUALIZAR PROD. GLOBAL",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Color(0xFF09126C)),
-                                          ),
-                                  ],
-                                ),
-                              )),
-                              
+                                  padding: EdgeInsets.only(top: 20),
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          widget.pglo_id == 0
+                                              ? "AGREGAR PROD. GLOBAL"
+                                              : "ACTUALIZAR PROD. GLOBAL",
+                                          style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF09126C)),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
                               Container(
                                 margin: const EdgeInsets.only(top: 3),
                                 height: 2,
@@ -180,7 +170,6 @@ class _IngresarEditarProduccionGlobalState
                             ],
                           ),
                           const SizedBox(height: 8.0),
-
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -215,7 +204,7 @@ class _IngresarEditarProduccionGlobalState
                                     Color.fromRGBO(76, 172, 230, 1),
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                     _select_fin_id = newValue!;
+                                    _select_fin_id = newValue!;
                                   });
                                 },
                                 items: widget.lista_fincas.map((value) {
@@ -227,13 +216,18 @@ class _IngresarEditarProduccionGlobalState
                               ),
                             ),
                           ),
-
-                          SfDateRangePicker(
-                            initialDisplayDate: selectedDate,
-                            initialSelectedDate: selectedDate,
-                            onSelectionChanged: _onSelectionChanged,
+                          const SizedBox(height: 15.0),
+                          Card(
+                            color: Colors.white,
+                            elevation: 5,
+                            shadowColor: Colors.grey,
+                            child: SfDateRangePicker(
+                              initialDisplayDate: selectedDate,
+                              initialSelectedDate: selectedDate,
+                              onSelectionChanged: _onSelectionChanged,
+                            ),
                           ),
-
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -268,7 +262,7 @@ class _IngresarEditarProduccionGlobalState
                                     Color.fromRGBO(76, 172, 230, 1),
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                     _select_ite_idhorario = newValue!;
+                                    _select_ite_idhorario = newValue!;
                                   });
                                 },
                                 items: widget.lista_horario.map((value) {
@@ -280,12 +274,12 @@ class _IngresarEditarProduccionGlobalState
                               ),
                             ),
                           ),
-                          
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.blender_outlined,
                               "Litros de Produccion", false, true, litros),
+                          const SizedBox(height: 15.0),
                           buildTextField(Icons.pets_outlined, "Número de vacas",
                               false, true, numvacas),
-
                           const SizedBox(
                             height: 40,
                           )
@@ -315,7 +309,7 @@ class _IngresarEditarProduccionGlobalState
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 700),
       curve: Curves.bounceInOut,
-      top: MediaQuery.of(context).size.height - 150,
+      top: MediaQuery.of(context).size.height - 100,
       right: 0,
       left: 0,
       child: Center(
@@ -393,6 +387,7 @@ class _IngresarEditarProduccionGlobalState
       ),
     );
   }
+
   guardar_datos() async {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
@@ -409,11 +404,11 @@ class _IngresarEditarProduccionGlobalState
       }
 
       String body = jsonEncode({
-        "pglo_fecha":_selectedDate_a_enviar,
-        "ite_idhorario":_select_ite_idhorario,
-        "pglo_litros":litros.text,
-        "pglo_numvacas":numvacas.text,
-        "fin_id":_select_fin_id
+        "pglo_fecha": _selectedDate_a_enviar,
+        "ite_idhorario": _select_ite_idhorario,
+        "pglo_litros": litros.text,
+        "pglo_numvacas": numvacas.text,
+        "fin_id": _select_fin_id
       });
       List datos = [];
       if (widget.pglo_id == 0) {
@@ -440,7 +435,6 @@ class _IngresarEditarProduccionGlobalState
           Navigator.pop(context);
         }
 
-               
       }
     }
   }
