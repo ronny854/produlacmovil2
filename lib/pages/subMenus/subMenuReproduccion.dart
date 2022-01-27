@@ -151,6 +151,13 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verInseminacion') {
                   List lista = await getInseminacionporanimal(
                       animalesLista[0]['ani_id'].toString());
+                  
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -158,6 +165,12 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verParto') {
                   List lista = await getPartoporanimal(
                       animalesLista[0]['ani_id'].toString());
+                  
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -165,6 +178,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verAborto') {
                   List lista = await getAbortoporanimal(
                       animalesLista[0]['ani_id'].toString());
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(

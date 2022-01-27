@@ -59,7 +59,7 @@ class _VisualizarIngresosEgresosState extends State<VisualizarIngresosEgresos> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['vac_fecha']
+                          .where((element) => (element['ing_fecha']
                               .toLowerCase()
                               .contains(value.toLowerCase())|| element['tbl_finca']['fin_nombre']
                               .toLowerCase()

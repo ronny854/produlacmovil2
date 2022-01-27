@@ -98,6 +98,12 @@ class GridDashboard extends StatelessWidget {
                       animalesLista[0]['ani_id'].toString() != "0") {
                     List fecha_litros = await listaprodIndividual(
                         animalesLista[0]['ani_id'].toString());
+
+                    if (fecha_litros.length >= 1) {
+                      if (fecha_litros[0] == 400) {
+                        fecha_litros = [];
+                      }
+                    }
                     Navigator.push(
                         context,
                         MaterialPageRoute(

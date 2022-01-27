@@ -199,7 +199,9 @@ class GridDashboard extends StatelessWidget {
                               fin_id_usuario_logeado);
                     }
                   }
-                  print(lista_fincapersonas);
+                  if(lista_fincapersonas[0]==400){
+                    lista_fincapersonas=[];
+                  }
 
                   Navigator.push(
                     context,
@@ -241,6 +243,12 @@ class GridDashboard extends StatelessWidget {
                 }
                 if (data.ruta == "verfincas") {
                   List fincas = await listaTodaslasfincas();
+                  if(fincas.length>=1){
+                    if(fincas[0]==400){
+                    fincas=[];
+                  }
+                  }
+                  
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -273,6 +281,13 @@ class GridDashboard extends StatelessWidget {
 
                 if (data.ruta == "verDeceso") {
                   List lista = await getDecesoporFinca(fin_id_usuario_logeado);
+
+                  
+                  if(lista.length>=1){
+                      if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -305,6 +320,12 @@ class GridDashboard extends StatelessWidget {
                 if (data.ruta == "verproduccionglobal") {
                   List lista =
                       await getListaProdGlobalporfinca(fin_id_usuario_logeado);
+                  
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -314,7 +335,11 @@ class GridDashboard extends StatelessWidget {
                 if (data.ruta == "verproduccionIndividual") {
                   List lista = await getListaProdIndividualporfinca(
                       fin_id_usuario_logeado);
-                  print(lista);
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(

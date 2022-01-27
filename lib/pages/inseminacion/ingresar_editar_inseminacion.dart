@@ -58,16 +58,21 @@ class _IngresarEditarInseminacionState
   String _selectedDate_a_enviar_fecha_inseminacion = "";
   DateTime selectedDate_fecha_inseminacion = DateTime.now();
 
+
+  List lista_cargada=["SI","NO"];
+  String select_cargada="SI";
+  
+
   @override
   void initState() {
     super.initState();
 
     if (widget.ins_id != 0) {
-      cargada.text = widget.ins_cargada;
       tipo_inseminacion.text = widget.ins_tipo_inseminacion;
       num_pajuela.text = widget.ins_num_pajuela.toString();
       descripcion.text = widget.ins_descripcion;
 
+      select_cargada=widget.ins_cargada;
       select_per_id = widget.per_id.toString();
       select_ani_id_padre = widget.ani_id_padre.toString();
       select_ani_id = widget.ani_id.toString();
@@ -323,8 +328,52 @@ class _IngresarEditarInseminacionState
                             ),
                           ),
                           const SizedBox(height: 15.0),
-                          buildTextField(Icons.list_alt_rounded, "Cargada",
-                              false, false, cargada),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Animal',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_cargada,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_cargada = newValue!;
+                                  });
+                                },
+                                items: lista_cargada.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value.toString(),
+                                    child: Text(value.toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 15.0),
                           buildTextField(Icons.list, "Tipo de Inseminacón",
                               false, false, tipo_inseminacion),
@@ -397,7 +446,7 @@ class _IngresarEditarInseminacionState
         "per_id": per_id_usuario_logeado,
         "ani_id": select_ani_id,
         "ins_fechacomprobacion": _selectedDate_a_enviar_fecha_comprobacion,
-        "ins_cargada": cargada.text,
+        "ins_cargada": select_cargada,
         "ins_tipoinseminacion": tipo_inseminacion.text,
         "ani_idpadre": select_ani_id_padre,
         "ins_numpajuela": num_pajuela.text,

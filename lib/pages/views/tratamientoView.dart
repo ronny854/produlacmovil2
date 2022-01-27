@@ -72,10 +72,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                                   .contains(value.toLowerCase()) ||
                               element['tra_diagnostico']
                                   .toLowerCase()
-                                  .contains(value.toLowerCase()) ||
-                              element['fin_nombre']
-                                  .toLowerCase()
-                                  .contains(value.toLowerCase()) ||
+                                  .contains(value.toLowerCase())  ||
                               element["tbl_animale"]["ani_nombre"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase())))

@@ -140,7 +140,7 @@ Future<List<dynamic>> getDecesoporFinca(String fin_id) async {
       return lista;
 }
 
-Future<List<dynamic>> getTratamientoPorAnimal(String ani_id) async {
+Future<List<dynamic>> getTratamientoPorAnimal(String ani_id) async {  
   List lista = await controller_general.httpgeneral(
       ip_server + "tratamientos/animal/$ani_id", "GET", "");
   return lista;

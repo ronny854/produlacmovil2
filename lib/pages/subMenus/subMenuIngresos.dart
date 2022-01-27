@@ -121,6 +121,12 @@ class GridDashboard extends StatelessWidget {
                 if (data.ruta == "verIngreso") {
                   List lista_ingresos_egresos =
                       await getIngresosEgresosPorFinca(fin_id_usuario_logeado);
+                  
+                  if(lista_ingresos_egresos.length>=1){
+                    if(lista_ingresos_egresos[0]==400){
+                    lista_ingresos_egresos=[];
+                  }
+                  }
                   Navigator.push(
                     context,
                     MaterialPageRoute(

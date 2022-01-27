@@ -59,9 +59,9 @@ class _VisualizarVentasState extends State<VisualizarVentas> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element["tbl_persona"]['per_nombre']
+                          .where((element) => (element['per_nombre']
                               .toLowerCase()
-                              .contains(value.toLowerCase())|| element["tbl_persona"]['per_apellido']
+                              .contains(value.toLowerCase())|| element['per_apellido']
                               .toLowerCase()
                               .contains(value.toLowerCase())||element['ven_comprador']
                               .toLowerCase()
@@ -71,7 +71,7 @@ class _VisualizarVentasState extends State<VisualizarVentas> {
                               .toLowerCase()
                               .contains(value.toLowerCase())|| element["ven_direccioncomprador"]
                               .toLowerCase()
-                              .contains(value.toLowerCase())|| element["tbl_animal"]["ani_nombre"]
+                              .contains(value.toLowerCase())|| element["ani_nombre"]
                               .toLowerCase()
                               .contains(value.toLowerCase())|| element["ven_valor"]
                               .toLowerCase()
