@@ -131,6 +131,12 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verTratamiento') {
                   List lista_tratamientos = await getTratamientoPorAnimal(
                       animalesLista[0]['ani_id'].toString());
+                      
+                  if(lista_tratamientos.length>=1){
+                    if(lista_tratamientos[0]==400){
+                    lista_tratamientos=[];
+                  }
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -139,6 +145,12 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verVacunas') {
                   List lista_vacunas = await getVacunaPorAnimal(
                       animalesLista[0]['ani_id'].toString());
+                  
+                  if(lista_vacunas.length>=1){
+                    if(lista_vacunas[0]==400){
+                    lista_vacunas=[];
+                  } 
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(

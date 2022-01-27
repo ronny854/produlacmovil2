@@ -8,7 +8,6 @@ import 'package:produlacmovil/components/chartdefaultprodindividual.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_individual.dart';
 
-
 import 'package:produlacmovil/pages/produccionindividualPage.dart';
 
 class SubMenuProduccion extends StatefulWidget {
@@ -20,7 +19,7 @@ class SubMenuProduccion extends StatefulWidget {
 
 class _SubMenuProduccionState extends State<SubMenuProduccion> {
   List animalesLista = [];
-  
+
   @override
   Widget build(BuildContext context) {
     if (ModalRoute.of(context)!.settings.arguments != null) {
@@ -62,8 +61,6 @@ class GridDashboard extends StatelessWidget {
     ruta: 'verregistrodeproduccion',
   );
 
-  
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -86,17 +83,33 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarIndividual(
-                              0, animalesLista[0]['ani_id'], "", "", "", "", lista_animales,lista_horario)));
+                              0,
+                              animalesLista[0]['ani_id'],
+                              "",
+                              "",
+                              "",
+                              "",
+                              lista_animales,
+                              lista_horario)));
                 }
                 if (data.ruta == "verregistrodeproduccion") {
-                  if(animalesLista[0]['ani_id']!=null && animalesLista[0]['ani_id'].toString()!="" && animalesLista[0]['ani_id'].toString()!="0"){
-                                       
-                    List fecha_litros=await listaprodIndividual(animalesLista[0]['ani_id'].toString());
-                      Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProduccionIndividualPage(fecha_litros)));
-                  }  
+                  if (animalesLista[0]['ani_id'] != null &&
+                      animalesLista[0]['ani_id'].toString() != "" &&
+                      animalesLista[0]['ani_id'].toString() != "0") {
+                    List fecha_litros = await listaprodIndividual(
+                        animalesLista[0]['ani_id'].toString());
+
+                    if (fecha_litros.length >= 1) {
+                      if (fecha_litros[0] == 400) {
+                        fecha_litros = [];
+                      }
+                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ProduccionIndividualPage(fecha_litros)));
+                  }
                 }
               },
               child: Container(
@@ -135,8 +148,6 @@ class GridDashboard extends StatelessWidget {
           }).toList()),
     );
   }
-
-  
 }
 
 class Items {
