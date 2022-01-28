@@ -167,126 +167,126 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.notWhite.withOpacity(0.5),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Container(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  AnimatedBuilder(
-                    animation: widget.iconAnimationController!,
-                    builder: (BuildContext context, Widget? child) {
-                      return ScaleTransition(
-                        scale: AlwaysStoppedAnimation<double>(1.0 -
-                            (widget.iconAnimationController!.value) * 0.2),
-                        child: RotationTransition(
-                          turns: AlwaysStoppedAnimation<double>(Tween<double>(
-                                      begin: 0.0, end: 24.0)
-                                  .animate(CurvedAnimation(
-                                      parent: widget.iconAnimationController!,
-                                      curve: Curves.fastOutSlowIn))
-                                  .value /
-                              360),
-                          child: Container(
-                            height: 120,
-                            width: 120,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color: AppTheme.grey.withOpacity(0.6),
-                                    offset: const Offset(2.0, 4.0),
-                                    blurRadius: 8),
-                              ],
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage('assets/images/hacienda.jpg'),
+    return WillPopScope(
+      onWillPop: () async {
+        return onWillPop();
+      },
+      child: Scaffold(
+        backgroundColor: AppTheme.notWhite.withOpacity(0.5),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              //padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    AnimatedBuilder(
+                      animation: widget.iconAnimationController!,
+                      builder: (BuildContext context, Widget? child) {
+                        return ScaleTransition(
+                          scale: AlwaysStoppedAnimation<double>(1.0 -
+                              (widget.iconAnimationController!.value) * 0.2),
+                          child: RotationTransition(
+                            turns: AlwaysStoppedAnimation<double>(Tween<double>(
+                                        begin: 0.0, end: 24.0)
+                                    .animate(CurvedAnimation(
+                                        parent: widget.iconAnimationController!,
+                                        curve: Curves.fastOutSlowIn))
+                                    .value /
+                                360),
+                            child: Container(
+                              height: 170,
+                              width: 120,                              
+                              child: ListView(
+                                children: [
+                                  CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 70.0,
+                                      backgroundImage:NetworkImage(per_imagen_usuario_logeado))
+                                ],
                               ),
                             ),
                           ),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8, left: 4),
+                      child: Text(
+                        per_nombre_apellido_usuario_logeado,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.grey,
+                          fontSize: 18,
                         ),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, left: 4),
-                    child: Text(
-                      'Nombre de la Hacienda',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.grey,
-                        fontSize: 18,
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 4,
-          ),
-          Divider(
-            height: 1,
-            color: AppTheme.grey.withOpacity(0.6),
-          ),
-          Expanded(
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.all(0.0),
-              itemCount: drawerList?.length,
-              itemBuilder: (BuildContext context, int index) {
-                return inkwell(drawerList![index]);
-              },
+            const SizedBox(
+              height: 4,
             ),
-          ),
-          Divider(
-            height: 1,
-            color: AppTheme.grey.withOpacity(0.6),
-          ),
-          Column(
-            children: <Widget>[
-              ListTile(
-                title: Text(
-                  'Cerrar Sesion',
-                  style: TextStyle(
-                    fontFamily: AppTheme.fontName,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: AppTheme.darkText,
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-                trailing: Icon(
-                  Icons.power_settings_new,
-                  color: Colors.red,
-                ),
-                onTap: () {
-                  onTapped(
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => const LoginPage(),
-                      ),
-                    ),
-                  );
+            Divider(
+              height: 1,
+              color: AppTheme.grey.withOpacity(0.6),
+            ),
+            Expanded(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(0.0),
+                itemCount: drawerList?.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return inkwell(drawerList![index]);
                 },
               ),
-              SizedBox(
-                height: MediaQuery.of(context).padding.bottom,
-              )
-            ],
-          ),
-        ],
+            ),
+            Divider(
+              height: 1,
+              color: AppTheme.grey.withOpacity(0.6),
+            ),
+            Column(
+              children: <Widget>[
+                ListTile(
+                  title: Text(
+                    'Cerrar Sesion',
+                    style: TextStyle(
+                      fontFamily: AppTheme.fontName,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: AppTheme.darkText,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  trailing: Icon(
+                    Icons.power_settings_new,
+                    color: Colors.red,
+                  ),
+                  onTap: () {
+                    onTapped(
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const LoginPage(),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).padding.bottom,
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -399,6 +399,31 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   Future<void> navigationtoScreen(DrawerIndex indexScreen) async {
     widget.callBackIndex!(indexScreen);
+  }
+  Future<bool> onWillPop() async {
+    final shouldPop = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Salir'),
+            content: Text('¿Esta seguro que desea salir?'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Text('Si')),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);                  
+                },
+                child: Text('No'),
+              )
+            ],
+          );
+        });
+    return shouldPop ?? false;
   }
 }
 

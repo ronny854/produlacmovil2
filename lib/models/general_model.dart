@@ -51,6 +51,7 @@ class ModeloGenral {
                 " " +
                 resultado['dato'][0]['per_apellido'].toString();
         rol_id_usuario_logeado=resultado['dato'][0]['rol_id'].toString();
+        per_imagen_usuario_logeado=resultado['dato'][0]['per_imagen'].toString();
       }
 
       

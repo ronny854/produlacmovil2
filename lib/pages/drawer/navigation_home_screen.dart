@@ -18,7 +18,7 @@ import '../principalPage.dart';
 import 'drawer_user_controller.dart';
 import 'home_drawer.dart';
 
-class NavigationHomeScreen extends StatefulWidget {
+class NavigationHomeScreen extends StatefulWidget {  
   @override
   _NavigationHomeScreenState createState() => _NavigationHomeScreenState();
 }
@@ -67,8 +67,14 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           screenView = PrincipalPage();
         });
       } else if (drawerIndex == DrawerIndex.animales) {
+        List lista_animales=[];
+        if(rol_id_usuario_logeado=="1"){
+          lista_animales=await listaAnimales();
+        }else{
+          lista_animales=await listaAnimalesporfinca();
+        }
         setState(() {
-          screenView = AnimalPAge();
+          screenView = AnimalPAge(lista_animales);
         });
       } else if (drawerIndex == DrawerIndex.produccion) {       
         setState(() {

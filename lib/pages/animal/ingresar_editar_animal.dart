@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:intl/intl.dart';
 import 'package:produlacmovil/controller/cloudinary.dart';
+import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/pages/animalPage.dart';
 import 'package:produlacmovil/pages/loginPage.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
@@ -745,24 +746,25 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
 
       bool valida = controller_general.errorestoken(datos);
       if (valida) {
-        print(datos);
-        print("Ruta del login");
-        /* Navigator.popUntil(context, ModalRoute.of(builder: (context) => LoginPage()));
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage())); */
-
+       
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (BuildContext context) => LoginPage()),
             ModalRoute.withName('/'));
       } else {
-        print(datos);
-        Navigator.pop(context);        
+        /*List lista_animales=[];
+        if(rol_id_usuario_logeado=="1"){
+          lista_animales=await listaAnimales();
+        }else{
+          lista_animales=await listaAnimalesporfinca();
+        }*/
+        Navigator.pop(context);   
+          /*
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    AnimalPAge())); //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
+                    AnimalPAge(lista_animales)));*/ //PARA SALIR DE LA VISTA DE EDITAR, AGREGAR FINCA
       }
     }
   }

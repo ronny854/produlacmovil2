@@ -29,7 +29,7 @@ class _SubMenuProduccionGlobal extends State<SubMenuProduccionGlobal> {
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
-        //automaticallyImplyLeading: false,
+        automaticallyImplyLeading: false,
         toolbarOpacity: 0.7,
         backgroundColor: Colors.blue[400],
         title: Text('Menú Producción Global'),

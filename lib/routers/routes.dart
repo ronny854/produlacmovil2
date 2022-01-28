@@ -25,8 +25,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => LoginPage());
     case 'registroPage':
       return MaterialPageRoute(builder: (context) => RegisterPage());
-    case 'animalPage':
-      return MaterialPageRoute(builder: (context) => AnimalPAge());
+    /*case 'animalPage':
+      return MaterialPageRoute(builder: (context) => AnimalPAge());*/
     case 'saludPage':
       return MaterialPageRoute(builder: (context) => SaludPage());
     case 'nacimientoPage':
