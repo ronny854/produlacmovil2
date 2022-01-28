@@ -44,9 +44,17 @@ Future<List<dynamic>> listaAnimalesporfinca() async {
 
 List<dynamic> listaFincasPerId(List<dynamic> lista_fincas_segun_per_id) {
   List lista_fincas_per_id = [];
-  for (var item in lista_fincas_segun_per_id) {
-    lista_fincas_per_id.add(item['tbl_finca']);
+  if(lista_fincas_segun_per_id.length>=1){
+    for (var item in lista_fincas_segun_per_id) {
+    if(item!=null){
+      if(item['tbl_finca']!=null){
+      lista_fincas_per_id.add(item['tbl_finca']);
+    }
+    }
+    
   }
+  }
+  
   return lista_fincas_per_id;
 }
 
@@ -62,9 +70,14 @@ Future<List<dynamic>> listaprodIndividual(String ani_id) async {
   return lista;
 }
 
-Future<List<dynamic>> listaprodGlobal(String fin_id) async {
+Future<List<dynamic>> listaprodGlobal(String fin_id ,String fecha_inicio, String fecha_fin) async {
+  String body = jsonEncode({
+    "fin_id": fin_id,
+    "fecha_inicio": fecha_inicio,
+    "fecha_fin": fecha_fin,        
+  });
   List lista = await controller_general.httpgeneral(
-      ip_server + "prodGlobal/fechas/" + fin_id, "GET", "");
+      ip_server + "prodGlobal/fechas", "POST", body);
   return lista;
 }
 
@@ -99,6 +112,8 @@ Future<List<dynamic>> getTodosFincasPersonas() async {
 }
 
 Future<List<dynamic>> getTodosFincasPersonadeunafinca(String fin_id) async {
+
+  
   List lista = await controller_general.httpgeneral(
       ip_server + "fincaPersona/personasPorFinca/" + fin_id, "GET", "");
   return lista;
@@ -193,6 +208,17 @@ Future<List<dynamic>> getUnaFinca() async {
   return lista;
 }
 
+Future<List<dynamic>> getInseminacionPorFinca() async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "inseminacion/finca/"+fin_id_usuario_logeado, "GET", "");
+  return lista;
+}
+
+Future<List<dynamic>> getPartoPorFinca() async {
+  List lista = await controller_general.httpgeneral(
+      ip_server + "parto/finca/"+fin_id_usuario_logeado, "GET", "");
+  return lista;
+}
 
 
 

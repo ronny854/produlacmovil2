@@ -11,6 +11,7 @@ import 'package:produlacmovil/pages/produccionPage.dart';
 import 'package:produlacmovil/pages/saludPage.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuAdministrar.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuIngresos.dart';
+import 'package:produlacmovil/pages/subMenus/subMenuProduccionGlobal.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuVentas.dart';
 
 import '../principalPage.dart';
@@ -69,12 +70,9 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = AnimalPAge();
         });
-      } else if (drawerIndex == DrawerIndex.produccion) {
-
-        List lista_fecha_litros = await listaprodGlobal(fin_id_usuario_logeado);
-        
+      } else if (drawerIndex == DrawerIndex.produccion) {       
         setState(() {
-          screenView = ProduccionPage(lista_fecha_litros);
+          screenView = SubMenuProduccionGlobal();
         });
       } else if (drawerIndex == DrawerIndex.ventas) {
         setState(() {

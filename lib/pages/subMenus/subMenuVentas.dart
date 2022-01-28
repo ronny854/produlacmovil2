@@ -91,7 +91,12 @@ class GridDashboard extends StatelessWidget {
                 //Navigator.pushNamed(context, data.ruta);
                 //print('enviar a ruta ' + data.ruta);
                 // ignore: non_constant_identifier_names
-                List<dynamic> lista_animales = await listaAnimales();
+                List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                 if (data.ruta == 'realizarVentas') {
                   Navigator.push(
                     context,

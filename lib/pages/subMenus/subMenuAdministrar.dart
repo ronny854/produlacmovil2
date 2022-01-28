@@ -14,7 +14,9 @@ import 'package:produlacmovil/pages/views/catalogoView.dart';
 import 'package:produlacmovil/pages/views/decesoView.dart';
 import 'package:produlacmovil/pages/views/fincaView.dart';
 import 'package:produlacmovil/pages/views/fincapersonaView.dart';
+import 'package:produlacmovil/pages/views/inseminacionporfinca.dart';
 import 'package:produlacmovil/pages/views/itemcatalogoView.dart';
+import 'package:produlacmovil/pages/views/partoGlobal.dart';
 import 'package:produlacmovil/pages/views/personaView.dart';
 import 'package:produlacmovil/pages/views/prodGlobalView.dart';
 import 'package:produlacmovil/pages/views/prodIndividual.dart';
@@ -130,6 +132,18 @@ class GridDashboard extends StatelessWidget {
     ruta: 'verproduccionIndividual',
   );
 
+  Items item15 = Items(
+    title: "Ver Inseminacion Global",
+    img: "assets/images/verRegistro2.png",
+    ruta: 'verinseminacionglobal',
+  );
+
+  Items item16 = Items(
+    title: "Ver Parto Global",
+    img: "assets/images/verRegistro2.png",
+    ruta: 'verpartoglobal',
+  );
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -145,9 +159,9 @@ class GridDashboard extends StatelessWidget {
       item11,
       item12
     ];
-    List<Items> listaDueno = [item1, item2, item13, item14, item8, item9];
+    List<Items> listaDueno = [item1, item2, item13, item14, item8, item9,item15,item16];
     List<Items> listaEmpleado = [item13, item14, item8, item9];
-    List<Items> listaVeterinario = [item8, item9];
+    List<Items> listaVeterinario = [item8, item9,item15,item16];
     List<Items> lista_recorrer = [];
     if (rol_id_usuario_logeado == "1") {
       lista_recorrer = listaAdmin;
@@ -199,9 +213,12 @@ class GridDashboard extends StatelessWidget {
                               fin_id_usuario_logeado);
                     }
                   }
-                  if(lista_fincapersonas[0]==400){
+                  if(lista_fincapersonas.length>=1){
+                    if(lista_fincapersonas[0]==400){
                     lista_fincapersonas=[];
                   }
+                  }
+                  
 
                   Navigator.push(
                     context,
@@ -345,6 +362,33 @@ class GridDashboard extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) =>
                               VisualizarProdIndividual(lista)));
+                }
+                if(data.ruta=="verinseminacionglobal"){
+                  List lista = await getInseminacionPorFinca();
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VisualizarInseminacionFinca(lista)));
+
+                }
+                if(data.ruta=="verpartoglobal"){
+                   List lista = await getPartoPorFinca();
+                  if(lista.length>=1){
+                    if(lista[0]==400){
+                    lista=[];
+                  }
+                  }
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              VisualizarPartoGlobal(lista)));
                 }
               },
               child: Container(

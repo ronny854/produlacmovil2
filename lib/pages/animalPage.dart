@@ -13,7 +13,8 @@ import 'package:produlacmovil/pages/onlyAnimalPage.dart';
 import 'animal/ingresar_editar_animal.dart';
 
 class AnimalPAge extends StatefulWidget {
-  AnimalPAge({Key? key}) : super(key: key);
+  //List animales;
+  AnimalPAge() ;
 
   @override
   _AnimalPAgeState createState() => _AnimalPAgeState();
@@ -201,7 +202,12 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     dialogCargando(context);
     lista_fincas_segun_per_id = await listaFincasSegunPerID();
     lista_fincas_per_id = listaFincasPerId(lista_fincas_segun_per_id);
-    lista_animales = await listaAnimales();
+    List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
@@ -268,7 +274,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           //openThreshold: 0.9,
           motion: ScrollMotion(),
           children: [
-            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="3"?
+            rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="3" || rol_id_usuario_logeado=="4"?
             itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
                 FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista):Text(''),
             rol_id_usuario_logeado=="2" || rol_id_usuario_logeado=="4"?
@@ -369,7 +375,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
+  /*SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
     return SlidableAction(
       // An action can be bigger than the others.
@@ -382,9 +388,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       icon: iconoItem,
       label: textItem,
     );
-  }
+  }*/
 
-  Future<void> eliminar_animal(List animal) async {
+  /*Future<void> eliminar_animal(List animal) async {
     if (animal[0]['ani_id'] != null) {
       await controller_general.httpgeneral(
           ip_server + "animales/" + animal[0]['ani_id'].toString(),
@@ -393,7 +399,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => AnimalPAge()));
     }
-  }
+  }*/
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animales) {

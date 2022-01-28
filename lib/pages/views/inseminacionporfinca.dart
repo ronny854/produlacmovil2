@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/finca/ingresareditarfinca.dart';
-import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
+import 'package:produlacmovil/pages/inseminacion/ingresar_editar_inseminacion.dart';
+import 'package:produlacmovil/pages/partoaborto/ingresareditaraborto.dart';
+import 'package:produlacmovil/pages/partoaborto/ingresareditarparto.dart';
 
-class VisualizarTratamiento extends StatefulWidget {
+class VisualizarInseminacionFinca extends StatefulWidget {
   List datos;
 
-  VisualizarTratamiento(this.datos);
+  VisualizarInseminacionFinca(this.datos);
   @override
-  _VisualizarTratamientoState createState() =>
-      new _VisualizarTratamientoState();
+  _VisualizarInseminacionFincaState createState() =>
+      new _VisualizarInseminacionFincaState();
 }
 
-class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
+class _VisualizarInseminacionFincaState extends State<VisualizarInseminacionFinca> {
   TextEditingController buscar = new TextEditingController();
   List lista_datos = [];
   @override
@@ -29,7 +31,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
     return new Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('TABLA TRATAMIENTO'),
+        title: Text('TABLA INSEMINACION'),
       ),
       body: Container(
         child: Padding(
@@ -58,22 +60,34 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                   onChanged: (value) {
                     setState(() {
                       lista_datos = widget.datos
-                          .where((element) => (element['tra_fecha']
+                          .where((element) => (element['ins_fechainseminacion']
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element['tra_descripcion']
+                              element["ins_fechacomprobacion"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element['tra_diastratamiento']
+                              element["ins_cargada"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element['tra_medicamento']
+                              element["ins_tipoinseminacion"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element['tra_diagnostico']
+                              element["ins_numpajuela"]
                                   .toLowerCase()
-                                  .contains(value.toLowerCase())  ||
-                              element["tbl_animale"]["ani_nombre"]
+                                  .contains(value.toLowerCase()) ||
+                              element["ins_descripcion"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["ani_id_padre_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["ani_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["per_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["per_apellido"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase())))
                           .toList();
@@ -90,7 +104,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                             columns: const <DataColumn>[
                               DataColumn(
                                 label: Text(
-                                  'Imagen',
+                                  'Fecha Inseminación',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -98,7 +112,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Nombre animal',
+                                  'Nombre Padre',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -106,7 +120,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Fecha',
+                                  'Nombre Animal',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -114,7 +128,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Diagnostico',
+                                  'Nombre Persona',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -122,7 +136,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Medicamento',
+                                  'Fecha Comprobación',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -130,7 +144,7 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Dias Tratamiento',
+                                  'Cargada',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -138,87 +152,53 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                               ),
                               DataColumn(
                                 label: Text(
-                                  'Descripcion',
+                                  'Tipo Inseminación',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Número Pajuela',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ),
+                              DataColumn(
+                                label: Text(
+                                  'Descripción',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
                                 ),
                               ),                              
-                              DataColumn(
-                                label: Text(
-                                  'Acciones',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
-                              ),
                             ],
                             rows: lista_datos
                                 .map(
                                   ((element) => DataRow(
                                         cells: <DataCell>[
-                                          DataCell(CircleAvatar(
-                                            backgroundImage: NetworkImage(
-                                                element["tbl_animale"]
-                                                    ["ani_imagen"]),
-                                          )),
-                                          DataCell(Text(element["tbl_animale"]
-                                              ["ani_nombre"])),
-                                          DataCell(Text(element["tra_fecha"])),
-                                          DataCell(
-                                              Text(element["tra_diagnostico"])),
-                                          DataCell(
-                                              Text(element["tra_medicamento"])),
+                                          DataCell(Text(element[
+                                              "ins_fechainseminacion"])),
                                           DataCell(Text(
-                                              element["tra_diastratamiento"])),
+                                              element["ani_id_padre_nombre"])),
+                                          DataCell(Text(
+                                              element["ani_nombre"])),
+                                          DataCell(Text(element["per_nombre"] +
+                                              " " +
+                                              element["per_apellido"])),
+                                          DataCell(Text(element[
+                                              "ins_fechacomprobacion"])),
                                           DataCell(
-                                              Text(element["tra_descripcion"])),
+                                              Text(element["ins_cargada"])),
+                                          DataCell(Text(
+                                              element["ins_tipoinseminacion"])),
                                           DataCell(
-                                            rol_id_usuario_logeado!="4"?
-                                            Row(
-                                              children: <Widget>[
-                                                IconButton(
-                                                  icon: Icon(Icons.edit),
-                                                  iconSize: 30.0,
-                                                  color: Colors.blue,
-                                                  onPressed: () async {
-                                                    List lista = [];
-                                                    if (rol_id_usuario_logeado ==
-                                                        "1") {
-                                                      lista =
-                                                          await listaAnimales();
-                                                    } else {
-                                                      lista =
-                                                          await listaAnimalesporfinca();
-                                                    }
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (_) => IngresarEditarTratamiento(
-                                                              int.parse(element["tra_id"]
-                                                                      .toString())
-                                                                  as int,
-                                                              element[
-                                                                  "tra_fecha"],
-                                                              int.parse(element[
-                                                                          "ani_id"]
-                                                                      .toString())
-                                                                  as int,
-                                                              element[
-                                                                  "tra_diagnostico"],
-                                                              element[
-                                                                  "tra_medicamento"],
-                                                              element[
-                                                                  "tra_diastratamiento"],
-                                                              element[
-                                                                  "tra_descripcion"],
-                                                              lista)),
-                                                    );
-                                                  },
-                                                ),
-                                              ],
-                                            ):Text(""),
-                                          ),
+                                              Text(element["ins_numpajuela"])),
+                                          DataCell(
+                                              Text(element["ins_descripcion"])),
+                                          
                                         ],
                                       )),
                                 )
@@ -231,6 +211,61 @@ class _VisualizarTratamientoState extends State<VisualizarTratamiento> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<dynamic> dialog(
+      BuildContext context, String mensaje, bool activar_acciones) {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        actions: [
+          activar_acciones
+              ? TextButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'))
+              : Container()
+        ],
+        content: Container(
+          width: 200,
+          height: 100,
+          child: Column(
+            children: [
+              Container(
+                height: 60,
+                width: 60,
+                child: activar_acciones == false
+                    ? CircularProgressIndicator(
+                        color: Colors.blue,
+                      )
+                    : Icon(
+                        Icons.warning_sharp,
+                        color: Colors.yellow,
+                        size: 70,
+                      ),
+              ),
+              Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          mensaje,
+                          style:
+                              TextStyle(color: Color.fromRGBO(76, 172, 230, 1)),
+                        ),
+                      ],
+                    ),
+                  ))
+            ],
           ),
         ),
       ),

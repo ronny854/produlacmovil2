@@ -7,59 +7,57 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:produlacmovil/components/chartdefaultprodindividual.dart';
 import 'package:produlacmovil/listas.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
+import 'package:produlacmovil/pages/produccion/fechas_produccion_global.dart';
+import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_global.dart';
 import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_individual.dart';
+import 'package:produlacmovil/pages/produccionPage.dart';
 
 import 'package:produlacmovil/pages/produccionindividualPage.dart';
 
-class SubMenuProduccion extends StatefulWidget {
-  SubMenuProduccion({Key? key}) : super(key: key);
+class SubMenuProduccionGlobal extends StatefulWidget {
+  SubMenuProduccionGlobal({Key? key}) : super(key: key);
 
   @override
-  _SubMenuProduccionState createState() => _SubMenuProduccionState();
+  _SubMenuProduccionGlobal createState() => _SubMenuProduccionGlobal();
 }
 
-class _SubMenuProduccionState extends State<SubMenuProduccion> {
-  List animalesLista = [];
+class _SubMenuProduccionGlobal extends State<SubMenuProduccionGlobal> {  
 
   @override
   Widget build(BuildContext context) {
-    if (ModalRoute.of(context)!.settings.arguments != null) {
-      animalesLista = ModalRoute.of(context)!.settings.arguments as List;
-    }
+    
     return Scaffold(
       backgroundColor: Colors.blue[400],
       appBar: AppBar(
         //automaticallyImplyLeading: false,
         toolbarOpacity: 0.7,
         backgroundColor: Colors.blue[400],
-        title: Text('Menú Producción del Animal'),
+        title: Text('Menú Producción Global'),
       ),
       body: Column(
         children: <Widget>[
           SizedBox(
             height: 30,
           ),
-          GridDashboard(animalesLista)
+          GridDashboard()
         ],
       ),
     );
   }
 }
 
-class GridDashboard extends StatelessWidget {
-  List animalesLista;
-  GridDashboard(this.animalesLista);
+class GridDashboard extends StatelessWidget {  
 
   Items item1 = Items(
-    title: "Registro de produccón diaria de leche",
+    title: "Agregar Produccion Global",
     img: "assets/images/vacaOrd.png",
-    ruta: 'reproducciondiarialeche',
+    ruta: 'AgregarProduccionGlobal',
   );
 
   Items item2 = Items(
-    title: "Ver registro de producción",
+    title: "ver producción global",
     img: "assets/images/registrado.png",
-    ruta: 'verregistrodeproduccion',
+    ruta: 'verProduccionGlobal',
   );
 
   @override
@@ -77,45 +75,25 @@ class GridDashboard extends StatelessWidget {
           children: myList.map((data) {
             return GestureDetector(
               onTap: () async {
-                if (data.ruta == "reproducciondiarialeche") {
-                  List<dynamic> lista_animales = [];
-                  if (rol_id_usuario_logeado == "1") {
-                    lista_animales = await listaAnimales();
-                  } else {
-                    lista_animales = await listaAnimalesporfinca();
-                  }
+                if (data.ruta == "AgregarProduccionGlobal") {
+                  List lista_fincas_segun_per_id = await listaFincasSegunPerID();
+                  List lista_fincas = listaFincasPerId(lista_fincas_segun_per_id);
                   List lista_horario = await getlistaHorario();
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => IngresarEditarIndividual(
-                              0,
-                              animalesLista[0]['ani_id'],
-                              "",
-                              "",
-                              "",
-                              "",
-                              lista_animales,
-                              lista_horario)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => IngresarEditarProduccionGlobal(
+                          0, "", "", "", "", "", lista_fincas, lista_horario),
+                    ),
+                  );                  
                 }
-                if (data.ruta == "verregistrodeproduccion") {
-                  if (animalesLista[0]['ani_id'] != null &&
-                      animalesLista[0]['ani_id'].toString() != "" &&
-                      animalesLista[0]['ani_id'].toString() != "0") {
-                    List fecha_litros = await listaprodIndividual(
-                        animalesLista[0]['ani_id'].toString());
-
-                    if (fecha_litros.length >= 1) {
-                      if (fecha_litros[0] == 400) {
-                        fecha_litros = [];
-                      }
-                    }
-                    Navigator.push(
+                if (data.ruta == "verProduccionGlobal") {
+                  Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                ProduccionIndividualPage(fecha_litros)));
-                  }
+                                FechasProduccionGlobal())); 
+                                 
                 }
               },
               child: Container(
