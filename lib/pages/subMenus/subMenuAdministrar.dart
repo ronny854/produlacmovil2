@@ -287,7 +287,12 @@ class GridDashboard extends StatelessWidget {
                 }
 
                 if (data.ruta == 'deceso') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                   print('ruta');
                   Navigator.push(
                       context,
