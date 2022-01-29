@@ -44,10 +44,15 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^19.4.43-beta
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.9.2
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/logo.png"
+  adaptive_icon_background: "assets/icon/logo.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter.

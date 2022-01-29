@@ -36,26 +36,54 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme.nearlyWhite,
-      child: SafeArea(
-        top: false,
-        bottom: false,
-        child: Scaffold(
-          backgroundColor: AppTheme.nearlyWhite,
-          body: DrawerUserController(
-            screenIndex: drawerIndex,
-            drawerWidth: MediaQuery.of(context).size.width * 0.75,
-            onDrawerCall: (DrawerIndex drawerIndexdata) {
-              changeIndex(drawerIndexdata);
-              //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
-            },
-            screenView: screenView,
-            //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
+    return WillPopScope(
+      onWillPop: () async => onWillPop(),
+      child: Container(
+        color: AppTheme.nearlyWhite,
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: Scaffold(
+            backgroundColor: AppTheme.nearlyWhite,
+            body: DrawerUserController(
+              screenIndex: drawerIndex,
+              drawerWidth: MediaQuery.of(context).size.width * 0.75,
+              onDrawerCall: (DrawerIndex drawerIndexdata) {
+                changeIndex(drawerIndexdata);
+                //callback from drawer for replace screen as user need with passing DrawerIndex(Enum index)
+              },
+              screenView: screenView,
+              //we replace screen view as we need on navigate starting screens like MyHomePage, HelpScreen, FeedbackScreen, etc...
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> onWillPop() async {
+    final shouldPop = await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Material Alert Dialog'),
+            content: Text('Do you really want to delete?'),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    //action code for "Yes" button
+                  },
+                  child: Text('Yes')),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context); //close Dialog
+                },
+                child: Text('Close'),
+              )
+            ],
+          );
+        });
+    return shouldPop ?? false;
   }
 
   void changeIndex(DrawerIndex drawerIndexdata) async {
@@ -70,9 +98,8 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           screenView = AnimalPAge();
         });
       } else if (drawerIndex == DrawerIndex.produccion) {
-
         List lista_fecha_litros = await listaprodGlobal(fin_id_usuario_logeado);
-        
+
         setState(() {
           screenView = ProduccionPage(lista_fecha_litros);
         });

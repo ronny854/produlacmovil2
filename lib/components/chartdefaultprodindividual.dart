@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:intl/intl.dart';
@@ -10,21 +8,23 @@ class chartDefaultProdIndividual extends StatefulWidget {
   chartDefaultProdIndividual(this.datos_produccion);
 
   @override
-  _chartDefaultProdIndividualState createState() => _chartDefaultProdIndividualState();
+  _chartDefaultProdIndividualState createState() =>
+      _chartDefaultProdIndividualState();
 }
 
-class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual> {
+class _chartDefaultProdIndividualState
+    extends State<chartDefaultProdIndividual> {
   bool isCardView = false;
-  List<_ChartData>? chartData=[];
+  List<_ChartData>? chartData = [];
 
   @override
-  void initState() {   
-
-    for (var item in widget.datos_produccion) {      
-      _ChartData valor= _ChartData(DateTime.parse(item['pro_fecha']), double.parse(item['sum_pro_litros'].toString()) as double );
+  void initState() {
+    for (var item in widget.datos_produccion) {
+      _ChartData valor = _ChartData(DateTime.parse(item['pro_fecha']),
+          double.parse(item['sum_pro_litros'].toString()) as double);
       chartData?.add(valor);
-    }   
-    
+    }
+
     super.initState();
   }
 
@@ -38,8 +38,7 @@ class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual>
   Widget build(BuildContext context) {
     return SfCartesianChart(
       plotAreaBorderWidth: 0,
-      title: ChartTitle(
-          text: isCardView ? '' : 'Producción Litros de leche'),
+      title: ChartTitle(text: isCardView ? '' : 'Producción Litros de leche'),
       primaryXAxis: DateTimeAxis(
         edgeLabelPlacement: EdgeLabelPlacement.shift,
         labelRotation: 90,
@@ -56,7 +55,7 @@ class _chartDefaultProdIndividualState extends State<chartDefaultProdIndividual>
     );
   }
 
-  List<LineSeries<_ChartData, DateTime>> _getDefaultLineSeries() {    
+  List<LineSeries<_ChartData, DateTime>> _getDefaultLineSeries() {
     return <LineSeries<_ChartData, DateTime>>[
       LineSeries<_ChartData, DateTime>(
           animationDuration: 2500,

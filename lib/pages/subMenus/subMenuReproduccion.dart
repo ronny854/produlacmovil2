@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -139,7 +138,11 @@ class GridDashboard extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => IngresarEditarAborto(
-                              0, '', animalesLista[0]['ani_id'].toString(), '', lista_animales)));
+                              0,
+                              '',
+                              animalesLista[0]['ani_id'].toString(),
+                              '',
+                              lista_animales)));
                 } else if (data.ruta == 'parto') {
                   List<dynamic> lista_animales = await listaAnimales();
                   print('ruta parto');
@@ -151,11 +154,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verInseminacion') {
                   List lista = await getInseminacionporanimal(
                       animalesLista[0]['ani_id'].toString());
-                  
-                  if(lista.length>=1){
-                    if(lista[0]==400){
-                    lista=[];
-                  }
+
+                  if (lista.length >= 1) {
+                    if (lista[0] == 400) {
+                      lista = [];
+                    }
                   }
 
                   Navigator.push(
@@ -165,11 +168,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verParto') {
                   List lista = await getPartoporanimal(
                       animalesLista[0]['ani_id'].toString());
-                  
-                  if(lista.length>=1){
-                    if(lista[0]==400){
-                    lista=[];
-                  }
+
+                  if (lista.length >= 1) {
+                    if (lista[0] == 400) {
+                      lista = [];
+                    }
                   }
                   Navigator.push(
                       context,
@@ -178,10 +181,10 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verAborto') {
                   List lista = await getAbortoporanimal(
                       animalesLista[0]['ani_id'].toString());
-                  if(lista.length>=1){
-                    if(lista[0]==400){
-                    lista=[];
-                  }
+                  if (lista.length >= 1) {
+                    if (lista[0] == 400) {
+                      lista = [];
+                    }
                   }
                   Navigator.push(
                       context,

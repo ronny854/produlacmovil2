@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable, use_key_in_widget_constructors
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:produlacmovil/models/ruta_backend.dart';
@@ -103,11 +101,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verVentas') {
                   List<dynamic> lista_ventas =
                       await getVentasPorFinca(fin_id_usuario_logeado);
-                  
-                  if(lista_ventas.length>=1){
-                    if(lista_ventas[0]==400){
-                    lista_ventas=[];
-                  }
+
+                  if (lista_ventas.length >= 1) {
+                    if (lista_ventas[0] == 400) {
+                      lista_ventas = [];
+                    }
                   }
 
                   Navigator.push(
