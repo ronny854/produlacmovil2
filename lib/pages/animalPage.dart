@@ -1,8 +1,5 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, sized_box_for_whitespace, avoid_unnecessary_containers, deprecated_member_use, non_constant_identifier_names
 
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -155,11 +152,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                     ),
                   )
                 : Text(''),
-<<<<<<< HEAD
-            Expanded(
-=======
             /*Expanded(
->>>>>>> 016752b8b5cca219751aa9dacc09f458eae6845b
               child: Container(
                 //height: queryData.size.height - 200,
                 width: queryData.size.width,
@@ -206,7 +199,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
             ),
             TextField(
               controller: buscar,
-              decoration: InputDecoration(              
+              decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30)),
                   fillColor: Colors.grey,
@@ -230,8 +223,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                               .contains(value.toLowerCase()) ||
                           element["ani_pesonacer"]
                               .toLowerCase()
-                              .contains(value.toLowerCase()) 
-                      ))
+                              .contains(value.toLowerCase())))
                       .toList();
                 });
               },
@@ -354,13 +346,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           //openThreshold: 0.9,
           motion: ScrollMotion(),
           children: [
-<<<<<<< HEAD
-            rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "3"
-=======
             rol_id_usuario_logeado == "2" ||
                     rol_id_usuario_logeado == "3" ||
                     rol_id_usuario_logeado == "4"
->>>>>>> 016752b8b5cca219751aa9dacc09f458eae6845b
                 ? itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
                     FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista)
                 : Text(''),
@@ -586,8 +574,6 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 }
-
-
 
 class PageArguments {
   final int id;
