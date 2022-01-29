@@ -67,19 +67,20 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Material Alert Dialog'),
-            content: Text('Do you really want to delete?'),
+            title: Text('Salir'),
+            content: Text('¿Esta seguro que desea salir?'),
             actions: <Widget>[
               TextButton(
                   onPressed: () {
-                    //action code for "Yes" button
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   },
-                  child: Text('Yes')),
+                  child: Text('Si')),
               TextButton(
                 onPressed: () {
-                  Navigator.pop(context); //close Dialog
+                  Navigator.pop(context);                  
                 },
-                child: Text('Close'),
+                child: Text('No'),
               )
             ],
           );
