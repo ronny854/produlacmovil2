@@ -11,6 +11,7 @@ import 'package:produlacmovil/pages/produccionPage.dart';
 import 'package:produlacmovil/pages/saludPage.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuAdministrar.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuIngresos.dart';
+import 'package:produlacmovil/pages/subMenus/subMenuProduccionGlobal.dart';
 import 'package:produlacmovil/pages/subMenus/subMenuVentas.dart';
 
 import '../principalPage.dart';
@@ -94,14 +95,18 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
           screenView = PrincipalPage();
         });
       } else if (drawerIndex == DrawerIndex.animales) {
+        List lista_animales = [];
+        if (rol_id_usuario_logeado == "1") {
+          lista_animales = await listaAnimales();
+        } else {
+          lista_animales = await listaAnimalesporfinca();
+        }
         setState(() {
-          screenView = AnimalPAge();
+          screenView = AnimalPAge(lista_animales);
         });
       } else if (drawerIndex == DrawerIndex.produccion) {
-        List lista_fecha_litros = await listaprodGlobal(fin_id_usuario_logeado);
-
         setState(() {
-          screenView = ProduccionPage(lista_fecha_litros);
+          screenView = SubMenuProduccionGlobal();
         });
       } else if (drawerIndex == DrawerIndex.ventas) {
         setState(() {

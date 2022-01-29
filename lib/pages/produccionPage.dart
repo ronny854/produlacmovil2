@@ -8,7 +8,8 @@ import 'package:produlacmovil/pages/produccion/ingresar_editar_produccion_global
 
 class ProduccionPage extends StatefulWidget {
   List lista_fecha_litros;
-  ProduccionPage(this.lista_fecha_litros);
+  int litros_totales;
+  ProduccionPage(this.lista_fecha_litros,this.litros_totales);
 
   @override
   _ProduccionPageState createState() => _ProduccionPageState();
@@ -48,43 +49,7 @@ class _ProduccionPageState extends State<ProduccionPage> {
             padding: EdgeInsets.only(
               top: 250.0,
             ),
-            child: MaterialButton(
-              onPressed: () async {
-                List lista_fincas_segun_per_id = await listaFincasSegunPerID();
-                List lista_fincas = listaFincasPerId(lista_fincas_segun_per_id);
-                List lista_horario = await getlistaHorario();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => IngresarEditarProduccionGlobal(
-                        0, "", "", "", "", "", lista_fincas, lista_horario),
-                  ),
-                );
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
-              textColor: Colors.white,
-              padding: const EdgeInsets.all(0),
-              child: Container(
-                alignment: Alignment.center,
-                height: size.height * 0.0512,
-                width: size.width - 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(80.0),
-                  gradient: const LinearGradient(
-                    colors: [
-                      Color.fromRGBO(35, 144, 255, 1.0),
-                      Color.fromRGBO(14, 57, 102, 1.0),
-                    ],
-                  ),
-                ),
-                child: const Text('Agregar',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-            ),
+            child: Text("Total de litros: "+widget.litros_totales.toString()) ,
           )
         ],
       ),

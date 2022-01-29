@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.produlacmovil">
-   <application
-        android:label="produlacmovil"
+    <uses-permission android:name="android.permission.INTERNET" />
+   <application   
+        android:label="Produlac"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity

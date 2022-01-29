@@ -1,5 +1,8 @@
 //ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, file_names, sized_box_for_whitespace, avoid_unnecessary_containers, deprecated_member_use, non_constant_identifier_names
 
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,13 +16,15 @@ import 'package:produlacmovil/pages/onlyAnimalPage.dart';
 import 'animal/ingresar_editar_animal.dart';
 
 class AnimalPAge extends StatefulWidget {
-  AnimalPAge({Key? key}) : super(key: key);
+  List animales_list;
+  AnimalPAge(this.animales_list);
 
   @override
   _AnimalPAgeState createState() => _AnimalPAgeState();
 }
 
 class _AnimalPAgeState extends State<AnimalPAge> {
+  TextEditingController buscar = new TextEditingController();
   ControllerGenral controller_general = new ControllerGenral();
   double value = 0;
   bool isSideBarOpen = false;
@@ -28,6 +33,14 @@ class _AnimalPAgeState extends State<AnimalPAge> {
   List<dynamic> lista_tipo_estado = [];
   List<dynamic> lista_fincas_per_id = [];
   List<dynamic> lista_fincas_segun_per_id = [];
+  List lista_de_animales = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    lista_de_animales = widget.animales_list;
+    print(lista_de_animales);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +155,11 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                     ),
                   )
                 : Text(''),
+<<<<<<< HEAD
             Expanded(
+=======
+            /*Expanded(
+>>>>>>> 016752b8b5cca219751aa9dacc09f458eae6845b
               child: Container(
                 //height: queryData.size.height - 200,
                 width: queryData.size.width,
@@ -177,6 +194,70 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                   },
                 ),
               ),
+            ),*/
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'BUSCAR',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            TextField(
+              controller: buscar,
+              decoration: InputDecoration(              
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  fillColor: Colors.grey,
+                  suffixIcon: Icon(Icons.search),
+                  hintText: "BUSCAR",
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 12.0)),
+              onChanged: (value) {
+                setState(() {
+                  lista_de_animales = widget.animales_list
+                      .where((element) => (element['ani_nombre']
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          element["ani_codigo"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          element["ani_fechanacimiento"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          element["ani_raza"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) ||
+                          element["ani_pesonacer"]
+                              .toLowerCase()
+                              .contains(value.toLowerCase()) 
+                      ))
+                      .toList();
+                });
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              child: Container(
+                //height: queryData.size.height - 200,
+                width: queryData.size.width,
+                child: ListView.builder(
+                  itemCount: lista_de_animales.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return animalItemWidget(
+                        queryData,
+                        lista_de_animales[index]['ani_imagen'],
+                        lista_de_animales[index]['ani_nombre'],
+                        lista_de_animales[index]['ani_codigo'],
+                        lista_de_animales[index]['ani_sexo'],
+                        lista_de_animales[index]['ani_raza'],
+                        lista_de_animales[index]['ite_id_nombre_etapa'],
+                        [lista_de_animales[index]]);
+                  },
+                ),
+              ),
             ),
           ],
         ),
@@ -202,7 +283,12 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     dialogCargando(context);
     lista_fincas_segun_per_id = await listaFincasSegunPerID();
     lista_fincas_per_id = listaFincasPerId(lista_fincas_segun_per_id);
-    lista_animales = await listaAnimales();
+    List<dynamic> lista_animales = [];
+    if (rol_id_usuario_logeado == "1") {
+      lista_animales = await listaAnimales();
+    } else {
+      lista_animales = await listaAnimalesporfinca();
+    }
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
@@ -268,7 +354,13 @@ class _AnimalPAgeState extends State<AnimalPAge> {
           //openThreshold: 0.9,
           motion: ScrollMotion(),
           children: [
+<<<<<<< HEAD
             rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "3"
+=======
+            rol_id_usuario_logeado == "2" ||
+                    rol_id_usuario_logeado == "3" ||
+                    rol_id_usuario_logeado == "4"
+>>>>>>> 016752b8b5cca219751aa9dacc09f458eae6845b
                 ? itemSlidable('Salud', Color(0xD52BCA2B), Color(0xFF000000),
                     FontAwesomeIcons.fileMedical, 'subMenuSalud', animalesLista)
                 : Text(''),
@@ -375,7 +467,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 
-  SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
+  /*SlidableAction itemSlidableEliminar(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animal) {
     return SlidableAction(
       // An action can be bigger than the others.
@@ -388,9 +480,9 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       icon: iconoItem,
       label: textItem,
     );
-  }
+  }*/
 
-  Future<void> eliminar_animal(List animal) async {
+  /*Future<void> eliminar_animal(List animal) async {
     if (animal[0]['ani_id'] != null) {
       await controller_general.httpgeneral(
           ip_server + "animales/" + animal[0]['ani_id'].toString(),
@@ -399,7 +491,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => AnimalPAge()));
     }
-  }
+  }*/
 
   SlidableAction itemSlidableEditarAnimal(String textItem, Color colorFondo,
       Color colorTexto, IconData iconoItem, List animales) {
@@ -494,6 +586,8 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     );
   }
 }
+
+
 
 class PageArguments {
   final int id;

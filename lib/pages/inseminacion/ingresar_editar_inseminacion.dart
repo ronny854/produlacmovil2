@@ -59,7 +59,7 @@ class _IngresarEditarInseminacionState
   DateTime selectedDate_fecha_inseminacion = DateTime.now();
 
 
-  List lista_cargada=["SI","NO"];
+  List lista_cargada=["SI","NO","(vacío)"];
   String select_cargada="SI";
   
 
@@ -332,7 +332,7 @@ class _IngresarEditarInseminacionState
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Seleccione Animal',
+                                'Seleccione',
                                 style: TextStyle(color: Colors.black45),
                               ),
                             ],

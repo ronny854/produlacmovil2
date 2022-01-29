@@ -42,14 +42,16 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
 
+  List lista_dieta=["Pastoreo","Pastoreo mas concentrado","suplemento"];
+  String select_dieta="Pastoreo";
+
   @override
   void initState() {
     super.initState();
 
     if (widget.pro_id != 0) {
       litros.text = widget.pro_litros.toString();
-      dieta.text = widget.pro_dieta.toString();
-
+      select_dieta=widget.pro_dieta;
       _select_ani_id = widget.ani_id.toString();
       _select_ite_idhorario = widget.ite_idhorario.toString();
       if (widget.pro_fecha != "") {
@@ -268,8 +270,52 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
                           buildTextField(Icons.calendar_today_outlined,
                               "Litros de producción", false, true, litros),
                           const SizedBox(height: 15.0),
-                          buildTextField(Icons.food_bank_outlined, "Dieta",
-                              false, false, dieta),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Seleccione Dieta',
+                                style: TextStyle(color: Colors.black45),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors
+                                  .white, //background color of dropdown button
+                              border: Border.all(
+                                  color: Color(
+                                      0XFFA7BCC7)), //border of dropdown button
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(35.0)),
+                            ),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: DropdownButton<String>(
+                                value: select_dieta,
+                                icon: const Icon(Icons.arrow_downward),
+                                isExpanded: true,
+                                elevation: 16,
+                                style: const TextStyle(
+                                    color: Color.fromRGBO(76, 172, 230, 1)),
+                                underline: Container(),
+                                iconEnabledColor:
+                                    Color.fromRGBO(76, 172, 230, 1),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    select_dieta = newValue!;
+                                  });
+                                },
+                                items: lista_dieta.map((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value.toString(),
+                                    child: Text(value.toString()),
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ),
                           const SizedBox(
                             height: 40,
                           )
@@ -398,7 +444,7 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
         "pro_fecha": _selectedDate_a_enviar,
         "ite_idhorario": _select_ite_idhorario,
         "pro_litros": litros.text,
-        "pro_dieta": dieta.text
+        "pro_dieta": select_dieta
       });
       List datos = [];
       if (widget.pro_id == 0) {

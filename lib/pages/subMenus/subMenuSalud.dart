@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/tratamiento/ingresar_editar_tratamiento.dart';
 import 'package:produlacmovil/pages/vacuna/ingresar_editar_vacuna.dart';
 import 'package:produlacmovil/pages/views/tratamientoView.dart';
@@ -81,7 +82,15 @@ class GridDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    List<Items> myList = [item1, item2, item3, item4];
+    List<Items> myList = [];
+
+    if(rol_id_usuario_logeado=="4"){
+      myList = [item3];
+    }else{
+      myList = [item1, item2, item3, item4];
+    }
+     
+
     var color = 0xFF70C3FA;
     return Flexible(
       child: GridView.count(
@@ -97,7 +106,12 @@ class GridDashboard extends StatelessWidget {
                 //print('enviar a ruta ' + data.ruta);
                 // ignore: non_constant_identifier_names
                 if (data.ruta == 'tratamiento') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
 
                   Navigator.push(
                     context,
@@ -114,7 +128,12 @@ class GridDashboard extends StatelessWidget {
                     ),
                   );
                 } else if (data.ruta == 'vacunar') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -131,11 +150,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verTratamiento') {
                   List lista_tratamientos = await getTratamientoPorAnimal(
                       animalesLista[0]['ani_id'].toString());
-                      
-                  if(lista_tratamientos.length>=1){
-                    if(lista_tratamientos[0]==400){
-                    lista_tratamientos=[];
-                  }
+
+                  if (lista_tratamientos.length >= 1) {
+                    if (lista_tratamientos[0] == 400) {
+                      lista_tratamientos = [];
+                    }
                   }
                   Navigator.push(
                       context,
@@ -145,11 +164,11 @@ class GridDashboard extends StatelessWidget {
                 } else if (data.ruta == 'verVacunas') {
                   List lista_vacunas = await getVacunaPorAnimal(
                       animalesLista[0]['ani_id'].toString());
-                  
-                  if(lista_vacunas.length>=1){
-                    if(lista_vacunas[0]==400){
-                    lista_vacunas=[];
-                  } 
+
+                  if (lista_vacunas.length >= 1) {
+                    if (lista_vacunas[0] == 400) {
+                      lista_vacunas = [];
+                    }
                   }
                   Navigator.push(
                       context,

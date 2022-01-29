@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:produlacmovil/models/ruta_backend.dart';
 import 'package:produlacmovil/pages/deceso/ingresar_editar_deceso.dart';
 import 'package:produlacmovil/pages/inseminacion/ingresar_editar_inseminacion.dart';
 import 'package:produlacmovil/pages/partoaborto/ingresareditaraborto.dart';
@@ -94,11 +95,11 @@ class GridDashboard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     List<Items> myList = [
       item1,
-      item2,
-      item4,
       item5,
-      item6,
+      item2,
       item7,
+      item4,
+      item6,
     ];
     var color = 0xFF70C3FA;
     return Flexible(
@@ -114,7 +115,12 @@ class GridDashboard extends StatelessWidget {
                 // Navigator.pushNamed(context, data.ruta);
 
                 if (data.ruta == 'inseminacion') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                   Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -132,7 +138,12 @@ class GridDashboard extends StatelessWidget {
                               [],
                               lista_animales)));
                 } else if (data.ruta == 'aborto') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                   print('ruta aborto');
                   Navigator.push(
                       context,
@@ -144,7 +155,12 @@ class GridDashboard extends StatelessWidget {
                               '',
                               lista_animales)));
                 } else if (data.ruta == 'parto') {
-                  List<dynamic> lista_animales = await listaAnimales();
+                  List<dynamic> lista_animales = [];
+                  if (rol_id_usuario_logeado == "1") {
+                    lista_animales = await listaAnimales();
+                  } else {
+                    lista_animales = await listaAnimalesporfinca();
+                  }
                   print('ruta parto');
                   Navigator.push(
                       context,
