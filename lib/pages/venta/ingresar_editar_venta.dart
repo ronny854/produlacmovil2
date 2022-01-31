@@ -281,12 +281,12 @@ class _IngresarEditarVentaState extends State<IngresarEditarVenta> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (select_ani_id == "" &&
-        _selectedDate_a_enviar == "" &&
-        comprador.text == "" &&
-        telcomprador.text == "" &&
-        cedulacomprador.text == "" &&
-        direccioncomprador.text == "" &&
+    if (select_ani_id == "" ||
+        _selectedDate_a_enviar == "" ||
+        comprador.text == "" ||
+        telcomprador.text == "" ||
+        cedulacomprador.text == "" ||
+        direccioncomprador.text == "" ||
         valor.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

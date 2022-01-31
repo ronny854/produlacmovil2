@@ -333,10 +333,10 @@ class _IngresarEditarVacunaState extends State<IngresarEditarVacuna> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (_selectedDate_a_enviar == "" &&
-        _select_ani_id == "" &&
-        vacuna.text == "" &&
-        enfermedad.text == "" &&
+    if (_selectedDate_a_enviar == "" ||
+        _select_ani_id == "" ||
+        vacuna.text == "" ||
+        enfermedad.text == "" ||
         descripcion.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

@@ -331,7 +331,7 @@ class _IngresarEditarFincaPersonaState
   }
 
   guardar_datos() async {
-    if (_select_fin_id == "" && _select_per_id == "") {
+    if (_select_fin_id == "" || _select_per_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {
       String body = jsonEncode({

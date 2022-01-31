@@ -424,10 +424,10 @@ class _IngresarEditarInseminacionState
           DateFormat('yyyy-MM-dd').format(selectedDate_fecha_inseminacion);
     }
 
-    if (cargada.text == "" &&
-        _selectedDate_a_enviar_fecha_inseminacion == "" &&
-        tipo_inseminacion.text == "" &&
-        num_pajuela.text == "" &&
+    if (cargada.text == "" ||
+        _selectedDate_a_enviar_fecha_inseminacion == "" ||
+        tipo_inseminacion.text == "" ||
+        num_pajuela.text == "" ||
         descripcion.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

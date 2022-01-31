@@ -411,9 +411,9 @@ class _IngresarEditarPartoState extends State<IngresarEditarParto> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (ani_id_hijo == "" &&
-        ani_id_madre == "" &&
-        // ite_id_parto_aborto == "" &&
+    if (ani_id_hijo == "" ||
+        ani_id_madre == "" ||
+        // ite_id_parto_aborto == "" ||
         _selectedDate_a_enviar == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

@@ -381,10 +381,10 @@ class _IngresarEditarIngresoEgresoState
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (monto.text == "" &&
-        _selectedDate_a_enviar == "" &&
-        descripcion.text == "" &&
-        _select_fin_id == "" &&
+    if (monto.text == "" ||
+        _selectedDate_a_enviar == "" ||
+        descripcion.text == "" ||
+        _select_fin_id == "" ||
         _select_ite_idingreso_egreso == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

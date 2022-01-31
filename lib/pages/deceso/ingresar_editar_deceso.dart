@@ -315,9 +315,9 @@ class _IngresarEditarDecesoState extends State<IngresarEditarDeceso> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (causa.text == "" &&
-        _selectedDate_a_enviar == "" &&
-        descripcion.text == "" &&
+    if (causa.text == "" ||
+        _selectedDate_a_enviar == "" ||
+        descripcion.text == "" ||
         _select_ani_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

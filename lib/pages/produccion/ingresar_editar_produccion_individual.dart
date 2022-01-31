@@ -428,10 +428,10 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (_select_ite_idhorario == "" &&
-        _selectedDate_a_enviar == "" &&
-        litros.text == "" &&
-        dieta.text == "" &&
+    if (_select_ite_idhorario == "" ||
+        _selectedDate_a_enviar == "" ||
+        litros.text == "" ||
+        dieta.text == "" ||
         _select_ani_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

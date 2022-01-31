@@ -393,10 +393,10 @@ class _IngresarEditarProduccionGlobalState
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (_selectedDate_a_enviar == "" &&
-        _select_fin_id == "" &&
-        _select_ite_idhorario == "" &&
-        litros.text == "" &&
+    if (_selectedDate_a_enviar == "" ||
+        _select_fin_id == "" ||
+        _select_ite_idhorario == "" ||
+        litros.text == "" ||
         numvacas.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

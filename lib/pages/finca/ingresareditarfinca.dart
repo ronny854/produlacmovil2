@@ -408,11 +408,11 @@ class _IngresarEditarFincaState extends State<IngresarEditarFinca> {
   }
 
   guardar_datos() async {
-    if (nombre.text == "" &&
-        extencion.text == "" &&
-        pais.text == "" &&
-        provincia.text == "" &&
-        ciudad.text == "" &&
+    if (nombre.text == "" ||
+        extencion.text == "" ||
+        pais.text == "" ||
+        provincia.text == "" ||
+        ciudad.text == "" ||
         telefono.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

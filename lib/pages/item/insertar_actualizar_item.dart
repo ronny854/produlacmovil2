@@ -278,7 +278,7 @@ class _IngresarEditarItemState extends State<IngresarEditarItem> {
   }
 
   guardar_datos() async {
-    if (nombre.text == "" && _select_cat_id == "") {
+    if (nombre.text == "" || _select_cat_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {
       String body = jsonEncode({

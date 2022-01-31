@@ -100,6 +100,9 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
 
+  List lista_animal_macho = [];
+  List lista_animal_hembra = [];
+
   @override
   void initState() {
     super.initState();
@@ -113,9 +116,6 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
       id_finca.text = widget.fin_id.toString();
       id_tipo_estado.text = widget.ite_idtipoestado.toString();
 
-      select_ani_id_padre = widget.ani_idpadre.toString();
-      select_ani_id_madre = widget.ani_idmadre.toString();
-
       select_ite_idespecie = widget.ite_idespecie.toString();
       select_fin_id = widget.fin_id.toString();
 
@@ -126,10 +126,91 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
       if (widget.ani_fecha_nacimiento != "") {
         selectedDate = DateTime.parse(widget.ani_fecha_nacimiento);
       }
-    } else {
+
       if (widget.lista_animales.length >= 1) {
-        select_ani_id_madre = widget.lista_animales[0]['ani_id'].toString();
-        select_ani_id_padre = widget.lista_animales[0]['ani_id'].toString();
+        for (var item in widget.lista_animales) {
+          if (item['ani_sexo'] == "Macho") {
+            lista_animal_macho.add(item);
+            if (widget.ani_idpadre == item["ani_id"]) {
+              select_ani_id_padre = widget.ani_idpadre.toString();
+            }
+          } else {
+            if (item['ani_sexo'] == "Hembra") {
+              lista_animal_hembra.add(item);
+              if (widget.ani_idmadre == item["ani_id"]) {
+                select_ani_id_madre = widget.ani_idmadre.toString();
+              }
+            }
+          }
+        }
+      }
+      
+      if (select_ani_id_padre == " ") {
+        var Lista_animal_a_editar;
+        for (var item in widget.lista_animales) {
+          if (item["ani_id"] == widget.ani_id) {
+            Lista_animal_a_editar = item;
+          }
+        }
+        if (Lista_animal_a_editar != null) {
+          if (Lista_animal_a_editar["ani_id_padre_nombre"] != null &&
+              Lista_animal_a_editar["ani_id_padre"] != null) {
+            lista_animal_macho.add({
+              "ani_id": Lista_animal_a_editar["ani_id_padre"],
+              "ani_nombre": Lista_animal_a_editar["ani_id_padre_nombre"],
+              "ani_codigo": Lista_animal_a_editar["ani_id_padre_codigo"]
+            });
+            select_ani_id_padre =
+                Lista_animal_a_editar["ani_id_padre"].toString();
+          }
+        }
+      }
+      
+      if (select_ani_id_madre == " ") {
+        var Lista_animal_a_editar;
+        for (var item in widget.lista_animales) {
+          if (item["ani_id"] == widget.ani_id) {
+            Lista_animal_a_editar = item;
+          }
+        }
+        if (Lista_animal_a_editar != null) {
+          if (Lista_animal_a_editar["ani_id_madre_nombre"] != null &&
+              Lista_animal_a_editar["ani_id_madre"] != null) {
+            lista_animal_hembra.add({
+              "ani_id": Lista_animal_a_editar["ani_id_madre"],
+              "ani_nombre": Lista_animal_a_editar["ani_id_madre_nombre"],
+              "ani_codigo": Lista_animal_a_editar["ani_id_madre_codigo"]
+            });
+            select_ani_id_madre =
+                Lista_animal_a_editar["ani_id_madre"].toString();
+          }
+        }
+      }
+
+      if (select_ani_id_madre == " " && lista_animal_hembra.length >= 1) {
+        select_ani_id_madre = lista_animal_hembra[0]['ani_id'].toString();
+      }
+      if (select_ani_id_padre == " " && lista_animal_macho.length >= 1) {
+        select_ani_id_padre = lista_animal_macho[0]['ani_id'].toString();
+      }
+
+      
+      
+    } else {
+      for (var item in widget.lista_animales) {
+          if (item['ani_sexo'] == "Macho") {
+            lista_animal_macho.add(item);
+          } else {
+            if (item['ani_sexo'] == "Hembra") {
+              lista_animal_hembra.add(item);
+            }
+          }
+        }
+      if (select_ani_id_madre == " " && lista_animal_hembra.length >= 1) {
+        select_ani_id_madre = lista_animal_hembra[0]['ani_id'].toString();
+      }
+      if (select_ani_id_padre == " " && lista_animal_macho.length >= 1) {
+        select_ani_id_padre = lista_animal_macho[0]['ani_id'].toString();
       }
 
       if (widget.lista_especie_animal.length >= 1) {
@@ -414,7 +495,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                                     select_ani_id_padre = newValue!;
                                   });
                                 },
-                                items: widget.lista_animales.map((value) {
+                                items: lista_animal_macho.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['ani_id'].toString(),
                                     child: Text("Nombre: " +
@@ -464,7 +545,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
                                     select_ani_id_madre = newValue!;
                                   });
                                 },
-                                items: widget.lista_animales.map((value) {
+                                items: lista_animal_hembra.map((value) {
                                   return DropdownMenuItem<String>(
                                     value: value['ani_id'].toString(),
                                     child: Text("Nombre: " +
@@ -690,11 +771,11 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (nombre.text == "" &&
-        _selectedDate_a_enviar == "" &&
-        raza.text == "" &&
-        select_ite_idetapa == "" &&
-        peso_nacer.text == "" &&
+    if (nombre.text == "" ||
+        _selectedDate_a_enviar == "" ||
+        raza.text == "" ||
+        select_ite_idetapa == "" ||
+        peso_nacer.text == "" ||
         codigo.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {
@@ -729,8 +810,7 @@ class _IngresarEditarAnimalState extends State<IngresarEditarAnimal> {
         "fin_id": select_fin_id,
         "ite_idtipoestado": select_ite_tipo_estado
       });
-      print("asd");
-      print("aqui: " + body);
+
       List datos = [];
       if (widget.ani_id == 0) {
         dialog(context, "Enviando Datos", false);

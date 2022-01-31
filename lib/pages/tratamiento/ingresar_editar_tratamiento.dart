@@ -342,11 +342,11 @@ class _IngresarEditarTratamientoState extends State<IngresarEditarTratamiento> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (_selectedDate_a_enviar == "" &&
-        _select_ani_id == "" &&
-        diastratamiento.text == "" &&
-        diagnostico.text == "" &&
-        descripcion.text == "" &&
+    if (_selectedDate_a_enviar == "" ||
+        _select_ani_id == "" ||
+        diastratamiento.text == "" ||
+        diagnostico.text == "" ||
+        descripcion.text == "" ||
         medicamento.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

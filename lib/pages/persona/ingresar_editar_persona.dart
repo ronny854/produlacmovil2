@@ -461,13 +461,13 @@ class _IngresarEditarPersonaState extends State<IngresarEditarPersona> {
   }
 
   guardar_datos() async {
-    if (nombre.text == "" &&
-        apellido.text == "" &&
-        usuario.text == "" &&
-        cedula.text == "" &&
-        correo.text == "" &&
-        telefono.text == "" &&
-        direccion.text == "" &&
+    if (nombre.text == "" ||
+        apellido.text == "" ||
+        usuario.text == "" ||
+        cedula.text == "" ||
+        correo.text == "" ||
+        telefono.text == "" ||
+        direccion.text == "" ||
         contrasena.text == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

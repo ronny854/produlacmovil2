@@ -64,60 +64,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       body: Container(
         color: Color(0XffF5F2F5),
         child: Column(
-          // ignore: prefer_const_literals_to_create_immutables
           children: [
-/*             Container(
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    // ignore: prefer_const_literals_to_create_immutables
-                    children: [],
-                  ),
-                ],
-              ),
-            ), */
-            /* Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 10.0,
-              ),
-              margin: EdgeInsets.symmetric(
-                vertical: 5.0,
-                horizontal: 20.0,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  Icon(Icons.search),
-                  Text('Buscar animales'),
-                  Icon(Icons.settings),
-                ],
-              ),
-            ), */
-/*             Container(
-              padding: EdgeInsets.only(bottom: 10.0),
-              child: RaisedButton(
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                onPressed: () {},
-                child: Container(
-                  width: queryData.size.width - 100,
-                  child: Text(
-                    'Agregar nuevo animal',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ), */
-            //categoriesWidget(),
             rol_id_usuario_logeado == "2" || rol_id_usuario_logeado == "4"
                 ? Container(
                     padding: EdgeInsets.only(bottom: 15.0),
@@ -151,43 +98,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                       ),
                     ),
                   )
-                : Text(''),
-            /*Expanded(
-              child: Container(
-                //height: queryData.size.height - 200,
-                width: queryData.size.width,
-                child: FutureBuilder(
-                  future: rol_id_usuario_logeado == "1"
-                      ? listaAnimales()
-                      : listaAnimalesporfinca(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<List> snapshot) {
-                    var _animales = snapshot.data;
-
-                    if (!snapshot.hasData) {
-                      return Container(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return ListView.builder(
-                        itemCount: _animales?.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return animalItemWidget(
-                              queryData,
-                              _animales![index]['ani_imagen'],
-                              _animales[index]['ani_nombre'],
-                              _animales[index]['ani_codigo'],
-                              _animales[index]['ani_sexo'],
-                              _animales[index]['ani_raza'],
-                              _animales[index]['ite_id_nombre_etapa'],
-                              [_animales[index]]);
-                        },
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),*/
+                : Text(''),            
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -246,6 +157,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                         lista_de_animales[index]['ani_sexo'],
                         lista_de_animales[index]['ani_raza'],
                         lista_de_animales[index]['ite_id_nombre_etapa'],
+                        lista_de_animales[index]['ite_id_tipo_estado_nombre'],
                         [lista_de_animales[index]]);
                   },
                 ),
@@ -284,6 +196,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
     lista_especie_animal = await listaEspecieAnimal();
     lista_tipo_estado = await listaTipoEstado();
     List lista_etapa = await getEtapaAnimal();
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -319,6 +232,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
       String sexoA,
       String raza,
       String etapa,
+      String estado,
       List animalesLista) {
     // ignore: prefer_typing_uninitialized_variables
 
@@ -427,6 +341,7 @@ class _AnimalPAgeState extends State<AnimalPAge> {
                           Text("Sexo: $sexoA"),
                           Text("Raza: $raza"),
                           Text("Etapa: $etapa"),
+                          Text("Estado: $estado"),
                         ],
                       ),
                     ),
