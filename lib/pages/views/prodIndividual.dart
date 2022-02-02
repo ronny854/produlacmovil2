@@ -68,7 +68,10 @@ class _VisualizarProdIndividualState extends State<VisualizarProdIndividual> {
                               element["pro_dieta"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) ||
-                              element['tbl_animale']["ani_nombre"]
+                              element["ani_nombre"]
+                                  .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["ite_nombre"]
                                   .toLowerCase()
                                   .contains(value.toLowerCase()) 
                          )) 

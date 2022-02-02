@@ -24,9 +24,7 @@ class IngresarEditarAborto extends StatefulWidget {
 
 class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
   String ani_id_madre = "";
-  String ani_id_hijo = "";
   String ite_id_parto_aborto = "";
-  List lista_hembras = [];
   String _selectedDate_a_enviar = "";
   DateTime selectedDate = DateTime.now();
   ControllerGenral controller_general = new ControllerGenral();
@@ -354,9 +352,8 @@ class _IngresarEditarAbortoState extends State<IngresarEditarAborto> {
     if (_selectedDate_a_enviar == "") {
       _selectedDate_a_enviar = DateFormat('yyyy-MM-dd').format(selectedDate);
     }
-    if (ani_id_hijo == "" ||
+    if (
         ani_id_madre == "" ||
-        ite_id_parto_aborto == "" ||
         _selectedDate_a_enviar == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {

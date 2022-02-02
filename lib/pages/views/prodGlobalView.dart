@@ -67,6 +67,9 @@ class _VisualizarProdGlobalState extends State<VisualizarProdGlobal> {
                                   .contains(value.toLowerCase()) ||
                               element["pglo_numvacas"]
                                   .toLowerCase()
+                                  .contains(value.toLowerCase()) ||
+                              element["tbl_item"]["ite_nombre"]
+                                  .toLowerCase()
                                   .contains(value.toLowerCase()) ))
                           .toList();
                     });

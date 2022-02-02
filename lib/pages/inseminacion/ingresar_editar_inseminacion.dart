@@ -41,7 +41,6 @@ class IngresarEditarInseminacion extends StatefulWidget {
 
 class _IngresarEditarInseminacionState
     extends State<IngresarEditarInseminacion> {
-  TextEditingController cargada = new TextEditingController();
   TextEditingController tipo_inseminacion = new TextEditingController();
   TextEditingController num_pajuela = new TextEditingController();
   TextEditingController descripcion = new TextEditingController();
@@ -424,7 +423,7 @@ class _IngresarEditarInseminacionState
           DateFormat('yyyy-MM-dd').format(selectedDate_fecha_inseminacion);
     }
 
-    if (cargada.text == "" ||
+    if (select_cargada==""||
         _selectedDate_a_enviar_fecha_inseminacion == "" ||
         tipo_inseminacion.text == "" ||
         num_pajuela.text == "" ||

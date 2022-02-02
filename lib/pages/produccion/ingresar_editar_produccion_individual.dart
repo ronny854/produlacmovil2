@@ -431,7 +431,7 @@ class _IngresarEditarIndividualState extends State<IngresarEditarIndividual> {
     if (_select_ite_idhorario == "" ||
         _selectedDate_a_enviar == "" ||
         litros.text == "" ||
-        dieta.text == "" ||
+        select_dieta == "" ||
         _select_ani_id == "") {
       dialog(context, "AGREGE TODOS LOS DATOS PORFAVOR", true);
     } else {
